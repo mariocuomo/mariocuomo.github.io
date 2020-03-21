@@ -1,0 +1,36 @@
+.column {
+    float: left;
+}
+  
+.left, .right {
+    width: 10%;
+}
+  
+.middle {
+    width: 80%;
+}
+  
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+h2,h3 {
+    margin:0;
+}
+
+.verticalLine {
+    border-left: thick solid #2DA9DD;
+    border-right: thick solid #2DA9DD;
+}
+
+.button {
+    background-color: #259FC8; 
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+  }
