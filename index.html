@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/game.css" />
 		<link rel="icon" href="images/avatar.png">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
@@ -24,6 +25,7 @@
 						<a href="#cv" class="icon solid fa-file"><span>Resume</span></a>
 						<a href="#photo" class="icon solid fa-camera"><span>Photo</span></a>
 						<a href="#book" class="icon solid fa-book"><span>Book</span></a>
+						<a href="#game" class="icon solid fa-gamepad"><span>Game</span></a>
 					</nav>
 
 				<!-- Main -->
@@ -124,6 +126,68 @@
 								</p>
 							</article>
 
+							<!-- Game -->
+							<article id="game" class="panel">
+								<header>
+									<h2>Game</h2>
+								</header>
+								<p>
+									A game made using HTML & JavaScript!
+									<br>
+									<a><b>Rules</b></a>
+									<a href="javascript:showRules();" id="show_hide">[+]</a>
+									<a style="display: none;" id="ruleParagraph">
+										It's a simple math game. 
+										<br>
+										You have 30 seconds, solve as many math tables as you can.
+										<br>
+										Every 5 correct answers you get an extra 4 seconds bonus.
+										<br>
+										Good luck!
+									</a>
+								</p>
+
+								<div align="center">
+									<button onclick="startGame(this);">Start</button>
+								</div>
+								
+								<!--GameDiv panel-->
+								<div align="center" id="gameDiv" style="display: none;">
+									<p>
+									<b><a>Timer: </a><span class="timer">30</span></b>
+									<br>
+									<a><b>Score: </a><span id="scoreGame">0</span></b>
+									<br>
+									<a><b>Question:</a><span id="question"></span></b>
+									<br>
+									<a><b>Difficulty:</b> </a>
+									<span id="star_1" class="fa fa-star"></span>
+                                    <span id="star_2" class="fa fa-star"></span>
+                                    <span id="star_3" class="fa fa-star"></span>
+                                    <span id="star_4" class="fa fa-star"></span>
+                                    <span id="star_5" class="fa fa-star"></span>
+									</p>
+
+									<a><b>Answer:</b> </a><input style="font-weight: bold;" type="number" onkeyup ="verifyInput(this)" id="inpt">
+
+								</div>
+
+								<!--Conclusion panel-->
+								<div align="center" id="conclusion" style="display: none;">
+									<div class="ascii-art">																										 
+ ____   ____    _____      _      _____   _ 
+/ ___| |  _ \  | ____|    / \    |_   _| | |
+| |  _ | |_) | |  _|     / _ \     | |   | |
+| |_| ||  _ <  | |___   / ___ \    | |   |_|
+\____| |_| \_\ |_____| /_/   \_\   |_|   (_)
+									</div>
+									<strong><a>Your score is </a><span id="score"></span></strong>
+									<div align="center">
+										<button onclick="retryGame()">Retry</button>
+									</div>
+								</div>
+							</article>
+
 					</div>
 
 				<!-- Footer -->
@@ -142,6 +206,8 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/game.js"></script>
+
 
 	</body>
 </html>
