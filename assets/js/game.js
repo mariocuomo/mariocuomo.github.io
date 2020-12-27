@@ -73,6 +73,8 @@ function createMathTable() {
 function verifyInput(inpt) {
     if(x*y == inpt.value){
         counter++;
+        document.getElementById("audio").play();
+
         var scoreGame = document.getElementById("scoreGame");
         scoreGame.textContent = counter;
 
