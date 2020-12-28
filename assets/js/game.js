@@ -4,6 +4,7 @@ var x;
 var y;
 var counter = 0;
 var upper_bound=3;
+var level;
 
 const interval = setInterval(() => {
     document.querySelector('.timer').innerHTML = secondsToCountDown
@@ -28,7 +29,15 @@ function endGame() {
     gm.style.display = "none";
     cnclsn.style.display = "block";
     score.textContent = counter;
-   
+
+    if(counter<=15)
+        level = "basic";
+    if(counter>=16 && counter<=29)
+        level = "medium";
+    if(counter>29)
+        level = "pro";
+    
+    document.getElementById(level).style.display="block";    
 }
 
 function addBonus() {
@@ -112,6 +121,9 @@ function retryGame(){
     var scrGm = document.getElementById("scoreGame");
     scrGm.textContent=0;
 
+    document.getElementById(level).style.display="none";    
+    level="";
+    
     createMathTable();
 }
 

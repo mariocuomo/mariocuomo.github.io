@@ -5,3 +5,15 @@
         font-family: monospace;
         white-space: pre;
 }
+
+.column {
+  float: left;
+}
+
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+}

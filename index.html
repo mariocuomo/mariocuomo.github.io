@@ -175,8 +175,11 @@
 								</div>
 
 								<!--Conclusion panel-->
-								<div align="center" id="conclusion" style="display: none;">
-									<div class="ascii-art">
+								<div id="conclusion"  style="display: none;">
+									<div class="row">
+										<div class="column left"></div>
+										<div class="column middle">
+											<div class="ascii-art" id="basic" style="display: none;">
 @              _________
  \____       /          \
  /    \     /   ____     \
@@ -184,13 +187,38 @@
  	\    \ (    \__/  )    )
  	 \    \_\ \______/     /
  	  \      \            /___
-		\______\_________/____"-_
+_______\______\_________/____"-____
 							
+											</div>
+										<div class="ascii-art" id="medium" style="display: none;">
+         ___________
+        //   |||   \\         
+     __//____|||____\\____   
+     | _|      |       _  ||
+     |/ \______|______/ \_|| 
+______\_/_____________\_/__________														
 									</div>
-									<strong><a>Your score is </a><span id="score"></span></strong>
+
+									<div class="ascii-art" id="pro" style="display: none;">
+	       __/___
+	_____/______|
+_______/_____\_______\_____
+\              < < <       |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+									</div>
+
+									<div align="center">
+										<strong><a>Your score is </a><span id="score"></span></strong>
+									</div>
 									<div align="center">
 										<button onclick="retryGame()">Retry</button>
 									</div>
+								</div>
+
+										</div>
+										<div class="column right"></div>
+									</div>
+
 								</div>
 							</article>
 
