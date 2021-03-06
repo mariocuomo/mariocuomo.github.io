@@ -812,6 +812,9 @@ input, select, textarea {
 		}
 
 		@media screen and (max-width: 980px) {
+			.pic {
+				display: none;
+			}
 
 			.row {
 				display: flex;
