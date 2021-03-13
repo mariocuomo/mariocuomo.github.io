@@ -1,5 +1,9 @@
 # Mario Cuomo Personal Website
-https://mariocuomo.github.io
+![CV front](https://github.com/mariocuomo/mariocuomo.github.io/blob/master/cv-front.PNG)<br>
+
+
+:point_down:You can find my personal website here<br>
+ https://mariocuomo.github.io
 
 ---
 
