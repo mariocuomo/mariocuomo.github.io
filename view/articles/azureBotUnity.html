@@ -1,0 +1,398 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Azure Bot in Unity - Mario Cuomo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name ="description" content="Sito web personale di Mario Cuomo, sviluppatore software in ambito Microsoft .NET"/>
+		<meta name ="keywords" content="Sviluppatore, Software, Microsoft, Unity, .NET, VR, AR, Cloud, Desktop, Mobile, Startup, Ambassador"/>
+		<meta property="og:image" content="../../images/avatar.png"/>
+		<link rel="icon" href="../../images/avatar.png">
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+
+        <!--blog style-->
+        <style>
+            * {
+              box-sizing: border-box;
+            }
+                        
+            /* Header/Blog Title */
+            .header {
+              background-color: #003E56;
+              padding: 30px;
+              font-size: 40px;
+              text-align: center;
+            }
+            
+            /* Create two unequal columns that floats next to each other */
+            /* Left column */
+            .leftcolumn {   
+              float: left;
+              width: 75%;
+            }
+            
+            /* Right column */
+            .rightcolumn {
+              float: left;
+              width: 25%;
+              padding-left: 20px;
+            }
+            
+            /* Fake image */
+            .fakeimg {
+              background-color: #aaa;
+              width: 100%;
+              padding: 20px;
+            }
+            
+            /* Add a card effect for articles */
+            .card {
+               padding: 20px;
+               margin-top: 20px;
+            }
+            
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            
+            /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+            @media screen and (max-width: 800px) {
+              .leftcolumn, .rightcolumn {   
+                width: 100%;
+                padding: 0;
+              }
+            }
+        </style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="background-color: #067bac;">
+				<a href="../index.html" class="title">Mario Cuomo</a>
+				<nav>
+					<ul>
+						<li><a href="../index.html">Home</a></li>
+						<li><a href="blog.html" class="active">Blog[IT]</a></li>
+						<li><a href="activities.html">Activities</a></li>
+						<li><a href="whoiam.html">Who I am</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+                <div class="header">
+                    <h2>Azure Bot in Unity</h2>
+                  </div>
+                  
+                  
+                  <div class="row" style="background-color: #003E56;">
+                    <div class="leftcolumn">
+                      <div style="padding: 20px;">
+                        <p>
+                          In questo semplice tutorial vedremo come integrare un <b>Azure Bot</b> all'interno di una applicazione sviluppata con il motore grafico <b>Unity</b>.
+                          <br>Il risultato finale sarà il seguente:
+                        </p>
+                        <img src="../../images/images articles/screen_azurebot.PNG" class="image fit">
+                        <p>
+                          Il codice sorgente di questo esempio è disponibile su un repository github <a href="https://github.com/mariocuomo/AzureBot">qui</a>.<br>
+                          L'esempio è come si suol dire un <b>esempio giocattolo</b>, ovvero vuole solo dimostrare come integrare il servizio semplicemente.<br>
+                          Consideriamo un Azure Bot di tipo <b>echo</b>, ovvero un bot che ci restituisce lo stesso messaggio da noi inviato.
+                        </p>
+                        <p>
+                          Per prima cosa cominciamo con il creare la risorsa su Azure.<br>
+                          Collegarsi al sito <a href="https://portal.azure.com/">portal.azure.com</a> e selezionare <b>Crea una risorsa</b>.
+                        </p>
+
+                        <img src="../../images/images articles/create_resource.PNG" class="image fit">
+
+                        <p>
+                          Cercare una risorsa di tipo <b>Web App Bot</b> e crearla.
+                        </p>
+                        <img src="../../images/images articles/webAppbot.PNG" class="image fit">
+
+                        <p>
+                          Durante la creazione ci vengono richieste le seguenti informazioni:
+                          <ul>
+                            <li>
+                              <p>
+                              <b>Handle di bot</b><br>
+                                Rappresenta un identificatore univoco del bot che stiamo creando.<br>
+                                Inseriamo <i>_botUnity</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                <b>Sottoscrizione</b><br>
+                                  Rappresenta la sottoscrizione da utilizzare per il bot che stiamo creando
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Gruppo di risorse</b><br>
+                                Rappresenta un contenitore con risorse correlate per una soluzione Azure da noi organizzato<br>
+                                Creiamo un gruppo di risorse <i>test_unity</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Località</b><br>
+                                Decidiamo di salvare metadati in località vicine alla nostra posizione<br>
+                                Scegliamo <i>West Europe</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Piano tariffario</b><br>
+                                Definisce il piano di pagamento per l'utilizzo del servizio<br>
+                                Scegliamo <i>F0</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Nome dell'app</b><br>
+                                È il nome del servizio web raggiungibile all'indirizzo <i>nomeapp.azurewebsites.net</i><br>
+                                Scegliamo <i>botUnity</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Modello di bot</b><br>
+                                Sono presenti due tipi di modelli di bot che sono <b>echo bot</b> e <b>basic bot</b> entrambi disponibili con un SDK in C# o Node.js<br>
+                                Scegliamo <i>echo bot</i> in <i>C#</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Piano di servizio app/località</b><br>
+                                Un'app web viene sempre eseguita in un piano di servizio app ovvero l'insieme delle risorse per la sua esecuzione<br>
+                                Creiamo un nuovo piano di servizio sempre in<i>West Europe</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Application Insights</b><br>
+                                Permette di analizzare e monitorare l'applicazioe in termini di anomalie e utilizzo da parte degli utenti<br>
+                                Scegliamo di <i>disattivarlo</i>
+                              </p>
+                            </li>
+                          </ul>
+                        </p>
+                        <div class="row gtr-uniform">
+                          <div class="col-4"><span class="image fit"><img src="../../images/images articles/webAppbotConf1.PNG" alt="" /></span></div>
+                          <div class="col-4"><span class="image fit"><img src="../../images/images articles/webAppbotConf2.PNG" alt="" /></span></div>
+                          <div class="col-4"><span class="image fit"><img src="../../images/images articles/webAppbotConf3.PNG" alt="" /></span></div>
+                        </div>
+                        <p>
+                          Una volta creata e distribuita la risorsa è possibile <b>testarla</b> direttamente via web tramite il portale di Azure
+                        </p>
+                        <img src="../../images/images articles/testchatbot.PNG" class="image fit">
+                        <div class="row gtr-uniform">
+                          <div class="col-4"><span class="image fit"><img src="../../images/images articles/testchatbot1.PNG" alt="" /></span></div>
+                          <div class="col-4"><span class="image fit"><img src="../../images/images articles/testchatbot2.PNG" alt="" /></span></div>
+                          <div class="col-4"><span class="image fit"><img src="../../images/images articles/testchatbot3.PNG" alt="" /></span></div>
+                        </div>
+                        <p>
+                          La risorsa è pronta e il bot è funzionante.<br>
+                          Prima di terminare dobbiamo definire un nuovo canale di comunicazione di tipo Direct Line e conservare la chiave segreta che lo identifica.
+                          <img src="../../images/images articles/canale.PNG" class="image fit">
+
+                          Vediamo ora come impostare i componenti nella scena di Unity.<br>
+                          Essa contiene i seguenti <b>gameobject</b>:
+                          <ul>
+                            <li>
+                              <p>
+                              <b>Camera</b><br>
+                                È un oggetto di default della scena di Unity utile per il render<br>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                <b>EventSystem</b><br>
+                                  È responsabile di elaborare e gestire gli eventi all'interno di una scena
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Canvas</b><br>
+                                Rappresenta la tela sulla quale sono disegnati i diversi elementi dell'interfaccia utente
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>IputField - Canvas</b><br>
+                                È il campo di testo nel quale inseriremo il messaggio rivolto al bot su Azure
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Output - Canvas</b><br>
+                                È la porzione di spazio nella quale sarà mostrato il messaggio proveniente dal bot
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Button</b><br>
+                                È il bottone che scatena la chiamata inviando il messaggiio al bot
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>BotLogo</b><br>
+                                È l'icona del bot che si anima durante la ricezione del messaggio
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>AzureLogo</b><br>
+                                È il logo di Azure
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Application Insights</b><br>
+                                Permette di analizzare e monitorare l'applicazioe in termini di anomalie e utilizzo da parte degli utenti<br>
+                                Scegliamo di <i>disattivarlo</i>
+                              </p>
+                            </li>
+                          </ul>
+                        </p>
+                        <img src="../../images/images articles/unityHierarchyGame.PNG" class="image fit">
+
+                        <p>
+                          La logica di funzionamento è la seguente.<br>
+                          Quando si effettua il clic sul pulsante <i>Button</i> è richiamata una funzione nel code-behind che si interfaccia con l'Azure bot.<br>
+                          Si ottiene la risposta e la si mostra a schermo interagendo con i componenti della UI.
+
+                          Un oggetto <i>Button</i> implementa il metodo <b>On Click()</b>.<br>
+                          <img src="../../images/images articles/buttonOnClick.PNG" class="image fit">
+                          
+                          Si noti come all'evento On Click() sia stato associato il metodo <b>BotManager.invia</b>.<br>
+                          BotManager è una classe realizzata e assegnata come componente all'oggetto Button.
+                        </p>
+                        <p>
+                          Analizziamo ora la classe BotManager.<br>
+                          Essa utilizza la libreria <b>Microsoft.Bot.Connector.DirectLine</b> che implementa classi per usare il Bot Framework Direct Line tramite REST API.
+                          Per maggiori informazioni vedere <a href="https://www.nuget.org/packages/Microsoft.Bot.Connector.DirectLine">qui.</a><br>
+
+                          Di supporto sono dichiarate tre variabili:
+                          <ul>
+                            <li>
+                              <p>
+                              <b>DirectLineClient client</b><br>
+                                Rapprenta il client che effettua la richiesta al bot.<br>
+                                Per prima cosa il client deve essere <b>autenticato</b> e lo fa durante la creazione di questo oggetto passando per parametro la chiave segreta del bot.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Conversation conversation</b><br>
+                                Rappresenta la conversazione che è sempre inizializzata <b>esplicitamente</b> dal Client con il suo metodo <b>Conversations.StartConversationAsync()</b><br>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>string request</b><br>
+                                Utile per salvare il messaggio di richiesta al bot<br>
+                              </p>
+                            </li>
+                          </ul>
+                        </p>
+
+                        <p>
+                          Con il metodo <b>Start()</b> possiamo esplicitare ciò che deve essere effettuato non appena sono caricati tutti gli elementi della scena.<br>
+                          Il metodo <b>StartBotAsync();</b> effettua la creazione di un DirectLineClient e l'inizio di una Conversation.
+                        </p>
+
+                        <p>
+                          Il metodo <b>Invia()</b>, che è quello che è chiamato quando si preme sul bottone di invio messaggio, avvia l'animazione del bot, acquisisce il messaggio da inviargli e chiama la funzione <b>inviaAsync()</b><br>
+                        </p>
+                        <p>
+                          Nel metodo <b>inviaAsync()</b> bisogna costruire la richiesta da parte del client.<br>
+                          Si crea un oggetto <b>Activity userMessage</b> definendo che il messaggio appartiene al canale <i>unity_channel</i>, il testo della richiesta è quello salvato nella  variabile <i>request</i> e il tipo di Activity è <i>Message</i>.<br>
+                          Effettuiamo una <b>Post</b> al bot tramite il metodo <b>PostActivityAsync</b> passandogli l'id della conversazione e la relativa attività appena creata.<br>
+                          A questo punto ci mettiamo in ascolto di una risposta da parte del bot con il metodo <b>GetActivityAsync</b> salvando la risposta in una variabile <b>activitySet</b>. Da quest'ultima è possibile ottenere il messaggio del bot.
+                        </p>
+                      </div>
+                      <div style="padding: 20px;">
+                        <p>
+                          Tutto è pronto per essere utilizzato.<br>
+                          Ci vediamo al prossimo tutorial!<br>
+                          Non scordare di seguirmi sui canali social!<br>
+                          <span style="color: black;">&#128071;</span>
+
+                          <ul class="icons">
+                            <li><a href="https://mobile.twitter.com/Mario_CuomoIT" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                            <li><a href="https://github.com/mariocuomo/" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://www.instagram.com/mariocuomo.exe/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                            <li><a href="https://www.linkedin.com/in/mariocuomo/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                            <li><a href="https://www.youtube.com/channel/UC5I-tXjBP1OlJkHGnZaMW2g" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
+                        </ul>
+                        </p>
+                      </div>
+
+                      
+                    </div>
+                    <div class="rightcolumn">
+                      <div class="card">
+                        <h2>Riguardo me</h2>
+                           <img src="../../images/avatar.png" style="height:100px;">
+                        <p><a href="../whoiam.html">Mario Cuomo</a><br><i>Unity Student Ambassadors & Microsoft Student Ambassadors</i></p>
+                      </div>
+
+                      <!--
+                      <div class="card">
+                        <h3>Popular Post</h3>
+                        <div class="fakeimg">Image</div><br>
+                        <div class="fakeimg">Image</div><br>
+                        <div class="fakeimg">Image</div>
+                      </div>
+                      -->
+                      <div class="card">
+                        <h3>Seguimi sui social</h3>
+                        <ul class="icons">
+                            <li><a href="https://mobile.twitter.com/Mario_CuomoIT" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                            <li><a href="https://github.com/mariocuomo/" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://www.instagram.com/mariocuomo.exe/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                            <li><a href="https://www.linkedin.com/in/mariocuomo/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                            <li><a href="https://www.youtube.com/channel/UC5I-tXjBP1OlJkHGnZaMW2g" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt" style="background-color: #00222a;">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Mario Cuomo. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+					<ul class="menu">
+						<li>You do not know anything until you have practiced.<li>&copy; Richard P. Feynman</li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+			<script src="../../https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+			<script src="../../assets/js/util_mario.js"></script>
+
+	</body>
+</html>
