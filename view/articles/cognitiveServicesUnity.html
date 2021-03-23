@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Cognitive Services in Unity - Mario Cuomo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name ="description" content="Sito web personale di Mario Cuomo, sviluppatore software in ambito Microsoft .NET"/>
+		<meta name ="keywords" content="Sviluppatore, Software, Microsoft, Unity, .NET, VR, AR, Cloud, Desktop, Mobile, Startup, Ambassador"/>
+		<meta property="og:image" content="../../images/avatar.png"/>
+		<link rel="icon" href="../../images/avatar.png">
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+
+        <!--blog style-->
+        <style>
+            * {
+              box-sizing: border-box;
+            }
+                        
+            /* Header/Blog Title */
+            .header {
+              background-color: #003E56;
+              padding: 30px;
+              font-size: 40px;
+              text-align: center;
+            }
+            
+            /* Create two unequal columns that floats next to each other */
+            /* Left column */
+            .leftcolumn {   
+              float: left;
+              width: 75%;
+            }
+            
+            /* Right column */
+            .rightcolumn {
+              float: left;
+              width: 25%;
+              padding-left: 20px;
+            }
+            
+            /* Fake image */
+            .fakeimg {
+              background-color: #aaa;
+              width: 100%;
+              padding: 20px;
+            }
+            
+            /* Add a card effect for articles */
+            .card {
+               padding: 20px;
+               margin-top: 20px;
+            }
+            
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            
+            /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+            @media screen and (max-width: 800px) {
+              .leftcolumn, .rightcolumn {   
+                width: 100%;
+                padding: 0;
+                padding-left: 20px;
+              }
+            }
+        </style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="background-color: #067bac;">
+				<a href="../../index.html" class="title">Mario Cuomo</a>
+				<nav>
+					<ul>
+						<li><a href="../../index.html">Home</a></li>
+						<li><a href="../blog.html" class="active">Blog[IT]</a></li>
+						<li><a href="../activities.html">Activities</a></li>
+						<li><a href="../whoiam.html">Who I am</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+                <div class="header">
+                    <h2>Cognitive Services in Unity</h2>
+                  </div>
+                  
+                  
+                  <div class="row" style="background-color: #003E56;">
+                    <div class="leftcolumn">
+                      <div style="padding: 20px;">
+                        <p>
+                          In questo semplice tutorial vedremo come integrare i <b>servizi cognitivi</b> e in particolar modo la <b>Computer Vision</b> all'interno di una applicazione sviluppata con il motore grafico <b>Unity</b>.
+                          <br>Se sei interessato all'integrazione di altri servizi di <b>Azure</b> ti potrebbe interessare anche questo <a href="azureBotUnity.html">articolo</a>.
+                          <br>Il risultato finale sarà il seguente:
+                        </p>
+                        <img src="../../images/images articles/CatturaCognitive.PNG" class="image fit">
+                        <p>
+                          Il codice sorgente di questo esempio è disponibile su un repository github <a href="https://github.com/mariocuomo/CognitiveServicesUnity">qui</a>.<br>
+                          L'esempio è come si suol dire un <b>esempio giocattolo</b>, ovvero vuole solo dimostrare come integrare il servizio semplicemente.<br>
+                          Consideriamo un'applicazione che deve riconoscere il <b>Colosseo</b> in una fotografia.
+                        </p>
+                        <p>
+                          Per prima cosa cominciamo con il creare la risorsa su Azure.<br>
+                          Collegarsi al sito <a href="https://portal.azure.com/">portal.azure.com</a> e selezionare <b>Crea una risorsa</b>.
+                        </p>
+
+                        <img src="../../images/images articles/create_resource.PNG" class="image fit">
+
+                        <p>
+                          Cercare una risorsa di tipo <b>Visione artificiale</b> e crearla.
+                        </p>
+                        <img src="../../images/images articles/visioneArtificiale.PNG" class="image fit">
+
+                        <p>
+                          Durante la creazione ci vengono richieste le seguenti informazioni:
+                          <ul>
+                            <li>
+                              <p>
+                                <b>Sottoscrizione</b><br>
+                                  Rappresenta la sottoscrizione da utilizzare per il bot che stiamo creando
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Gruppo di risorse</b><br>
+                                Rappresenta un contenitore con risorse correlate per una soluzione Azure da noi organizzato<br>
+                                Creiamo un gruppo di risorse <i>test_unity</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Area</b><br>
+                                Scegliamo l'area dell'<i>Europa occidentale</i> con nome <i>testunity-area</i>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Piano tariffario</b><br>
+                                Definisce il piano di pagamento per l'utilizzo del servizio<br>
+                                Scegliamo <i>F0</i>
+                              </p>
+                            </li>
+                          </ul>
+                        </p>
+                        <img src="../../images/images articles/cognitiveServicesSet.PNG" alt="" class="image fit"/>
+                        <p>
+                          Una volta creata e distribuita la risorsa è possibile ottenere le <b>chiavi</b> di accesso private; esse ci permetteranno di connetterci al servizio tramite API.
+                        </p>
+                        <img src="../../images/images articles/cschiavi.PNG" class="image fit">
+
+                        <p>
+                          La risorsa è pronta per essere richiamata tramite API.<br>
+                          Per avere maggiori informazioni è possibile accedere al seguente <a href="https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/56f91f2e778daf14a499e1fa">indirizzo</a>.<br>
+                          Qui è possibile avere tutte le informazioni riguardo a come richiamare il servizio e come ricevere - e in che formato è - la risposta.<br>
+                          
+                          L'url di richiesta è <b>https://{endpoint}/vision/v2.1/analyze[?visualFeatures][&details][&language]</b> dove
+                          <ul>
+                            <li>
+                              <p>
+                              <b>endpoint</b><br>
+                                È l'endpoint della richiesta.
+                                Si può utilizzare quello present su Azure oppure https://westeurope.api.cognitive.microsoft.com/<br>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                <b>visualFeatures</b><br>
+                                  È una stringa che indica quali tipi di funzionalità visive restituire.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>details</b><br>
+                                È una stringa che indica i dettagli specifici del dominio da restituire. 
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>language</b><br>
+                                È la lingua di risposta che di default è impostata su <i>en</i>.
+                              </p>
+                            </li>
+                          </ul>
+
+                          L'url che ci interessa è <b>https://westeurope.api.cognitive.microsoft.com/vision/v3.0/analyze?details=Landmarks</b>
+</p>
+                          Vediamo ora come impostare i componenti nella scena di Unity.<br>
+                          Essa contiene i seguenti <b>gameobject</b>:
+                          <ul>
+                            <li>
+                              <p>
+                              <b>Main Camera</b><br>
+                                È un oggetto di default della scena di Unity utile per il render<br>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                <b>EventSystem</b><br>
+                                  È responsabile di elaborare e gestire gli eventi all'interno di una scena
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Canvas</b><br>
+                                Rappresenta la tela sulla quale sono disegnati i diversi elementi dell'interfaccia utente
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Background</b><br>
+                                È l'immagine di sfondo
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Button</b><br>
+                                È il bottone che scatena la chiamata al server per l'analisi dell'immagine
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Response</b><br>
+                                È la sezione in cui sarà mostrato il messaggio di risposta
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                              <b>Panel</b><br>
+                                È contenitore dei tre loghi sottostanti
+                              </p>
+                            </li>
+                          </ul>
+                        </p>
+                        <img src="../../images/images articles/unityHierarchyGameCS.PNG" class="image fit">
+
+                        <p>
+                          La logica di funzionamento è la seguente.<br>
+                          Quando si effettua il clic sul pulsante <i>Button</i> è richiamata una funzione nel code-behind che si interfaccia con il server.<br>
+                          Si trasforma l'immagine una sequenza di byte, si compone il messaggio di richiesta e si invia.<br>
+                          Si rimane in attesa di ottenere la risposta e la si mostra a schermo interagendo con i componenti della UI.<br>
+
+                          Un oggetto <i>Button</i> implementa il metodo <b>On Click()</b>.<br>
+                          <img src="../../images/images articles/btn.PNG" class="image fit">
+                          
+                          Si noti come all'evento On Click() sia stato associato il metodo <b>CallApi.Analyze</b>.<br>
+                          CallApi è una classe realizzata e assegnata come componente all'oggetto EventSystem.
+                        </p>
+
+                        <p>
+                          Prima di analizzare la classe <b>CallApi</b> è utile vedere un messaggio di risposta del server.<br>
+                          Un esempio è disponibile <a href="https://westus.dev.cognitive.microsoft.com/docs/services/5cd27ec07268f6c679a3e641/operations/56f91f2e778daf14a499f21b">qui</a>.<br>
+                          Per facilitare l'analisi di questo file è possibile effettuare il mapping dal file JSON creato a un oggetto istanziato.<br>
+                          Per fare ciò è necessario creare una classe che rispecchia la struttura del file JSON. Per semplificare tale meccanismo è possibile usare diversi tool online che prendono in input un esempio di file JSON. Personalmente ho usato diverse volte <a href="https://json2csharp.com/">json2csharp.com.</a>
+                        </p>
+
+                        <p>
+                          Analizziamo ora la classe CallApi.<br>
+                          Commentiamo passo per passo ciò che avviene durante la chiamata alla funzione Analyze();<br>
+                          <ul>
+                            <li>
+                              <p>
+                                <pre><code>imageName = Path.Combine(Application.streamingAssetsPath, "foto.jpeg");
+byte[] bytesImage = UnityEngine.Windows.File.ReadAllBytes(imageName);</code></pre>
+                              Si acqiuisisce l'immagine da un file e la si trasforma in una sequenza di byte.
+                            </p>
+                            </li>
+
+                            <li>
+                              <p>
+                                <pre><code>var headers = new Dictionary<string, string>() {
+  { "Ocp-Apim-Subscription-Key", visionKey },
+  { "Content-Type", "application/octet-stream" }
+};</code></pre>
+                              Si costruisce l'header del pacchetto da inviare inserendoci la chiave segreta presente su Azure.
+                            </p>
+                            </li>
+
+                            <li>
+                              <p>
+                                <pre><code>WWW www = new WWW(resourceURL, bytesImage, headers);
+yield return www;
+responseData = www.text;</code></pre>
+                              Si invia la richiesta e si aspetta la risposta contenuta in response data
+                            </p>
+                            </li>
+
+                            <li>
+                              <p>
+                                <pre><code>JSONApi answer = JsonConvert.DeserializeObject<JSONApi>(www.text);</code></pre>
+                              Tramite la libreria <b>Newtonsoft.Json</b> e la classe a somiglianza del JSON è possibile istanziare come oggetto la risposta data dal server
+
+                            </p>
+                            </li>
+                          </ul>
+
+                        </p>
+                      </div>
+                      <div style="padding: 20px;">
+                        <p>
+                          Tutto è pronto per essere utilizzato.<br>
+                          Ci vediamo al prossimo tutorial!<br>
+                          Non scordare di seguirmi sui canali social!<br>
+                          <span style="color: black;">&#128071;</span>
+
+                          <ul class="icons">
+                            <li><a href="https://mobile.twitter.com/Mario_CuomoIT" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                            <li><a href="https://github.com/mariocuomo/" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://www.instagram.com/mariocuomo.exe/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                            <li><a href="https://www.linkedin.com/in/mariocuomo/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                            <li><a href="https://www.youtube.com/channel/UC5I-tXjBP1OlJkHGnZaMW2g" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
+                        </ul>
+                        </p>
+                      </div>
+
+                      
+                    </div>
+                    <div class="rightcolumn">
+                      <div class="card">
+                        <h2>Riguardo me</h2>
+                           <img src="../../images/avatar.png" style="height:100px;">
+                        <p><a href="../whoiam.html">Mario Cuomo</a><br><i>Unity Student Ambassadors & Microsoft Student Ambassadors</i></p>
+                      </div>
+
+                      <!--
+                      <div class="card">
+                        <h3>Popular Post</h3>
+                        <div class="fakeimg">Image</div><br>
+                        <div class="fakeimg">Image</div><br>
+                        <div class="fakeimg">Image</div>
+                      </div>
+                      -->
+                      <div class="card">
+                        <h3>Seguimi sui social</h3>
+                        <ul class="icons">
+                            <li><a href="https://mobile.twitter.com/Mario_CuomoIT" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                            <li><a href="https://github.com/mariocuomo/" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://www.instagram.com/mariocuomo.exe/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                            <li><a href="https://www.linkedin.com/in/mariocuomo/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                            <li><a href="https://www.youtube.com/channel/UC5I-tXjBP1OlJkHGnZaMW2g" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt" style="background-color: #00222a;">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Mario Cuomo. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+					<ul class="menu">
+						<li>You do not know anything until you have practiced.<li>&copy; Richard P. Feynman</li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+			<script src="../../https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+			<script src="../../assets/js/util_mario.js"></script>
+
+	</body>
+</html>
