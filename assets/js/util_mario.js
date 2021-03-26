@@ -12,6 +12,9 @@ new Chart(document.getElementById("doughnut-chart"), {
       ]
     },
     options: {
+      legend: {
+        onClick: null
+      },
       title: {
         display: true,
         text: 'My time routine'
@@ -39,20 +42,6 @@ new Chart(document.getElementById("bar-chart"), {
     
   }
 });
-
-window.onresize = function() { 
-    chartResize();
-
-}; 
-
-function chartResize(){
-  //var rp = document.getElementById("doughnut-chart");
-  if(window.screen.height<600){
-    rp.type='bar';
-    alert(rp.type);
-
-  }
-}
 
 function showBooks() {
   var rp = document.getElementById("Books");
