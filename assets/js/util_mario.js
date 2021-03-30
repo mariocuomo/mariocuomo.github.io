@@ -12,9 +12,7 @@ new Chart(document.getElementById("doughnut-chart"), {
       ]
     },
     options: {
-      legend: {
-        onClick: null
-      },
+      events: [],
       title: {
         display: true,
         text: 'My time routine'
