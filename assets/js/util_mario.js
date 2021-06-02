@@ -79,3 +79,16 @@ function showPublications() {
       sh.textContent='[+]';
   }
 }
+
+function showVideos() {
+  var rp = document.getElementById("Videos");
+  var sh = document.getElementById("vshow_hide");
+
+  if (rp.style.display === "none") {
+      rp.style.display = "block";
+      sh.textContent='[-]';
+  } else {
+      rp.style.display = "none";
+      sh.textContent='[+]';
+  }
+}
