@@ -92,3 +92,17 @@ function showVideos() {
       sh.textContent='[+]';
   }
 }
+
+
+function showTalks() {
+  var rp = document.getElementById("Talks");
+  var sh = document.getElementById("tshow_hide");
+
+  if (rp.style.display === "none") {
+      rp.style.display = "block";
+      sh.textContent='[-]';
+  } else {
+      rp.style.display = "none";
+      sh.textContent='[+]';
+  }
+}
