@@ -17,6 +17,7 @@ EVERYTIME YOU NEED YOU CAN TYPE [[ib;;]help] TO SHOW AVAILABLE COMMANDS
 THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
             </template>
                 <script>
+                    is_logged=0
                     $('body').terminal({
                         help: function() {
                             if (is_logged==0){
