@@ -1,0 +1,133 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
+        </head>
+        <body>
+            <template id="greetings">
+   _   _   _   _   _   _  
+  / \ / \ / \ / \ / \ / \ 
+ ( H | E | L | L | O | ! )
+  \_/ \_/ \_/ \_/ \_/ \_/ 
+
+WELCOME TO [[b;#1b88d5;]MARIO]'S INTERACTIVE PERSONAL WEBSITE
+EVERYTIME YOU NEED YOU CAN TYPE [[ib;;]help] TO SHOW AVAILABLE COMMANDS
+THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
+            </template>
+                <script>
+                    $('body').terminal({
+                        help: function() {
+                            if (is_logged==0){
+                                this.echo("[ERROR] you should use 'sudo' first")
+                            }
+                            else{
+                                this.echo("\n\t[[b;;]AVAILABLE COMMANDS]\n***************************")
+                                this.echo('[[b;red;]showcv]\nshow Mario\'s resume\n');
+                                this.echo('[[b;red;]personalwebsite]\nlink to Mario\'s personal website\n')
+                                this.echo('[[b;red;]randomquote]\nprint a random quote\n')
+                            }
+                        },
+
+                        sudo: function(){
+                                if(is_logged==0){
+                                    this.set_prompt(function(set_prompt) {
+                                        if (this.get_token()) {
+                                            set_prompt(this.login_name() + '@server$ ');
+                                        }else {
+                                            set_prompt('[[b;#1b88d5;]user@guest]:[[;white;]$ ]');
+                                        }
+                                    });
+                                    this.echo("[EVERYTHING OKAY]\n")
+                                    this.echo("\n\t[[b;;]AVAILABLE COMMANDS]\n***************************")
+                                    this.echo('- showcv');
+                                    this.echo('- personalwebsite')
+                                    this.echo('- randomquote\n')
+                                    is_logged=1
+                                }
+                                else{
+                                    this.echo("[ATTENTION] you are already logged\n")
+                                }
+
+
+                                
+                        },
+
+                        personalwebsite: function() {
+                            if(is_logged==0){
+                                this.echo("[ERROR] you should use 'sudo' first")
+                            }
+                            else{
+                                this.echo("\n\t[[b;;]PERSONAL WEBSITE]\n***************************")
+                                this.echo("you can visit my personal website here -> https://mariocuomo.github.io/\n")
+                            }
+                        },
+
+                        randomquote: function() {
+                            if(is_logged==0){
+                                this.echo("[ERROR] you should use 'sudo' first")
+                            }
+                            else{
+                                this.echo("\n\t[[b;;]RANDOM QUOTE]\n***************************")
+                                const quotes = ["I learned very early the difference between knowing the name of something and knowing something.", "I... a universe of atoms, an atom in the universe.", "Religion is a culture of faith; science is a culture of doubt.","It is not enough for code to work.", "The only way to go fast, is to go well."];
+                                const autors =["Richard P. Feynman", "Richard P. Feynman", "Richard P. Feynman", "Robert C. Martin","Robert C. Martin"]
+                                var  x = Math.floor(Math.random() * 5);
+                                this.echo(quotes[x])
+                                this.echo('- '+autors[x])
+                                this.echo()
+                            }
+                        },
+
+
+                        showcv: function() {
+                            if(is_logged==0){
+                                this.echo("[ERROR] you should use 'sudo' first")
+                                return
+                            }
+
+                            this.echo("\n\t[[b;;]SHOWCV]\n***************************")
+                            
+                            this.echo("[[b;;]NAME]"+"\n- Mario Cuomo\n")
+
+                            this.echo("[[b;;]AGE]"+"\n- 24 years old")
+
+                            this.echo("")
+
+                            this.echo("[[b;;]EDUCATION]")
+                            this.echo("- Bachelor degree in Computer Science - Roma Tre University, [2016-2020] ")
+                            this.echo("- Master degree in computer science - Roma Tre University, [2020-...]")
+
+                            this.echo("")
+
+                            this.echo("[[b;;]WORK EXPERIENCE]")
+                            this.echo("- Junior Microsoft Platform Software Developer - Karaoke One")
+                            this.echo("- Microsoft Learn Student Ambassador - Microsoft")
+                            this.echo("- Unity Student Ambassador - Unity")
+
+                            this.echo("")
+
+                            this.echo("[[b;;]ACTIVITIES]")
+                            this.echo("- Microsoft Imagine Cup 2018")
+                            this.echo("- Microsoft Dream Build Play 2017 ")
+
+                            this.echo("")
+
+                            this.echo("[[b;;]PUBLICATIONS]")
+                            this.echo("- Quantum Computing and no-cloning theorem - Q# Advent Calendar, 2021")
+                            this.echo("- Do machine think? – the importance of Cognitive Services -  University newspaper, 2018\n")                            
+
+                            this.echo("You can find more about me here -> https://mariocuomo.github.io/view/activities\n")
+
+                        },
+
+                    },
+
+
+
+
+                {greetings: greetings.innerHTML})
+
+        </script>
+        </body>
+        </html>
