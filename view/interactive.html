@@ -26,9 +26,11 @@ THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
                             }
                             else{
                                 this.echo("\n\t[[b;;]AVAILABLE COMMANDS]\n***************************")
+                                this.echo('[[b;red;]help]\nshow this message\n');
                                 this.echo('[[b;red;]showcv]\nshow Mario\'s resume\n');
                                 this.echo('[[b;red;]personalwebsite]\nlink to Mario\'s personal website\n')
                                 this.echo('[[b;red;]randomquote]\nprint a random quote\n')
+                                this.echo('[[b;red;]exit]\nclose the terminal\n')
                             }
                         },
 
@@ -43,9 +45,11 @@ THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
                                     });
                                     this.echo("[EVERYTHING OKAY]\n")
                                     this.echo("\n\t[[b;;]AVAILABLE COMMANDS]\n***************************")
+                                    this.echo('- help');
                                     this.echo('- showcv');
                                     this.echo('- personalwebsite')
-                                    this.echo('- randomquote\n')
+                                    this.echo('- randomquote')
+                                    this.echo('- exit\n')
                                     is_logged=1
                                 }
                                 else{
@@ -82,6 +86,13 @@ THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
                         },
 
 
+                        exit: function() {
+                            setTimeout(function(){
+                                window.location = "https://mariocuomo.github.io";
+                                return false;
+                            }, 120);
+                        },
+
                         showcv: function() {
                             if(is_logged==0){
                                 this.echo("[ERROR] you should use 'sudo' first")
@@ -98,7 +109,7 @@ THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
 
                             this.echo("[[b;;]EDUCATION]")
                             this.echo("- Bachelor degree in Computer Science - Roma Tre University, [2016-2020] ")
-                            this.echo("- Master degree in computer science - Roma Tre University, [2020-...]")
+                            this.echo("- Master degree in Computer Science - Roma Tre University, [2020-...]")
 
                             this.echo("")
 
