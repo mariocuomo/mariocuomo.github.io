@@ -1,13 +1,13 @@
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        </head>
-        <body>
-            <template id="greetings">
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <template id="greetings">
    _   _   _   _   _   _  
   / \ / \ / \ / \ / \ / \ 
  ( H | E | L | L | O | ! )
@@ -30,6 +30,7 @@ THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
                                 this.echo('[[b;red;]showcv]\nshow Mario\'s resume\n');
                                 this.echo('[[b;red;]personalwebsite]\nlink to Mario\'s personal website\n')
                                 this.echo('[[b;red;]randomquote]\nprint a random quote\n')
+                                this.echo('[[b;red;]support]\nbuy me a coffee\n')
                                 this.echo('[[b;red;]exit]\nclose the terminal\n')
                             }
                         },
@@ -49,6 +50,7 @@ THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
                                     this.echo('- showcv');
                                     this.echo('- personalwebsite')
                                     this.echo('- randomquote')
+                                    this.echo('- support')
                                     this.echo('- exit\n')
                                     is_logged=1
                                 }
@@ -85,6 +87,15 @@ THE FIRST THING TO DO IS TAKE PRIVILEGES USING [[ib;;]sudo] COMMAND
                             }
                         },
 
+                        support: function() {
+                            if(is_logged==0){
+                                this.echo("[ERROR] you should use 'sudo' first")
+                            }
+                            else{
+                                this.echo("\n\t[[b;;]SUPPORT MY ACTIVITIES\n***************************")
+                                this.echo("you can buy me a coffee here -> https://www.buymeacoffee.com/mariocuomo/\n")
+                            }
+                        },
 
                         exit: function() {
                             setTimeout(function(){
