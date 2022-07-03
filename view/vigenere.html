@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Vigenère Cipher</title>
+</head>
+<body>
+	<div align="center">
+		<h1>Vigenère Cipher</h1>
+	</div>
+
+	<p>
+		You can encode or decode a message with Vigenère Cipher using this tool.<br>
+		<i><b>plain text</b></i> is the message to encode.<br>
+		<i><b>cipher text</b></i> is the message after encoding.<br>
+		<i><b>verme</b></i> is the private key.<br>
+		Message and verme are composed of chars from internation alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZ.<br>
+		You can know more about it <a href="https://www.amazon.it/Crittografia-portata-mano-algoritmi-messaggio/dp/B08TZ6TC3Y/ref=sr_1_1?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2FO4LHHG86XEV&keywords=mario+cuomo+crittografia&qid=1656863241&sprefix=mario+cuomo+crittogragia%2Caps%2C110&sr=8-1">here</a>.
+	</p>
+
+	<div align="center">	
+		<div>
+			<textarea spellcheck="false" placeholder="plain text" id="testoDaCifrare_encode"></textarea>
+		</div>
+
+		<input type="text" placeholder="verme" id="verme_encode"/>
+
+		<div>
+			<button onclick="cifra()">encode</button>
+		</div>
+		<textarea spellcheck="false" placeholder="cipher text" id="testoCifrato_encode"></textarea>
+
+		<hr style="height: 12px; background:lightblue;">
+
+		<div>
+			<textarea spellcheck="false" placeholder="cipher text" id="testoDaDecifrare_decode"></textarea>
+		</div>
+
+		<input type="text" placeholder="verme" id="verme_decode"/>
+
+		<div>
+			<button onclick="decifra()">decode</button>
+		</div>
+		<textarea spellcheck="false" placeholder="plain text" id="testoDecifrato_decode"></textarea>
+	</div>
+
+	<footer>
+		<p style="margin-top: 0;color:gray; ">&copy; Mario Cuomo</p>
+	</footer>
+
+	<script>
+		function soloCaratteri(text){
+			if (text==""){
+				return false
+			}
+
+			for (var i = 0; i < text.length; i++) {
+				if ( (text.charCodeAt(i)>=65 && text.charCodeAt(i)<=90) || (text.charCodeAt(i)>=97 && text.charCodeAt(i)<=122) ){
+					continue
+				}
+				else{
+					return false
+				}
+			}
+
+			return true
+		}
+
+ 		function cifra(){
+
+			document.getElementById("testoDaDecifrare_decode").value="";
+			document.getElementById("testoDecifrato_decode").value="";
+			document.getElementById("verme_decode").value="";
+
+			testoDaCifrare = document.getElementById("testoDaCifrare_encode");
+			testoCifrato = document.getElementById("testoCifrato_encode");
+			verme = document.getElementById("verme_encode");
+
+			if (!soloCaratteri(testoDaCifrare.value) || !soloCaratteri(verme.value)){
+				alert("ERRORE!\nHAI LASCIATO DEI CAMPI VUOTI O NON HAI INSERITO STRINGHE DI SOLI CARATTERI");
+				return
+			}
+
+			stringa_cifrata = ""
+
+			for (var i = 0; i < testoDaCifrare.value.length; i++) {
+				carattere_cifrato = testoDaCifrare.value.toLowerCase().charCodeAt(i) + ((verme.value.toLowerCase().charCodeAt(i%verme.value.length)-97))
+
+				if (carattere_cifrato>122){
+					carattere_cifrato = (carattere_cifrato-123)+97
+				}
+
+  				stringa_cifrata = stringa_cifrata+String.fromCharCode(carattere_cifrato)
+			}
+
+			testoCifrato.value = stringa_cifrata
+		}
+
+		function decifra(){
+
+			document.getElementById("testoDaCifrare_encode").value="";
+			document.getElementById("testoCifrato_encode").value="";
+			document.getElementById("verme_encode").value="";
+
+			testoDaDecifrare = document.getElementById("testoDaDecifrare_decode");
+			testoDecifrato = document.getElementById("testoDecifrato_decode");
+			verme = document.getElementById("verme_decode");
+
+			if (!soloCaratteri(testoDaDecifrare.value) || !soloCaratteri(verme.value)){
+				alert("ERRORE!\nHAI LASCIATO DEI CAMPI VUOTI O NON HAI INSERITO STRINGHE DI SOLI CARATTERI");
+				return
+			}
+
+			stringa_decifrata = ""
+
+			for (var i = 0; i < testoDaDecifrare.value.length; i++) {
+				carattere_decifrato = testoDaDecifrare.value.toLowerCase().charCodeAt(i) - ((verme.value.toLowerCase().charCodeAt(i%verme.value.length)-97))
+
+
+				if (carattere_decifrato<97){
+					carattere_decifrato = 123-(97-carattere_decifrato)
+				}
+
+
+  				stringa_decifrata = stringa_decifrata+String.fromCharCode(carattere_decifrato)
+			}
+
+			testoDecifrato.value = stringa_decifrata
+		}
+	</script>
+</body>
+</html>
