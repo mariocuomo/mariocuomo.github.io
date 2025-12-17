@@ -336,6 +336,14 @@ let userAnswers = [];
 let score = 0;
 let userName = '';
 
+// Category mapping for questions
+const questionCategories = {
+    "Custom Plugins & Skills": [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],  // Plugin types, skill creation, manifest basics, GPT, orchestration
+    "Manifest Troubleshooting": [14, 21, 22, 23, 24],  // Manifest errors, template issues, parameter usage, Target fields
+    "Authentication & APIs": [5, 6, 13, 18, 19, 25],  // Auth methods, Graph APIs, Export APIs, HTTP methods, interaction methods
+    "Advanced Concepts": [12, 15, 16, 17, 20]  // Agents, MCP, deployment, testing, Logic App actions
+};
+
 const motivationalMessages = [
     "🚀 You're doing great! Keep it up!",
     "💪 Excellent progress! You're halfway there!",
@@ -643,8 +651,70 @@ function finishQuiz() {
     }
     document.getElementById('user-name-display').textContent = greeting;
     
+    // Generate category scores
+    generateCategoryScores();
+    
     // Generate detailed report
     generateDetailedReport();
+}
+
+// Generate category scores visualization
+function generateCategoryScores() {
+    const categoryScoresContainer = document.getElementById('category-scores-container');
+    let html = '';
+    
+    // Calculate scores for each category
+    const categoryResults = {};
+    
+    Object.keys(questionCategories).forEach(categoryName => {
+        const questionIds = questionCategories[categoryName];
+        let correct = 0;
+        let total = questionIds.length;
+        
+        questionIds.forEach(questionId => {
+            const questionIndex = quizData.questions.findIndex(q => q.id === questionId);
+            if (questionIndex !== -1 && userAnswers[questionIndex] === quizData.questions[questionIndex].correctAnswer) {
+                correct++;
+            }
+        });
+        
+        const percentage = Math.round((correct / total) * 100);
+        categoryResults[categoryName] = {
+            correct: correct,
+            total: total,
+            percentage: percentage
+        };
+    });
+    
+    // Generate HTML for each category
+    Object.keys(categoryResults).forEach(categoryName => {
+        const result = categoryResults[categoryName];
+        let barClass = 'poor';
+        
+        if (result.percentage >= 80) {
+            barClass = 'excellent';
+        } else if (result.percentage >= 65) {
+            barClass = 'good';
+        } else if (result.percentage >= 50) {
+            barClass = 'average';
+        }
+        
+        html += `
+            <div class="category-item">
+                <div class="category-header">
+                    <span class="category-name">${categoryName}</span>
+                    <span class="category-score">${result.correct}/${result.total}</span>
+                </div>
+                <div class="category-bar-container">
+                    <div class="category-bar-fill ${barClass}" style="width: ${result.percentage}%">
+                        ${result.percentage}%
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    categoryScoresContainer.innerHTML = html;
 }
 
 // Generate detailed report for all questions

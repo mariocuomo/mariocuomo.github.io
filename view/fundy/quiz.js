@@ -4,17 +4,17 @@ const quizData = {
     "description": "Test your knowledge about Security Copilot fundamentals, experiences, agents, use cases, and core capabilities",
     "questions": [
         {
-            "id": 1,
-            "question": "What is Microsoft Security Copilot?",
+            "id": 27,
+            "question": "What are the file upload size limits in Security Copilot?",
             "options": [
-                "A standalone antivirus and endpoint protection solution for Windows devices",
-                "A password management and credential storage system for enterprises",
-                "An AI-powered platform that assists security professionals with threat analysis and investigation",
-                "A network firewall and intrusion detection appliance for data centers"
+                "Each file up to 3 MB with a total combined limit of 20 MB",
+                "Each file up to 25 MB with no limit on total combined size",
+                "Each file up to 10 MB with a total combined limit of 50 MB",
+                "Each file up to 5 MB with a total combined limit of 100 MB"
             ],
-            "correctAnswer": 2,
-            "explanation": "Microsoft Security Copilot is an AI-powered security analysis platform that uses large language models combined with security-specific knowledge to assist security professionals in threat detection, investigation, and response. It's not just an antivirus, firewall, or password manager.",
-            "hint": "Think about how AI can help security professionals in their daily work."
+            "correctAnswer": 0,
+            "explanation": "Security Copilot allows you to upload files up to 3 MB each, with a total combined limit of 20 MB across all uploaded files. This ensures optimal performance while accommodating common security analysis scenarios including document analysis, script review, and log examination.",
+            "hint": "There are two limits: one per individual file and one for all files combined."
         },
         {
             "id": 2,
@@ -31,68 +31,68 @@ const quizData = {
         },
         {
             "id": 3,
-            "question": "What is a 'promptbook' in Security Copilot?",
+            "question": "Which RBAC role is required to create and publish promptbooks at the tenant level?",
             "options": [
-                "A comprehensive user training manual for new Security Copilot administrators",
-                "A programming interface for developing custom security automation scripts",
-                "A technical documentation guide covering API endpoints and integration methods",
-                "A pre-built collection of prompts designed for specific security workflows"
+                "Security Copilot Contributor role with workspace-level permissions",
+                "Security Copilot Owner role with tenant-wide administrative access",
+                "Security Reader role with elevated promptbook publishing rights",
+                "Global Administrator role regardless of Security Copilot assignments"
             ],
-            "correctAnswer": 3,
-            "explanation": "A promptbook is a pre-built, curated collection of prompts organized to guide users through specific security investigation workflows or tasks. It acts as a guided automation tool for common security scenarios, not a training manual or documentation.",
-            "hint": "Think of it as a playbook but for AI prompts - structured steps for a specific task."
+            "correctAnswer": 1,
+            "explanation": "The Security Copilot Owner role is required to create and publish promptbooks at the tenant level. This role has tenant-wide administrative permissions including managing plugins, promptbooks, workspace settings, and other administrative functions. Contributors can create promptbooks within their workspace scope only.",
+            "hint": "Publishing at tenant level requires the highest Security Copilot role."
         },
         {
             "id": 4,
-            "question": "Which of the following is an embedded experience for Security Copilot?",
+            "question": "Which products have Security Copilot embedded experiences?",
             "options": [
-                "Microsoft Defender XDR portal for unified security operations and threat management",
-                "Microsoft Excel for data analysis and spreadsheet-based security reporting",
-                "Microsoft Teams for collaboration and general business communication purposes",
-                "Microsoft Outlook for email security scanning and phishing attack detection"
+                "Microsoft Defender XDR, Sentinel, Intune, Entra, and Purview portals",
+                "Microsoft Defender for IoT, Azure Firewall, and EASM only",
+                "Only Microsoft Sentinel and Defender XDR with no other integrations",
+                "Azure Firewall, EASM, Defender for IoT, and Azure Monitor exclusively"
             ],
             "correctAnswer": 0,
-            "explanation": "Security Copilot is embedded directly within the Microsoft Defender XDR portal (and other security products like Microsoft Sentinel, Intune, and Purview). This allows security analysts to access AI-powered assistance without leaving their primary security tools.",
-            "hint": "Embedded experiences are in security products where analysts already work."
+            "explanation": "Security Copilot has embedded experiences in Microsoft Defender XDR, Microsoft Sentinel, Microsoft Intune, Microsoft Entra (formerly Azure AD), and Microsoft Purview portals. While Azure Firewall, EASM, and Defender for IoT are Microsoft security products, they do not currently have Security Copilot embedded experiences. The embedded experiences allow analysts to access AI-powered assistance directly within these security product interfaces.",
+            "hint": "Focus on the core security products where SOC analysts spend most of their time."
         },
         {
             "id": 5,
-            "question": "What is the standalone experience of Security Copilot?",
+            "question": "When using GDAP for partner access, whose SCU capacity plan is consumed?",
             "options": [
-                "A lightweight browser extension for quick security queries and threat lookups",
-                "A mobile application optimized for iOS and Android security management tasks",
-                "A native desktop application requiring local installation on Windows workstations",
-                "A dedicated web portal for comprehensive security analysis and investigations"
+                "The customer tenant's capacity plan is used for all operations",
+                "The partner (MSSP) tenant's capacity plan is consumed exclusively",
+                "SCU consumption is split 50/50 between customer and partner tenants",
+                "A separate shared capacity pool is created and billed to both parties"
             ],
-            "correctAnswer": 3,
-            "explanation": "The standalone experience is a dedicated web portal (security.microsoft.com/copilot) where security professionals can perform comprehensive investigations, run prompts, and access all Security Copilot capabilities in a focused environment without being within a specific security product.",
-            "hint": "It's a full, dedicated interface accessible through the web."
+            "correctAnswer": 0,
+            "explanation": "When using Granular Delegated Admin Privileges (GDAP) for partner access, the customer tenant's Security Copilot capacity plan (SCUs) is consumed. With Azure Lighthouse, the partner tenant's capacity plan is used. With B2B collaboration (guest accounts), the customer tenant's capacity plan is used. GDAP is the recommended approach for MSSP access management.",
+            "hint": "Consider who owns the tenant where the work is being performed."
         },
         {
             "id": 6,
-            "question": "What is a 'session' in Security Copilot?",
+            "question": "When sharing a Security Copilot session, what permissions does the recipient receive?",
             "options": [
-                "A conversation thread maintaining prompts, responses, and investigation context",
-                "A scheduled meeting or calendar appointment for security review discussions",
-                "A training course module covering specific Security Copilot functionality",
-                "A time-limited login period before requiring re-authentication credentials"
+                "Full edit access including ability to delete prompts and modify responses",
+                "Read-only access to view prompts and responses without modification capability",
+                "Ability to continue the investigation by adding new prompts to the thread",
+                "Contributor-level access restricted to appending comments only"
             ],
-            "correctAnswer": 0,
-            "explanation": "A session in Security Copilot represents a conversation thread where all prompts, responses, and context are maintained. It allows you to build on previous queries and maintain context throughout an investigation. Sessions can be saved, shared, and revisited.",
-            "hint": "It's like a chat conversation that keeps track of everything you've discussed."
+            "correctAnswer": 1,
+            "explanation": "When you share a session link in Security Copilot, recipients receive read-only access to view the prompts, responses, and investigation context. They cannot modify, delete, or add to the shared session. To collaborate actively, users must work within the same workspace and create their own sessions.",
+            "hint": "Consider what level of access is most appropriate for session links."
         },
         {
             "id": 7,
             "question": "What are 'skills' in Security Copilot?",
             "options": [
-                "Professional certifications required for Security Copilot administrators and users",
-                "Structured training modules covering security operations and incident response",
-                "Organizational security policies and compliance requirements for data handling",
+                "API endpoints exposed by plugins for external system integration",
+                "Predefined KQL queries stored in the Security Copilot query library",
+                "Workflow automation templates for orchestrating security responses",
                 "Capabilities allowing Security Copilot to perform actions or retrieve data"
             ],
             "correctAnswer": 3,
             "explanation": "Skills are specific capabilities that allow Security Copilot to perform actions, query data sources, or interact with security tools. Built-in skills come from Microsoft plugins (like Defender, Sentinel), while custom skills can be created by organizations to extend functionality.",
-            "hint": "Skills are like tools in a toolbox - each does a specific task."
+            "hint": "Think about the functional capabilities that plugins provide to the platform."
         },
         {
             "id": 8,
@@ -109,16 +109,16 @@ const quizData = {
         },
         {
             "id": 9,
-            "question": "What is the primary use case for Security Copilot in incident response?",
+            "question": "What is the nature of Security Copilot Owner and Contributor roles?",
             "options": [
-                "Configuring network firewalls and implementing intrusion prevention rules",
-                "Managing user passwords and enforcing credential rotation policies organization-wide",
-                "Creating PowerPoint presentations and executive summary reports for management",
-                "Accelerating investigation by summarizing incidents and suggesting response actions"
+                "They are Microsoft Entra ID roles with comprehensive tenant permissions",
+                "They function like access groups controlling only Security Copilot capabilities",
+                "They are Azure RBAC roles providing access to all Azure security resources",
+                "They are Microsoft 365 admin roles with global security data access"
             ],
-            "correctAnswer": 3,
-            "explanation": "Security Copilot accelerates incident response by quickly summarizing complex incidents, correlating data from multiple sources, analyzing attack patterns, and suggesting appropriate response actions. This significantly reduces investigation time and improves response effectiveness.",
-            "hint": "It helps analysts work faster and smarter during security incidents."
+            "correctAnswer": 1,
+            "explanation": "Security Copilot introduces two roles (Owner and Contributor) that function like access groups but are NOT Microsoft Entra ID roles. They only control access to Security Copilot platform capabilities and provide no access by themselves to security data. Users need appropriate data source permissions separately.",
+            "hint": "Consider the scope of what these roles control and where they are defined."
         },
         {
             "id": 10,
@@ -135,94 +135,94 @@ const quizData = {
         },
         {
             "id": 11,
-            "question": "What is a plugin in Security Copilot?",
+            "question": "Which file formats are officially supported for upload in Security Copilot?",
             "options": [
-                "A hardware device connecting to physical security systems and access controls",
-                "A user role or permission set defining administrative access and capabilities",
-                "A collection of skills connecting to specific data sources or services",
-                "A type of malware signature or threat indicator used in detection engines"
+                "Common text file types: DOCX, MD, PDF, and TXT formats",
+                "All Microsoft Office formats including XLSX, PPTX, and DOCX files",
+                "Script files only: PowerShell, Python, Bash, and JavaScript formats",
+                "Any file format as long as it's under the 3 MB size limit"
             ],
-            "correctAnswer": 2,
-            "explanation": "A plugin is a package of skills that enables Security Copilot to connect to and interact with specific data sources, services, or security tools. Plugins can be built-in (Microsoft plugins) or custom (created by organizations). Each plugin provides skills tailored to its data source.",
-            "hint": "Plugins are like apps that add specific capabilities to Security Copilot."
+            "correctAnswer": 0,
+            "explanation": "Security Copilot officially supports common text file types for upload: DOCX (Word documents), MD (Markdown), PDF (Portable Document Format), and TXT (plain text) files. Each file must not exceed 3 MB, and the total combined upload limit is 20 MB.",
+            "hint": "Focus on common document and text formats, not all possible file types."
         },
         {
             "id": 12,
-            "question": "Can organizations extend Security Copilot with custom capabilities?",
+            "question": "Which tools provide audit logging capabilities for Security Copilot?",
             "options": [
-                "No, only Microsoft engineers can add new capabilities to the platform",
-                "Yes, through custom plugins and skills developed for specific needs",
-                "Only with explicit Microsoft approval and a paid consulting engagement",
-                "Extensions require participation in a limited closed beta program only"
+                "Only Azure Monitor Logs with custom workbook configurations for queries",
+                "Microsoft Purview UAL, Purview DSPM for AI, and Office Management API",
+                "Security Copilot has no auditing capabilities for compliance requirements",
+                "Only Microsoft Sentinel with dedicated Security Copilot data connector"
             ],
             "correctAnswer": 1,
-            "explanation": "Organizations can extend Security Copilot by creating custom plugins and skills using various methods including API plugins (with OpenAPI specs), KQL skills (for querying data), Logic Apps, and other integration methods. This allows tailoring Security Copilot to specific organizational needs and data sources.",
-            "hint": "Security Copilot is designed to be extensible by customers."
+            "explanation": "Security Copilot provides audit logging through Microsoft Purview Unified Audit Log (UAL) for admin events and activity metadata, Microsoft Purview Data Security Posture Management (DSPM) for AI for prompt/response pairs, and the Office Management API for programmatic access to audit data. These tools help organizations meet compliance and regulatory requirements.",
+            "hint": "Think about Microsoft Purview capabilities and Office APIs for auditing."
         },
         {
             "id": 13,
-            "question": "What is prompt engineering in the context of Security Copilot?",
+            "question": "What is the relationship between Security Copilot Contributor and Owner roles?",
             "options": [
-                "Crafting effective questions and instructions to get optimal AI responses",
-                "Writing code and scripts for security automation and workflow orchestration",
-                "Designing user interface layouts and visual elements for security dashboards",
-                "Configuring network routing tables and firewall rules for traffic management"
+                "Contributors have all Owner permissions plus additional billing management capabilities",
+                "Owners can manage plugins and settings; Contributors can use skills but not configure",
+                "Both roles have identical permissions with different naming for organizational clarity",
+                "Contributors manage day-to-day operations; Owners only handle licensing and billing"
             ],
-            "correctAnswer": 0,
-            "explanation": "Prompt engineering is the practice of crafting effective questions, instructions, and context to guide Security Copilot toward producing the most accurate and useful responses. Good prompts are specific, provide necessary context, and clearly state the desired outcome.",
-            "hint": "It's about how you ask questions to get the best answers from the AI."
+            "correctAnswer": 1,
+            "explanation": "The Security Copilot Owner role has administrative capabilities including managing plugins, configuring workspace settings, publishing tenant-level promptbooks, and controlling access. Contributors can use Security Copilot, run prompts, access skills, and create workspace-scoped promptbooks, but cannot modify tenant-level settings or plugin configurations.",
+            "hint": "Think about administrative privileges versus operational usage."
         },
         {
             "id": 14,
-            "question": "Which of the following is a best practice for writing prompts in Security Copilot?",
+            "question": "What type of audit information does Purview DSPM for AI provide for Security Copilot?",
             "options": [
-                "Keep prompts as vague and general as possible to allow flexibility",
-                "Use only highly technical jargon and specialized security terminology",
-                "Provide specific details, context, and clear objectives in your prompts",
-                "Make prompts extremely short, preferably single words for efficiency"
+                "Only administrative configuration changes and tenant-level settings modifications",
+                "Prompt and response pairs with the content of user interactions",
+                "Only metadata about when users logged in and session duration information",
+                "Network traffic patterns and bandwidth consumption metrics for analytics"
             ],
-            "correctAnswer": 2,
-            "explanation": "Effective prompts should provide specific details about what you're investigating, include relevant context (timeframes, entities, etc.), and clearly state what you want to achieve. Vague prompts lead to vague answers. Being specific helps the AI understand your intent and provide actionable insights.",
-            "hint": "More context and specificity usually leads to better AI responses."
+            "correctAnswer": 1,
+            "explanation": "Microsoft Purview Data Security Posture Management (DSPM) for AI provides insights into prompt/response pairs in Security Copilot. This includes the actual content of prompts sent to skills and their responses, which is critical for audit purposes. The Unified Audit Log (UAL) handles admin events and activity metadata, while DSPM for AI focuses on the prompt/response content inspection.",
+            "hint": "DSPM for AI focuses on the actual content of interactions, not just metadata."
         },
         {
             "id": 15,
             "question": "What is a workspace in Security Copilot?",
             "options": [
                 "A scoped, tenant-bound environment where users, automations, and agents operate",
-                "A physical office location or room designated for security operations teams",
-                "A file storage folder for organizing security reports and documentation",
-                "A specific type of security alert requiring immediate attention and response"
+                "An Azure Resource Group containing Security Copilot service components",
+                "A Log Analytics workspace for storing Security Copilot audit data",
+                "A Microsoft Sentinel workspace integrated with Security Copilot plugins"
             ],
             "correctAnswer": 0,
             "explanation": "A workspace is a scoped, tenant-bound environment where users, automations, and agents operate. All user interactions - whether manual actions, automated workflows, or agent-triggered responses - occur within the context of a specific workspace. It provides a boundary for user access and resource allocation, enabling proper governance and collaboration.",
-            "hint": "It's a bounded environment that provides context for all Security Copilot operations."
+            "hint": "It's a logical container specific to Security Copilot, not shared with other services."
         },
         {
             "id": 16,
-            "question": "How is Security Copilot licensed and billed?",
+            "question": "How many SCUs per month does an organization with 2,500 Microsoft 365 E5 licenses receive?",
             "options": [
-                "Security Compute Units (SCUs) consumed based on actual usage patterns",
-                "One-time perpetual license purchase with annual maintenance fee renewals",
-                "Completely free for all Microsoft 365 and Azure enterprise customers",
-                "Fixed monthly flat rate regardless of usage volume or complexity"
+                "1,000 SCUs per month included at no additional cost",
+                "2,500 SCUs per month scaling linearly with license count",
+                "400 SCUs per month as the standard allocation for all organizations",
+                "10,000 SCUs per month which is the maximum capacity allowed"
             ],
             "correctAnswer": 0,
-            "explanation": "Security Copilot uses a consumption-based model with Security Compute Units (SCUs). Each interaction consumes SCUs based on complexity and resource usage. Organizations purchase SCU capacity and monitor consumption. This flexible model allows scaling based on actual usage patterns.",
-            "hint": "It's based on how much you actually use, not a fixed per-user price."
+            "explanation": "Organizations with Microsoft 365 E5 receive 400 SCUs per month for every 1,000 paid user licenses, up to a maximum of 10,000 SCUs per month. For 2,500 licenses: (2,500 / 1,000) × 400 = 1,000 SCUs per month. This capacity scales proportionally with license count and is included at no additional cost.",
+            "hint": "SCU allocation scales proportionally with license count up to a maximum threshold."
         },
         {
             "id": 17,
-            "question": "What is the minimum SCU commitment required to use Security Copilot?",
+            "question": "When did the Security Copilot inclusion in Microsoft 365 E5 rollout begin?",
             "options": [
-                "100 SCUs provisioned capacity required for enterprise production deployment",
-                "3 SCUs provisioned capacity to ensure adequate performance and capability",
-                "No minimum requirement, pay-as-you-go per individual prompt submitted",
-                "1 SCU minimum for small organizations with limited security requirements"
+                "November 18, 2025, for existing Security Copilot customers with M365 E5",
+                "January 1, 2026, for all Microsoft 365 E5 customers simultaneously",
+                "October 1, 2025, with immediate activation for all eligible customers",
+                "December 1, 2025, starting with new customers before existing ones"
             ],
-            "correctAnswer": 1,
-            "explanation": "Organizations must provision a minimum capacity of 3 Security Compute Units (SCUs) to use Security Copilot. This ensures adequate performance and capacity for meaningful security operations. Additional SCUs can be added based on organizational needs and usage patterns.",
-            "hint": "There's a minimum capacity requirement to start using the service."
+            "correctAnswer": 0,
+            "explanation": "The rollout began on November 18, 2025, for existing Security Copilot customers with Microsoft 365 E5 licenses, and will continue in the upcoming months for all M365 E5 customers. Organizations receive a 30-day advanced notification before activation. Existing Security Copilot customers with M365 E5 can access this benefit at no additional cost.",
+            "hint": "The rollout started in mid-November 2025 for existing customers first."
         },
         {
             "id": 18,
@@ -244,24 +244,24 @@ const quizData = {
                 "Yes, it analyzes and explains scripts including PowerShell, Python, and more",
                 "Only for JavaScript code embedded in web applications and browser contexts",
                 "No, it exclusively focuses on incident response and cannot analyze code",
-                "Only with scripts written by Microsoft and officially approved developers"
+                "Only for scripts under 100KB and written in Microsoft-supported languages"
             ],
             "correctAnswer": 0,
             "explanation": "Security Copilot can analyze various types of scripts including PowerShell, Python, Bash, and others. It can explain what the script does, identify potentially malicious behaviors, decode obfuscation, and help analysts understand attacker tools and techniques quickly.",
-            "hint": "It can help understand any code or script that might be part of an attack."
+            "hint": "Consider the breadth of file types and scenarios Security Copilot supports."
         },
         {
             "id": 20,
             "question": "What is an 'agent' in the context of Security Copilot?",
             "options": [
-                "A human security analyst performing manual threat hunting and investigation",
-                "A network monitoring tool collecting logs and telemetry from infrastructure",
-                "A data backup and recovery system ensuring business continuity protection",
+                "A Logic Apps connector that enables workflow automation for security tasks",
+                "A specialized plugin providing access to specific security data sources",
+                "A pre-configured promptbook template for common investigation scenarios",
                 "An autonomous AI entity orchestrating skills to complete complex tasks"
             ],
             "correctAnswer": 3,
             "explanation": "An agent in Security Copilot is an autonomous AI entity that can independently orchestrate and execute multiple skills and actions to accomplish complex security tasks. Agents can break down complex requests, decide which skills to use, and work through multi-step processes with minimal human intervention.",
-            "hint": "Agents are AI assistants that can work autonomously to solve complex problems."
+            "hint": "Think about what differentiates automated decision-making from static workflows."
         },
         {
             "id": 21,
@@ -304,16 +304,16 @@ const quizData = {
         },
         {
             "id": 24,
-            "question": "What is the role of Microsoft's security-specific AI model in Security Copilot?",
+            "question": "You submit the prompt 'Who Am I' in Security Copilot and receive the response shown below. What should you do first?<br><br><img src='img/whoAmI.png' alt='Who Am I Response' style='max-width: 100%; border: 2px solid #e0e0e0; border-radius: 8px; margin: 10px 0;'>",
             "options": [
-                "It handles all authentication and identity verification processes exclusively",
-                "It provides security expertise, threat intelligence, and domain knowledge",
-                "It serves no specific purpose and is redundant with general AI models",
-                "It completely replaces GPT-4 for all security-related query processing"
+                "Check if the Microsoft Entra plugin is enabled in your workspace",
+                "Contact your tenant administrator to report a system malfunction",
+                "Resubmit the prompt multiple times to verify consistency of results",
+                "Create a new session because there might be a bug or cache issue"
             ],
-            "correctAnswer": 1,
-            "explanation": "Microsoft's security-specific AI model complements GPT-4 by providing deep security domain expertise, current threat intelligence, knowledge of attack techniques, understanding of security tools and data, and security-specific reasoning. This combination creates a powerful security-focused AI assistant.",
-            "hint": "It adds specialized security knowledge to the general AI capabilities."
+            "correctAnswer": 0,
+            "explanation": "The 'Who Am I' prompt is designed to trigger the Microsoft Entra plugin to retrieve your user identity information. If you receive an unexpected or incomplete response, the first troubleshooting step is to verify that the Microsoft Entra plugin is enabled in your Security Copilot workspace. Plugins must be enabled to access their skills and data sources.",
+            "hint": "This prompt relies on a specific plugin to retrieve identity information."
         },
         {
             "id": 25,
@@ -326,20 +326,20 @@ const quizData = {
             ],
             "correctAnswer": 1,
             "explanation": "Security Copilot can generate KQL queries from natural language descriptions, explain existing queries, optimize query performance, and adapt queries to different data sources (Sentinel, Defender Advanced Hunting, Log Analytics). This helps analysts who may not be KQL experts to effectively query security data.",
-            "hint": "It can translate what you want to find into the query language needed."
+            "hint": "Consider Security Copilot's natural language processing capabilities."
         },
         {
             "id": 26,
             "question": "What is the Defender experience in Security Copilot?",
             "options": [
-                "A completely separate and independent product from Microsoft Defender",
+                "A standalone API service for programmatic access to Defender data",
                 "An optional add-on requiring additional licensing and configuration",
                 "Security Copilot capabilities embedded within Microsoft Defender XDR",
-                "A comprehensive training course for security operations professionals"
+                "A dedicated workspace template pre-configured with Defender plugins"
             ],
             "correctAnswer": 2,
             "explanation": "The Defender experience refers to Security Copilot capabilities embedded directly within the Microsoft Defender XDR portal. This includes incident summarization, guided responses, device and user analysis, and threat intelligence enrichment - all accessible without leaving the Defender interface.",
-            "hint": "It brings Security Copilot functionality into where Defender users already work."
+            "hint": "Think about where Defender users spend most of their time."
         },
         {
             "id": 27,
@@ -356,29 +356,29 @@ const quizData = {
         },
         {
             "id": 28,
-            "question": "Which role is required to manage Security Copilot settings and plugins at the organization level?",
+            "question": "How long are Security Copilot sessions retained before automatic deletion?",
             "options": [
-                "Security Copilot Owner role with administrative privileges and controls",
-                "Any user can manage organizational settings and deploy plugins freely",
-                "Global Reader role with read-only access to configuration settings",
-                "Security Reader role for viewing but not modifying configurations"
+                "Sessions are retained for 90 days from creation date",
+                "Sessions persist indefinitely unless manually deleted by users",
+                "Sessions are kept for 30 days after the last prompt interaction",
+                "Session retention is 180 days with archival options available"
             ],
             "correctAnswer": 0,
-            "explanation": "The Security Copilot Owner role is required to manage organizational settings, deploy and manage plugins, configure workspaces, and perform administrative functions. This ensures proper governance and security controls over Security Copilot usage in the organization.",
-            "hint": "Administrative tasks require a specific privileged role."
+            "explanation": "Security Copilot sessions are automatically retained for 90 days from their creation date. After this period, sessions and their associated data are automatically deleted. Organizations should export or document important investigation findings before the retention period expires.",
+            "hint": "There's a specific retention policy for compliance and data management."
         },
         {
             "id": 29,
             "question": "What is the purpose of file upload capability in Security Copilot?",
             "options": [
-                "To share files with other users for collaboration on documents",
+                "To share files with other workspace members for collaborative investigations",
                 "To analyze file content, scripts, logs, or documents for security insights",
-                "To store backup copies of important organizational files and data",
-                "To create and maintain security documentation and procedure guides"
+                "To permanently store evidence files for compliance and audit retention",
+                "To populate the knowledge base with organizational security documentation"
             ],
             "correctAnswer": 1,
             "explanation": "The file upload capability allows security analysts to upload files (scripts, log files, malware samples, configuration files, documents) for Security Copilot to analyze. It can extract IoCs, explain code behavior, identify malicious patterns, summarize logs, and provide security context.",
-            "hint": "It helps analyze various file types for security purposes."
+            "hint": "Focus on the analytical capabilities rather than storage or collaboration."
         },
         {
             "id": 30,
@@ -408,29 +408,29 @@ const quizData = {
         },
         {
             "id": 32,
-            "question": "What does the Device Offboarding Agent in Microsoft Intune do?",
+            "question": "Which Microsoft Entra roles automatically receive Security Copilot Owner role and cannot be removed?",
             "options": [
-                "Installs software and applications on new devices during provisioning",
-                "Backs up device data before hardware replacement or decommissioning",
-                "Encrypts all device storage to protect sensitive information at rest",
-                "Uses activity signals to suggest which devices should be removed"
+                "Security Reader and Security Operator with permanent assignments",
+                "Global Administrator and Security Administrator with irrevocable access",
+                "Privileged Role Administrator and Application Administrator automatically",
+                "Only Global Administrator receives automatic assignment without removal"
             ],
-            "correctAnswer": 3,
-            "explanation": "The Device Offboarding Agent uses activity signals to identify inactive or unused devices and suggests which devices should be removed from the environment. It provides a simple way to offboard them, improving efficiency and strengthening the security of the digital estate by reducing the attack surface.",
-            "hint": "It helps identify and remove devices that are no longer needed."
+            "correctAnswer": 1,
+            "explanation": "Global Administrator and Security Administrator roles automatically receive the Security Copilot Owner role assignment and this assignment cannot be removed. This ensures that key tenant administrators always have full administrative access to Security Copilot capabilities, maintaining proper governance and control.",
+            "hint": "Consider which roles need guaranteed access for governance and oversight."
         },
         {
             "id": 33,
-            "question": "Can Security Copilot help with report generation?",
+            "question": "What happens to uploaded files after Security Copilot completes analysis?",
             "options": [
-                "Yes, it summarizes investigations and generates reports for stakeholders",
-                "No, all reports must be manually created by security analysts",
-                "Only for technical audiences without executive summary capabilities",
-                "Only in one fixed format without customization or tailoring options"
+                "Files are retained permanently for future reference and reanalysis capabilities",
+                "Files are stored for 90 days matching the session retention policy period",
+                "Files are immediately deleted after analysis completes to ensure data privacy",
+                "Files remain available until manually deleted or workspace closure occurs"
             ],
-            "correctAnswer": 0,
-            "explanation": "Security Copilot can generate reports by summarizing investigations, highlighting key findings, explaining technical details in business terms, and creating executive summaries. It can tailor content for different audiences (technical teams, management, executives) and support incident documentation.",
-            "hint": "It can help communicate security findings to different audiences."
+            "correctAnswer": 2,
+            "explanation": "For security and privacy reasons, uploaded files are immediately deleted from Security Copilot after the analysis is complete. The analysis results and insights are retained within the session (subject to 90-day session retention), but the original file content is not stored. Users must re-upload files for subsequent analyses.",
+            "hint": "Consider data privacy and security best practices for sensitive files."
         },
         {
             "id": 34,
@@ -450,26 +450,26 @@ const quizData = {
             "question": "What does the Threat Intelligence Briefing Agent in Microsoft Defender do?",
             "options": [
                 "Generates tailored threat briefings from Microsoft and global sources",
-                "Sends spam emails to test user awareness and phishing susceptibility",
-                "Blocks access to suspicious websites based on reputation scores",
-                "Scans USB drives and removable media for malware signatures"
+                "Automates the creation of STIX/TAXII feeds for threat intelligence sharing",
+                "Monitors dark web forums and marketplaces for emerging threat indicators",
+                "Correlates threat intelligence with active incidents for impact assessment"
             ],
             "correctAnswer": 0,
             "explanation": "The Threat Intelligence Briefing Agent generates tailored threat briefings that synthesize the latest insights from Microsoft Threat Intelligence and hundreds of global sources, directly contextualized to an organization's unique environment. This helps security teams stay informed about relevant threats.",
-            "hint": "It creates customized threat reports based on what matters to your organization."
+            "hint": "Focus on aggregation and contextualization of intelligence data."
         },
         {
             "id": 36,
-            "question": "What is the benefit of Security Copilot's natural language interface?",
+            "question": "Can users outside the Security Copilot workspace access shared session links?",
             "options": [
-                "It's exclusively designed for non-technical users without security expertise",
-                "It enables analysts of all skill levels to perform complex security tasks",
-                "It significantly slows down security investigations and analysis processes",
-                "It replaces all existing security tools and eliminates the need for them"
+                "Yes, anyone with the link can view the session including external users",
+                "Only users within the same tenant with appropriate licenses can access shared sessions",
+                "External access requires explicit approval from Security Copilot Owner role",
+                "Session links work across tenants for licensed Security Copilot users only"
             ],
             "correctAnswer": 1,
-            "explanation": "The natural language interface democratizes security operations by allowing analysts to ask questions and perform investigations using everyday language instead of requiring expertise in multiple query languages, tools, and APIs. This accelerates onboarding, improves efficiency, and enables more people to contribute to security operations.",
-            "hint": "It makes security tools more accessible to more people."
+            "explanation": "Shared session links in Security Copilot are accessible only to users within the same Microsoft Entra tenant who have appropriate Security Copilot licenses and permissions. External users or those outside the tenant cannot access sessions even with the link. This ensures security and data sovereignty.",
+            "hint": "Security and tenant boundaries apply to session sharing."
         },
         {
             "id": 37,
@@ -530,6 +530,14 @@ let currentQuestion = 0;
 let userAnswers = [];
 let score = 0;
 let userName = '';
+
+// Category mapping for questions
+const questionCategories = {
+    "Core Capabilities": [1, 2, 7, 8, 11, 19, 21, 22, 25, 29, 30, 39, 40],  // Skills, plugins, file upload, KQL, data analysis, threat hunting
+    "Permissions & Access": [3, 5, 6, 9, 13, 15, 32, 36],  // RBAC, workspace, sessions, roles
+    "Embedded Experiences & Agents": [4, 10, 23, 26, 27, 31, 34, 35, 38],  // Defender/Sentinel/Entra/Intune experiences, agents
+    "Licensing & Compliance": [12, 14, 16, 17, 18, 24, 28, 33, 37]  // SCU, E5, audit, retention, automation
+};
 
 const motivationalMessages = [
     "🚀 You're doing great! Keep it up!",
@@ -838,8 +846,70 @@ function finishQuiz() {
     }
     document.getElementById('user-name-display').textContent = greeting;
     
+    // Generate category scores
+    generateCategoryScores();
+    
     // Generate detailed report
     generateDetailedReport();
+}
+
+// Generate category scores visualization
+function generateCategoryScores() {
+    const categoryScoresContainer = document.getElementById('category-scores-container');
+    let html = '';
+    
+    // Calculate scores for each category
+    const categoryResults = {};
+    
+    Object.keys(questionCategories).forEach(categoryName => {
+        const questionIds = questionCategories[categoryName];
+        let correct = 0;
+        let total = questionIds.length;
+        
+        questionIds.forEach(questionId => {
+            const questionIndex = quizData.questions.findIndex(q => q.id === questionId);
+            if (questionIndex !== -1 && userAnswers[questionIndex] === quizData.questions[questionIndex].correctAnswer) {
+                correct++;
+            }
+        });
+        
+        const percentage = Math.round((correct / total) * 100);
+        categoryResults[categoryName] = {
+            correct: correct,
+            total: total,
+            percentage: percentage
+        };
+    });
+    
+    // Generate HTML for each category
+    Object.keys(categoryResults).forEach(categoryName => {
+        const result = categoryResults[categoryName];
+        let barClass = 'poor';
+        
+        if (result.percentage >= 80) {
+            barClass = 'excellent';
+        } else if (result.percentage >= 65) {
+            barClass = 'good';
+        } else if (result.percentage >= 50) {
+            barClass = 'average';
+        }
+        
+        html += `
+            <div class="category-item">
+                <div class="category-header">
+                    <span class="category-name">${categoryName}</span>
+                    <span class="category-score">${result.correct}/${result.total}</span>
+                </div>
+                <div class="category-bar-container">
+                    <div class="category-bar-fill ${barClass}" style="width: ${result.percentage}%">
+                        ${result.percentage}%
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    categoryScoresContainer.innerHTML = html;
 }
 
 // Generate detailed report for all questions
