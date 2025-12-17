@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Completion</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .certificate-container {
+            background: white;
+            border-radius: 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+            padding: 60px 80px;
+            position: relative;
+            border: 20px solid;
+            border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) 1;
+        }
+
+        .certificate-border-inner {
+            border: 3px solid #667eea;
+            padding: 40px;
+            position: relative;
+        }
+
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .certificate-logo {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .certificate-title {
+            font-size: 3em;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .certificate-subtitle {
+            font-size: 1.3em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .certificate-body {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .certificate-text {
+            font-size: 1.2em;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .certificate-recipient {
+            font-size: 2.5em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 30px 0;
+            font-family: 'Georgia', serif;
+            border-bottom: 2px solid #667eea;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .certificate-course {
+            font-size: 1.5em;
+            color: #333;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        .certificate-description {
+            font-size: 1.1em;
+            color: #666;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .certificate-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .certificate-signature {
+            text-align: center;
+            flex: 1;
+        }
+
+        .signature-line {
+            border-top: 2px solid #333;
+            width: 200px;
+            margin: 0 auto 10px;
+        }
+
+        .signature-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .signature-title {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .certificate-date {
+            text-align: center;
+            flex: 1;
+        }
+
+        .date-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .date-value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-button:active {
+            transform: translateY(0);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .download-section {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .certificate-container {
+                padding: 40px 30px;
+                border-width: 10px;
+            }
+
+            .certificate-border-inner {
+                padding: 20px;
+            }
+
+            .certificate-title {
+                font-size: 2em;
+            }
+
+            .certificate-recipient {
+                font-size: 1.8em;
+            }
+
+            .certificate-course {
+                font-size: 1.2em;
+            }
+
+            .certificate-footer {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container" id="certificate">
+        <div class="certificate-border-inner">
+            <div class="certificate-header">
+                <div class="certificate-logo">🎓</div>
+                <div class="certificate-title">Certificate</div>
+                <div class="certificate-subtitle">of Completion</div>
+            </div>
+
+            <div class="certificate-body">
+                <div class="certificate-text">
+                    This is to certify that
+                </div>
+
+                <div class="certificate-recipient" id="recipient-name">
+                    [Name]
+                </div>
+
+                <div class="certificate-text">
+                    has successfully completed the
+                </div>
+
+                <div class="certificate-course">
+                    FY26 Security Copilot<br>
+                    Developer Experience LevelUp (L300) Workshop
+                </div>
+
+                <div class="certificate-description">
+                    Demonstrating knowledge and understanding of Microsoft Security Copilot custom plugins, 
+                    skills, APIs, and extensibility capabilities through a comprehensive 25-question assessment.
+                </div>
+            </div>
+
+            <div class="certificate-footer">
+                <div class="certificate-signature">
+                    <div class="signature-line"></div>
+                    <div class="signature-name">Mario Cuomo</div>
+                    <div class="signature-title">Microsoft CSA Security</div>
+                </div>
+
+                <div class="certificate-date">
+                    <div class="date-label">Date of Completion</div>
+                    <div class="date-value" id="completion-date"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="download-section">
+        <button class="download-button" onclick="downloadCertificate()">
+            📥 Download Certificate as PNG
+        </button>
+        <p style="color: white; margin-top: 20px; font-size: 0.95em;">
+            Click the button to save your certificate
+        </p>
+    </div>
+
+    <script>
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('name') || 'Participant';
+        const score = urlParams.get('score') || '0';
+        const total = urlParams.get('total') || '25';
+
+        // Set recipient name
+        document.getElementById('recipient-name').textContent = userName;
+
+        // Set completion date
+        const today = new Date();
+        const dateString = today.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        document.getElementById('completion-date').textContent = dateString;
+
+        // Download certificate as PNG
+        function downloadCertificate() {
+            const certificate = document.getElementById('certificate');
+            
+            html2canvas(certificate, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                logging: false
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Security_Copilot_Certificate_${userName.replace(/\s+/g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(error => {
+                console.error('Error generating certificate:', error);
+                alert('Unable to download certificate. Please try taking a screenshot instead.');
+            });
+        }
+    </script>
+</body>
+</html>
