@@ -363,22 +363,22 @@ const quizData = {
                 "Sessions are kept for 30 days after the last prompt interaction",
                 "Session retention is 180 days with archival options available"
             ],
-            "correctAnswer": 0,
-            "explanation": "Security Copilot sessions are automatically retained for 90 days from their creation date. After this period, sessions and their associated data are automatically deleted. Organizations should export or document important investigation findings before the retention period expires.",
-            "hint": "There's a specific retention policy for compliance and data management."
+            "correctAnswer": 1,
+            "explanation": "Security Copilot sessions persist indefinitely and are saved persistently unless manually deleted by users. This allows organizations to maintain long-term investigation records and reference past analyses without worrying about automatic deletion.",
+            "hint": "Sessions are stored persistently for long-term reference."
         },
         {
             "id": 29,
             "question": "What is the purpose of file upload capability in Security Copilot?",
             "options": [
                 "To share files with other workspace members for collaborative investigations",
-                "To analyze file content, scripts, logs, or documents for security insights",
+                "To analyze file content, scripts, logs, or documents for security insights and populate the knowledge base",
                 "To permanently store evidence files for compliance and audit retention",
-                "To populate the knowledge base with organizational security documentation"
+                "To backup organizational documentation for disaster recovery purposes"
             ],
             "correctAnswer": 1,
-            "explanation": "The file upload capability allows security analysts to upload files (scripts, log files, malware samples, configuration files, documents) for Security Copilot to analyze. It can extract IoCs, explain code behavior, identify malicious patterns, summarize logs, and provide security context.",
-            "hint": "Focus on the analytical capabilities rather than storage or collaboration."
+            "explanation": "The file upload capability allows security analysts to upload files (scripts, log files, malware samples, configuration files, documents) for Security Copilot to analyze. It can extract IoCs, explain code behavior, identify malicious patterns, summarize logs, and provide security context. Additionally, uploaded content can populate the knowledge base with organizational security documentation.",
+            "hint": "Focus on the analytical capabilities and knowledge base population."
         },
         {
             "id": 30,
@@ -408,29 +408,29 @@ const quizData = {
         },
         {
             "id": 32,
-            "question": "Which Microsoft Entra roles automatically receive Security Copilot Owner role and cannot be removed?",
+            "question": "Which Microsoft Entra roles automatically receive Security Copilot Owner role?",
             "options": [
                 "Security Reader and Security Operator with permanent assignments",
-                "Global Administrator and Security Administrator with irrevocable access",
+                "Global Administrator and Security Administrator",
                 "Privileged Role Administrator and Application Administrator automatically",
                 "Only Global Administrator receives automatic assignment without removal"
             ],
             "correctAnswer": 1,
-            "explanation": "Global Administrator and Security Administrator roles automatically receive the Security Copilot Owner role assignment and this assignment cannot be removed. This ensures that key tenant administrators always have full administrative access to Security Copilot capabilities, maintaining proper governance and control.",
+            "explanation": "Global Administrator and Security Administrator roles automatically receive the Security Copilot Owner role assignment. This ensures that key tenant administrators always have full administrative access to Security Copilot capabilities, maintaining proper governance and control.",
             "hint": "Consider which roles need guaranteed access for governance and oversight."
         },
         {
             "id": 33,
-            "question": "What happens to uploaded files after Security Copilot completes analysis?",
+            "question": "How does Security Copilot handle uploaded files in terms of retention?",
             "options": [
-                "Files are retained permanently for future reference and reanalysis capabilities",
-                "Files are stored for 90 days matching the session retention policy period",
-                "Files are immediately deleted after analysis completes to ensure data privacy",
-                "Files remain available until manually deleted or workspace closure occurs"
+                "Files are immediately deleted after analysis completes for security reasons",
+                "Files are stored persistently and remain available for reanalysis",
+                "Files are automatically removed after 90 days matching session retention",
+                "Files are only cached temporarily during active session processing"
             ],
-            "correctAnswer": 2,
-            "explanation": "For security and privacy reasons, uploaded files are immediately deleted from Security Copilot after the analysis is complete. The analysis results and insights are retained within the session (subject to 90-day session retention), but the original file content is not stored. Users must re-upload files for subsequent analyses.",
-            "hint": "Consider data privacy and security best practices for sensitive files."
+            "correctAnswer": 1,
+            "explanation": "Uploaded files in Security Copilot are stored persistently and remain available for future reference and reanalysis. This allows security teams to revisit uploaded content, share files across investigations, and maintain a repository of analyzed artifacts. Users have control over file management and can delete them when no longer needed.",
+            "hint": "Files are stored for ongoing access and team collaboration."
         },
         {
             "id": 34,
