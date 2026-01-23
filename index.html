@@ -1,163 +1,1543 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Mario Cuomo</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name ="description" content="Sito web personale di Mario Cuomo, sviluppatore software in ambito Microsoft .NET"/>
-		<meta name ="keywords" content="Sviluppatore, Software, Microsoft, Unity, .NET, VR, AR, Cloud, Desktop, Mobile, Startup, Ambassador"/>
-		<meta property="og:image" content="../images/avatar.png"/>
-		<link rel="icon" href="../images/avatar.png">
-		<link rel="stylesheet" href="../assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		<link rel="manifest" href="manifest.json" />
-		<!-- ios support -->
-		<link rel="apple-touch-icon" href="../images/avatar.png" />
-		<meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-		<meta name="theme-color" content="#8213b4" />
-	</head>
-	<body class="is-preload">
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
 
-		<!-- Sidebar -->
-			<section id="sidebar">
-				<div class="inner">
-					<nav>
-						<ul>
-							<li><a href="#intro">Welcome</a></li>
-							<li><a href="#one">Who I am</a></li>
-							<li><a href="#two">What I do</a></li>
-							<li><a href="#three">Get in touch</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<h1>Mario Cuomo</h1>
-							<p>Thank you to visit my personal website.<br>
-							You are welcome!</p>
-							<ul class="actions">
-								<li><a href="https://mariocuomo.github.io/view/interactive.html" class="button scrolly">Interactive Mode</a></li>
-							</ul>
-						</div>
-					</section>
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-				<!-- One -->
-					<section id="one" class="wrapper style2 spotlights">
-						<section>
-							<a href="#" class="image fit"><img class = "fit" src="../images/me_scanno.jpg" alt="" data-position="center center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>I AM A .NET DEVELOPER</h2>
-									<p>I like to experiment with different technologies and always face new challenges.<br>
-										<b>I HATE STATIC STUFF!</b></p>
-									<ul class="actions">
-										<li><a href="/view/whoiam.html" class="button">Learn more about me</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
 
-						<section>
-							<div class="content">
-								<div class="inner">
-									<h2>Curriculum Vitae</h2>
-									<p>Here you can see my curriculum vitae</p>
-									<ul class="actions">
-										<li><a href="../files/curriculum_EN.pdf" class="button primary icon solid fa-download">English</a></li>
-									</ul>
-								</div>
-							</div>
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-						</section>
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
 
-					</section>	
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
 
-				<!-- Two -->
-					<section id="two" class="wrapper style3 fade-up">
-						<div class="inner">
-							<h2>What I do</h2>
-							<strong><pre><code>Student me = new Student("Mario", "Cuomo");
-while (me.alive()){
-	me.sleep();
-	me.practice();
-	me.eat();
-	me.work();
-	me.makecontributiontosociety();
-	me.beproductive();
-	me.relax();
-}</code></pre></strong>
-						</div>
-					</section>
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
 
-				<!-- Three -->
-					<section id="three" class="wrapper style1 fade-up">
-						<div class="inner">
-							<h2>Get in touch</h2>
-							<p>Here you can find my references</p>
-							<div class="split style1">
-								<section>
-									<ul class="contact">
-										<li>
-											<h3>Address</h3>
-											<span>Rome, Italy<br /></span>
-										</li>
-										<li>
-											<h3>Email</h3>
-											<a href="mailto:cuomomario@hotmail.com">cuomomario@hotmail.com</a>
-										</li>
-										<li>
-											<h3>Social</h3>
-											<ul class="icons">
-												<li><a href="https://www.facebook.com/mario.cuomo.712/" class="icon brands fa-facebook"><span class="label">Facebook</span></a></li>
-												<li><a href="https://twitter.com/Mario_CuomoIT" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-												<li><a href="https://github.com/mariocuomo/" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-												<li><a href="https://www.instagram.com/mariocuomo.exe/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-												<li><a href="https://www.linkedin.com/in/mariocuomo/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-												<li><a href="https://www.youtube.com/channel/UC5I-tXjBP1OlJkHGnZaMW2g" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
-												<li><a href="https://www.twitch.tv/mariocuomoexe" class="icon brands fa-twitch"><span class="label">Twitch</span></a></li>
-											</ul>
-										</li>
-									</ul>
-								<!-- <a href="https://www.buymeacoffee.com/mariocuomo"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a book&emoji=📖&slug=mariocuomo&button_colour=FF5F5F&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a> -->
-								</section>
-							</div>
-						</div>
-					</section>
+        .theme-toggle:hover {
+            background: var(--secondary-color);
+        }
 
-			</div>
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper style1-alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Mario Cuomo. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-					<ul class="menu">
-						<li>You do not know anything until you have practiced.<li>&copy; Richard P. Feynman</li>
-					</ul>
-				</div>
-			</footer>
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-		<!-- Scripts -->
-			<script src="../assets/js/jquery.min.js"></script>
-			<script src="../assets/js/jquery.scrollex.min.js"></script>
-			<script src="../assets/js/jquery.scrolly.min.js"></script>
-			<script src="../assets/js/browser.min.js"></script>
-			<script src="../assets/js/breakpoints.min.js"></script>
-			<script src="../assets/js/util.js"></script>
-			<script src="../assets/js/main.js"></script>
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
 
-	</body>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .title {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .hero .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category h4 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 4px;
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Experience & Education */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 2px solid var(--card-bg);
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.3);
+            transition: transform 0.3s;
+        }
+
+        .timeline-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-company {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: var(--text-light);
+        }
+
+        .timeline-description ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--bg-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Languages */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .language-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+        }
+
+        .language-flag {
+            font-size: 2rem;
+        }
+
+        .language-info h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .language-level {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Interests */
+        .interests-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .interest-item {
+            background: var(--bg-color);
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s, background 0.3s;
+            cursor: default;
+        }
+
+        .interest-item:hover {
+            transform: scale(1.05);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Expand Button */
+        .expand-btn {
+            display: block;
+            margin: 1.5rem auto 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .expand-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Download Button */
+        .download-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            --text-color: #f3f4f6;
+            --text-light: #9ca3af;
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --border-color: #374151;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Edit Mode */
+        .editable {
+            position: relative;
+        }
+
+        .editable:hover::after {
+            content: '✏️';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+        }
+
+        [contenteditable="true"] {
+            outline: 2px dashed var(--primary-color);
+            padding: 0.25rem;
+        }
+
+        /* Loading Screen */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050a15;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            overflow: hidden;
+        }
+
+        .loader-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .loader-wrapper.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Matrix rain effect */
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #3b82f6;
+            text-shadow: 0 0 10px #3b82f6;
+            animation: matrixFall linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes matrixFall {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(calc(100vh + 100%)); }
+        }
+
+        /* Main loader content */
+        .loader-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Shield icon */
+        .cyber-shield {
+            width: 80px;
+            height: 90px;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .cyber-shield::before {
+            content: '🛡️';
+            font-size: 4rem;
+            animation: shieldPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes shieldPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #2563eb); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px #3b82f6); }
+        }
+
+        /* Scanning line */
+        .scan-line {
+            position: absolute;
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            animation: scan 2s ease-in-out infinite;
+        }
+
+        @keyframes scan {
+            0%, 100% { transform: translateY(-50px); opacity: 0; }
+            50% { transform: translateY(50px); opacity: 1; }
+        }
+
+        .loader-name {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px #2563eb;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { 
+                text-shadow: 0 0 20px #2563eb;
+                transform: translate(0);
+            }
+            92% { 
+                text-shadow: -2px 0 #ff0000, 2px 0 #00ffff;
+                transform: translate(-2px, 1px);
+            }
+            94% { 
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+                transform: translate(2px, -1px);
+            }
+            96% { 
+                text-shadow: -1px 0 #ff0000, 1px 0 #00ffff;
+                transform: translate(1px, 0);
+            }
+        }
+
+        .loader-title {
+            color: #60a5fa;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Terminal loader */
+        .terminal-loader {
+            background: rgba(5, 15, 35, 0.9);
+            border: 1px solid #2563eb;
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            font-family: 'Courier New', monospace;
+            min-width: 350px;
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2563eb33;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca3f; }
+
+        .terminal-line {
+            color: #60a5fa;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: typeLine 0.5s ease forwards;
+        }
+
+        .terminal-line:nth-child(2) { animation-delay: 0.5s; }
+        .terminal-line:nth-child(3) { animation-delay: 1.2s; }
+        .terminal-line:nth-child(4) { animation-delay: 1.9s; }
+        .terminal-line:nth-child(5) { animation-delay: 2.6s; }
+        .terminal-line:nth-child(6) { animation-delay: 3.3s; }
+
+        .terminal-line .prompt {
+            color: #3b82f6;
+        }
+
+        .terminal-line .success {
+            color: #22c55e;
+        }
+
+        .terminal-line .cursor {
+            animation: blink 0.7s infinite;
+            margin-left: 5px;
+        }
+
+        .terminal-line .enter-key {
+            background: #3b82f6;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 4px;
+            box-shadow: 0 2px 0 #1e40af;
+            display: inline-block;
+            animation: keyPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes keyPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 2px 0 #1e40af, 0 0 10px rgba(59, 130, 246, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 2px 0 #1e40af, 0 0 20px rgba(59, 130, 246, 0.6); }
+        }
+
+        .enter-prompt {
+            animation-delay: 2.5s !important;
+        }
+
+        @keyframes typeLine {
+            0% { opacity: 0; transform: translateX(-10px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Binary background */
+        .binary-bg {
+            position: absolute;
+            bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: #2563eb33;
+            letter-spacing: 2px;
+        }
+
+        /* Page fade in */
+        .page-content {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader-wrapper" id="loader">
+        <!-- Matrix Rain Effect -->
+        <div class="matrix-rain" id="matrixRain"></div>
+        
+        <!-- Main Content -->
+        <div class="loader-content">
+            <div class="cyber-shield">
+                <div class="scan-line"></div>
+            </div>
+            <div class="loader-name">Mario Cuomo</div>
+            <div class="loader-title">Security | Cloud Solution Architect</div>
+            
+            <!-- Terminal Loader -->
+            <div class="terminal-loader">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                </div>
+                <div class="terminal-line"><span class="prompt">$</span> Initializing secure connection...</div>
+                <div class="terminal-line"><span class="prompt">$</span> Loading credentials... <span class="success">✓</span></div>
+                <div class="terminal-line"><span class="prompt">$</span> Verifying identity... <span class="success">✓</span></div>
+                <div class="terminal-line"><span class="prompt">$</span> System ready.</div>
+                <div class="terminal-line enter-prompt" id="enterPrompt"><span class="prompt">$</span> Press <span class="enter-key">ENTER</span> to continue<span class="cursor">█</span></div>
+            </div>
+        </div>
+        
+        <div class="binary-bg">01001101 01100001 01110010 01101001 01101111</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">My Resume</div>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('about')">About</a></li>
+                <li><a onclick="scrollToSection('skills')">Skills</a></li>
+                <li><a onclick="scrollToSection('experience')">Experience</a></li>
+                <li><a onclick="scrollToSection('education')">Education</a></li>
+                <li><a onclick="scrollToSection('projects')">Projects</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <div class="hero-content">
+                <img src="me.png" alt="Mario Cuomo" class="profile-pic">
+                <h1>Mario Cuomo</h1>
+                <p class="title">Security | Cloud Solution Architect @ Microsoft EMEA</p>
+                <p class="tagline">
+                    Cloud Solution Architect with 3+ years officially at Microsoft, specializing in Microsoft Security, 
+                    Security Copilot, and Generative AI. Passionate about empowering organizations through innovative cloud solutions.
+                </p>
+                <div class="contact-info">
+                    <span class="contact-item"> Rome, Italy</span>
+                    <span class="contact-item">🔗 linkedin.com/in/mariocuomo</span>
+                    <span class="contact-item">🌐 mariocuomo.github.io</span>
+                    <span class="contact-item">🇮🇹 Italian (Native) | 🇬🇧 English (Professional)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section" id="skills">
+            <h2 class="section-title">💡 Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h4>Microsoft Security</h4>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Microsoft Security Copilot</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Microsoft Defender</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Microsoft Sentinel</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Cloud & AI</h4>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Microsoft Azure</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Generative AI</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>AI Agents</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Mindset</h4>
+                    <p style="color: var(--text-light); line-height: 1.8; font-size: 0.95rem;">
+                        I love <strong>experimenting</strong> with new technologies, <strong>testing</strong> innovative solutions, 
+                        and <strong>solving challenges</strong>. Always curious, always learning, and passionate about 
+                        turning complex problems into elegant solutions.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="section" id="experience">
+            <h2 class="section-title">💼 Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Jul 2023 - Present (2 years 4 months)</div>
+                    <div class="timeline-title">Cloud Solution Architect</div>
+                    <div class="timeline-company">Microsoft</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Driving Microsoft Security solutions adoption across EMEA region</li>
+                            <li>Specializing in Microsoft Security Copilot and Generative AI implementations</li>
+                            <li>Architecting cloud security solutions for enterprise customers</li>
+                            <li>Enabling digital transformation through innovative cloud technologies</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Sep 2022 - Jul 2023 (11 months)</div>
+                    <div class="timeline-title">Cloud Solution Architect - Engineering</div>
+                    <div class="timeline-company">Microsoft</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Engineering-focused role developing cloud architecture solutions</li>
+                            <li>Technical deep dives with customers on Azure implementations</li>
+                            <li>Building proof-of-concepts and technical demonstrations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="expand-btn" id="expandExperienceBtn" onclick="toggleMoreExperience()">
+                ➕ Show More Experience
+            </button>
+            <div class="timeline more-experience" id="moreExperience" style="display: none; margin-top: 1rem;">
+                <div class="timeline-item">
+                    <div class="timeline-date">Aug 2020 - Sep 2022 (2 years 2 months)</div>
+                    <div class="timeline-title">Microsoft Learn Student Ambassador</div>
+                    <div class="timeline-company">Microsoft</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Ambassador for Microsoft technologies at Roma Tre University</li>
+                            <li>Organized workshops and events to promote Microsoft technologies</li>
+                            <li>Mentored students on cloud and development technologies</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2019 - Jun 2021 (2 years 6 months)</div>
+                    <div class="timeline-title">Unity Student Ambassador</div>
+                    <div class="timeline-company">Unity Technologies</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Ambassador for Unity platform at Roma Tre University</li>
+                            <li>Conducted game development workshops and tutorials</li>
+                            <li>Published educational content on Unity development</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Sep 2020 - Dec 2020 (4 months)</div>
+                    <div class="timeline-title">Junior Microsoft Platform Software Developer</div>
+                    <div class="timeline-company">Karaoke One</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Developed .NET project for Windows 10 - desktop, mobile, and Xbox</li>
+                            <li>Cross-platform application development</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2017 - 2019 (2 years)</div>
+                    <div class="timeline-title">Software Developer</div>
+                    <div class="timeline-company">GERICOSOFTWARE</div>
+                    <div class="timeline-description">
+                        Development of Universal Windows Platform games
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Jun 2015 (1 month)</div>
+                    <div class="timeline-title">Intern</div>
+                    <div class="timeline-company">INFN (National Institute for Nuclear Physics)</div>
+                    <div class="timeline-description">
+                        Research on superconductors and their application in building a Maglev Train prototype
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="section" id="education">
+            <h2 class="section-title">🎓 Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2020 - Mar 2023</div>
+                    <div class="timeline-title">Master's Degree in Computer Engineering</div>
+                    <div class="timeline-company">Roma Tre University</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Specialization in <strong>Cybersecurity</strong> and <strong>Artificial Intelligence</strong></li>
+                            <li>Thesis: <em>"Detecting CTC Attack in IoMT Communications using Deep Learning Approach"</em></li>
+                            <li>Advanced studies in machine learning, network security, and IoT systems</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2016 - 2020</div>
+                    <div class="timeline-title">Bachelor's Degree in Computer Engineering</div>
+                    <div class="timeline-company">Roma Tre University</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Strong foundation in <strong>Computer Science Fundamentals</strong></li>
+                            <li>Core studies: Data Structures, Algorithms, Operating Systems, Computer Networks</li>
+                            <li>Programming: C, Java, Python, Object-Oriented Design</li>
+                            <li>Mathematics: Calculus, Linear Algebra, Discrete Mathematics, Probability</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2011 - 2016</div>
+                    <div class="timeline-title">Scientific High School Diploma</div>
+                    <div class="timeline-company">Istituto di Istruzione Secondaria "Via Copernico", Pomezia</div>
+                    <div class="timeline-description">
+                        Scientific curriculum with focus on mathematics and physics
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section class="section" id="certifications">
+            <h2 class="section-title">&#127942; Certifications & Badges</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">Microsoft Cybersecurity Architect</div>
+                    <div class="project-description">
+                        Expert-level certification validating skills in designing and implementing cybersecurity solutions using Microsoft technologies
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Microsoft</span>
+                        <span class="tag">Security</span>
+                        <span class="tag">Certification</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Kusto Detective Agency</div>
+                    <div class="project-description">
+                        Completed detective cases demonstrating advanced Kusto Query Language (KQL) skills for data analysis and threat hunting
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">KQL</span>
+                        <span class="tag">Azure</span>
+                        <span class="tag">Badge</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Value Acceleration IP Contributor - Platinum</div>
+                    <div class="project-description">
+                        Platinum-level recognition for significant contributions to intellectual property that accelerates customer value
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Microsoft</span>
+                        <span class="tag">Platinum</span>
+                        <span class="tag">Badge</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section" id="projects">
+            <h2 class="section-title">&#128640; Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">Security Copilot Countdown Calendar 2025</div>
+                    <div class="project-description">
+                        A daily journey of innovation spotlighting Microsoft Security Copilot with custom plugins, tips & tricks, prompt suggestions, automations, and real-world use cases.
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Security Copilot</span>
+                        <span class="tag">AI</span>
+                        <span class="tag">Community</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Sentinel Transition To Defender Helper Script</div>
+                    <div class="project-description">
+                        Helper script to assist Microsoft Sentinel customers in adopting Sentinel in Defender portal, handling retention, Analytics Rules, and Automation Rules.
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Sentinel</span>
+                        <span class="tag">Defender</span>
+                        <span class="tag">PowerShell</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">TIMEBOOM - Microsoft Imagine Cup 2018</div>
+                    <div class="project-description">
+                        Educational startup combining mobile & IoT for learning through play. Exhibited at Maker Faire Rome 2018.
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">IoT</span>
+                        <span class="tag">Mobile</span>
+                        <span class="tag">Education</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section class="section" id="interests">
+            <h2 class="section-title">🎯 Interests</h2>
+            <div class="interests-grid">
+                <div class="interest-item">🔐 Cybersecurity</div>
+                <div class="interest-item">🤖 Artificial Intelligence</div>
+                <div class="interest-item">☁️ Cloud Computing</div>
+                <div class="interest-item">🎮 Game Development</div>
+                <div class="interest-item">📖 Technical Writing</div>
+                <div class="interest-item">🎓 Education & Mentoring</div>
+                <div class="interest-item">💡 Innovation</div>
+                <div class="interest-item">🌐 Community Building</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 Mario Cuomo. All rights reserved.</p>
+            <p>Last updated: January 2026</p>
+        </footer>
+    </div>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Project Title</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody">
+                Project details will appear here...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const btn = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark-theme')) {
+                btn.textContent = '☀️ Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.querySelector('.theme-toggle').textContent = '☀️ Light Mode';
+        }
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Animate skill bars on scroll
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.id === 'skills') {
+                        animateSkillBars();
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick')?.includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Project Modal
+        const projectDetails = {
+            'Security Copilot Countdown': {
+                description: 'A daily journey of innovation and insight with the Security Copilot Countdown Calendar! Each day, a new post spotlights Security Copilot – Microsoft\'s AI-powered security assistant.',
+                features: [
+                    'Custom Plugins: Extend Security Copilot capabilities with tailored plugins',
+                    'Tips & Tricks: Practical advice to enhance productivity and security posture',
+                    'Prompt Suggestions: Creative ideas to unlock AI-driven security potential',
+                    'Automations: Streamline security operations with automation',
+                    'Use Cases: Real-world scenarios demonstrating Security Copilot in action',
+                    'Built-in Capabilities: Deep dives into unique features'
+                ],
+                link: 'https://www.linkedin.com/in/mariocuomo'
+            },
+            'Sentinel Transition Helper': {
+                description: 'Helper script to assist Sentinel customers in adopting Sentinel in Defender portal. Starting July 2026, Microsoft Sentinel will be supported in the Defender portal only.',
+                features: [
+                    'Automated transition assistance',
+                    'Retention of Defender XDR data handling',
+                    'Analytics Rules migration support',
+                    'Automation Rules preservation',
+                    'Unified SIEM and XDR experience preparation',
+                    'Smooth transition to Defender portal'
+                ],
+                link: 'https://github.com/mariocuomo'
+            },
+            'TIMEBOOM': {
+                description: 'Educational startup developed for Microsoft Imagine Cup 2018, combining mobile and IoT technologies for learning through play.',
+                features: [
+                    'Mobile application for educational gaming',
+                    'IoT integration for interactive learning',
+                    'Exhibited at Maker Faire Rome 2018',
+                    'Learn while playing concept',
+                    'Innovative educational approach',
+                    'Startup development experience'
+                ],
+                link: 'https://mariocuomo.github.io'
+            },
+            'SpacePotato': {
+                description: 'Mobile application developed for NASA Space Apps Challenge 2018 with Team Little Italy, teaching children about space and Earth through gaming.',
+                features: [
+                    'Educational gaming for children',
+                    'Space and Earth exploration topics',
+                    'NASA Space Apps Challenge 2018 entry',
+                    'Team Little Italy collaboration',
+                    'Interactive learning experience',
+                    'Universe secrets discovery'
+                ],
+                link: 'https://mariocuomo.github.io'
+            },
+            'Sorting Algorithms': {
+                description: 'A comprehensive educational guide on fundamental sorting algorithms.',
+                features: [
+                    'Bubble Sort implementation and analysis',
+                    'Selection Sort with pseudocode',
+                    'Insertion Sort optimization techniques',
+                    'Time and space complexity comparisons',
+                    'Complete C language implementations',
+                    'Step-by-step visual explanations'
+                ],
+                link: 'https://mariocuomo.github.io'
+            },
+            'Unity Tutorial': {
+                description: 'Step-by-step tutorial for creating your first video game in Unity.',
+                features: [
+                    'Unity interface and navigation',
+                    'Game object manipulation',
+                    'Scripting basics with C#',
+                    'Physics and collision detection',
+                    'UI design and implementation',
+                    'Build and deployment'
+                ],
+                link: 'https://mariocuomo.github.io'
+            },
+            'Unity Cloud': {
+                description: 'Guide on transitioning Unity projects to cloud-based solutions.',
+                features: [
+                    'Local project setup',
+                    'Cloud services integration',
+                    'Multiplayer networking basics',
+                    'Cloud build configuration',
+                    'Collaboration features',
+                    'Best practices for cloud gaming'
+                ],
+                link: 'https://mariocuomo.github.io'
+            },
+            'Cryptography': {
+                description: 'Accessible introduction to famous cryptographic algorithms.',
+                features: [
+                    'Caesar cipher and variations',
+                    'Symmetric encryption methods',
+                    'Asymmetric cryptography basics',
+                    'Hash functions explained',
+                    'Real-world applications',
+                    'Security considerations'
+                ],
+                link: 'https://mariocuomo.github.io'
+            },
+            'AI Thinking': {
+                description: 'Philosophical and technical exploration of machine intelligence.',
+                features: [
+                    'Turing Test and its implications',
+                    'History of AI development',
+                    'Machine learning fundamentals',
+                    'Consciousness and computation',
+                    'Ethical considerations',
+                    'Future of AI'
+                ],
+                link: 'https://mariocuomo.github.io'
+            }
+        };
+
+        function openProjectModal(projectName) {
+            const modal = document.getElementById('projectModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            const project = projectDetails[projectName];
+            title.textContent = projectName;
+            
+            let featuresHTML = '<ul>';
+            project.features.forEach(feature => {
+                featuresHTML += `<li>${feature}</li>`;
+            });
+            featuresHTML += '</ul>';
+            
+            body.innerHTML = `
+                <p style="margin-bottom: 1rem;">${project.description}</p>
+                <h4 style="margin-bottom: 0.5rem;">Key Features:</h4>
+                ${featuresHTML}
+                <p style="margin-top: 1rem;">
+                    <a href="${project.link}" target="_blank" style="color: var(--primary-color);">
+                        View on GitHub →
+                    </a>
+                </p>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('projectModal').addEventListener('click', (e) => {
+            if (e.target.id === 'projectModal') {
+                closeModal();
+            }
+        });
+
+        // Make elements editable
+        function makeEditable(element) {
+            if (element.contentEditable === 'true') {
+                element.contentEditable = 'false';
+                element.style.outline = 'none';
+            } else {
+                element.contentEditable = 'true';
+                element.focus();
+                
+                // Save on blur
+                element.addEventListener('blur', function() {
+                    this.contentEditable = 'false';
+                    this.style.outline = 'none';
+                    // Here you could save to localStorage
+                    saveResumeData();
+                }, { once: true });
+            }
+        }
+
+        // Save resume data to localStorage
+        function saveResumeData() {
+            const data = {
+                name: document.querySelector('.hero h1').textContent,
+                title: document.querySelector('.hero .title').textContent,
+                tagline: document.querySelector('.hero .tagline').textContent
+            };
+            localStorage.setItem('resumeData', JSON.stringify(data));
+        }
+
+        // Load resume data from localStorage
+        function loadResumeData() {
+            const data = localStorage.getItem('resumeData');
+            if (data) {
+                const parsed = JSON.parse(data);
+                document.querySelector('.hero h1').textContent = parsed.name;
+                document.querySelector('.hero .title').textContent = parsed.title;
+                document.querySelector('.hero .tagline').textContent = parsed.tagline;
+            }
+        }
+
+        // Download as PDF (using browser print)
+        function downloadPDF() {
+            alert('To save as PDF:\n\n1. Press Ctrl+P (or Cmd+P on Mac)\n2. Select "Save as PDF" as the destination\n3. Click Save\n\nTip: For best results, use Chrome or Edge browser.');
+            window.print();
+        }
+
+        // Toggle more experience
+        function toggleMoreExperience() {
+            const moreExp = document.getElementById('moreExperience');
+            const btn = document.getElementById('expandExperienceBtn');
+            if (moreExp.style.display === 'none') {
+                moreExp.style.display = 'block';
+                btn.textContent = '➖ Show Less Experience';
+            } else {
+                moreExp.style.display = 'none';
+                btn.textContent = '➕ Show More Experience';
+            }
+        }
+
+        // Initialize
+        loadResumeData();
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Escape to close modal
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            // Ctrl+D to toggle dark mode
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        // Hide loader after page loads
+        window.addEventListener('load', () => {
+            // Create matrix rain effect
+            const matrixRain = document.getElementById('matrixRain');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            for (let i = 0; i < 30; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = (i * 3.5) + '%';
+                column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                column.style.animationDelay = (Math.random() * 2) + 's';
+                
+                let text = '';
+                for (let j = 0; j < 30; j++) {
+                    text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                }
+                column.innerHTML = text;
+                matrixRain.appendChild(column);
+            }
+
+            // Wait for Enter key to dismiss loader
+            function dismissLoader() {
+                const loader = document.getElementById('loader');
+                loader.classList.add('fade-out');
+                document.querySelector('.nav').classList.add('page-content');
+                document.querySelector('.container').classList.add('page-content');
+                // Remove event listeners after dismissing
+                document.removeEventListener('keydown', handleKeyPress);
+                document.removeEventListener('click', handleClick);
+            }
+
+            function handleKeyPress(e) {
+                if (e.key === 'Enter') {
+                    dismissLoader();
+                }
+            }
+
+            function handleClick(e) {
+                // Also allow click to enter (for mobile)
+                if (document.getElementById('loader').contains(e.target)) {
+                    dismissLoader();
+                }
+            }
+
+            // Add event listeners after a short delay (let animations play)
+            setTimeout(() => {
+                document.addEventListener('keydown', handleKeyPress);
+                document.addEventListener('click', handleClick);
+            }, 2500);
+        });
+
+        // Add print styles dynamically
+        const printStyles = document.createElement('style');
+        printStyles.textContent = `
+            @media print {
+                .nav, .theme-toggle, .download-section, .modal { display: none !important; }
+                .section { opacity: 1 !important; transform: none !important; }
+                body { background: white !important; }
+                .hero { background: #2563eb !important; -webkit-print-color-adjust: exact; }
+            }
+        `;
+        document.head.appendChild(printStyles);
+    </script>
+</body>
 </html>
+
