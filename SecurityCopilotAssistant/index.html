@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Copilot Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">Security Copilot Assistant</span>
+            </div>
+            <nav class="nav">
+                <a href="#home">Home</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#deploy">Deploy</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Security Copilot Assistant</h1>
+                <p class="hero-subtitle">Custom Plugins & Automations for Microsoft Security</p>
+                <p class="hero-description">
+                    Enhance your Security Copilot experience with powerful integrations 
+                    for Microsoft Sentinel, Defender XDR, and other Microsoft Security products.
+                    Automate your security workflows and accelerate incident response.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#use-cases" class="btn btn-primary">Explore Use Cases</a>
+                    <a href="https://github.com" class="btn btn-secondary" target="_blank">View on GitHub</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="visual-icon">🤖</div>
+                    <div class="visual-text">AI-Powered Security</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="features">
+        <div class="container">
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3>Automated Workflows</h3>
+                <p>Logic Apps & Playbooks ready to deploy</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔗</div>
+                <h3>Seamless Integration</h3>
+                <p>Works with Microsoft Security stack</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📦</div>
+                <h3>One-Click Deploy</h3>
+                <p>ARM templates for instant setup</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <h3>Enterprise Ready</h3>
+                <p>Built for production environments</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="use-cases" class="use-cases">
+        <div class="container">
+            <h2 class="section-title">Use Cases</h2>
+            <p class="section-subtitle">Choose the solution that fits your security needs</p>
+            
+            <div class="cards-grid">
+                <!-- Entity Enrichment Card -->
+                <div class="card" onclick="window.location.href='entity-enrichment.html'">
+                    <div class="card-icon">🔍</div>
+                    <h3 class="card-title">Entity Enrichment</h3>
+                    <p class="card-description">
+                        Automatically enrich security entities (IPs, domains, users, files) 
+                        with threat intelligence and contextual data from Security Copilot.
+                        Get comprehensive entity profiles in seconds.
+                    </p>
+                    <ul class="card-features">
+                        <li>✓ IP & Domain reputation</li>
+                        <li>✓ User risk assessment</li>
+                        <li>✓ File hash analysis</li>
+                        <li>✓ Cross-source correlation</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="entity-enrichment.html" class="card-link">Learn More →</a>
+                    </div>
+                </div>
+
+                <!-- Scheduled Summary Card -->
+                <div class="card" onclick="window.location.href='scheduled-summary.html'">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Scheduled Summary</h3>
+                    <p class="card-description">
+                        Generate automated security summaries on a schedule. 
+                        Get daily, weekly, or custom reports delivered to your team 
+                        with AI-powered insights and recommendations.
+                    </p>
+                    <ul class="card-features">
+                        <li>✓ Daily security digest</li>
+                        <li>✓ Weekly trend analysis</li>
+                        <li>✓ Executive summaries</li>
+                        <li>✓ Email & Teams delivery</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="scheduled-summary.html" class="card-link">Learn More →</a>
+                    </div>
+                </div>
+
+                <!-- Incident Summary Card -->
+                <div class="card" onclick="window.location.href='incident-summary.html'">
+                    <div class="card-icon">🚨</div>
+                    <h3 class="card-title">Incident Summary & Auto-Triage</h3>
+                    <p class="card-description">
+                        Automatically analyze and triage security incidents using 
+                        Security Copilot. Get instant summaries, severity assessments, 
+                        and recommended response actions.
+                    </p>
+                    <ul class="card-features">
+                        <li>✓ Automatic incident analysis</li>
+                        <li>✓ Severity classification</li>
+                        <li>✓ Response recommendations</li>
+                        <li>✓ Sentinel integration</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="incident-summary.html" class="card-link">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="architecture-flow">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Deploy ARM Template</h4>
+                        <p>One-click deployment to your Azure subscription</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Configure Connections</h4>
+                        <p>Connect to Security Copilot & Microsoft Security</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Automate & Scale</h4>
+                        <p>Let the automation handle your security workflows</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deploy Section -->
+    <section id="deploy" class="deploy">
+        <div class="container">
+            <h2 class="section-title">Ready to Get Started?</h2>
+            <p class="section-subtitle">Deploy Security Copilot Assistant to your Azure environment</p>
+            <div class="deploy-buttons">
+                <a href="entity-enrichment.html" class="deploy-card">
+                    <span class="deploy-icon">🔍</span>
+                    <span class="deploy-text">Deploy Entity Enrichment</span>
+                </a>
+                <a href="scheduled-summary.html" class="deploy-card">
+                    <span class="deploy-icon">📊</span>
+                    <span class="deploy-text">Deploy Scheduled Summary</span>
+                </a>
+                <a href="incident-summary.html" class="deploy-card">
+                    <span class="deploy-icon">🚨</span>
+                    <span class="deploy-text">Deploy Incident Triage</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">Security Copilot Assistant</span>
+                </div>
+                <p class="footer-text">
+                    Custom plugins & automations for Microsoft Security Copilot
+                </p>
+                <div class="footer-links">
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                    <a href="https://learn.microsoft.com/security-copilot" target="_blank">Documentation</a>
+                    <a href="https://techcommunity.microsoft.com" target="_blank">Community</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Security Copilot Assistant. Built with ❤️ for the Security Community.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

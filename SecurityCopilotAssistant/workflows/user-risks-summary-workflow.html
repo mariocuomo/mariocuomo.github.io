@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Risks Summary - Workflow Details | Security Copilot Assistant</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="workflow-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">Security Copilot Assistant</span>
+            </div>
+            <nav class="nav">
+                <a href="../index.html">Home</a>
+                <a href="../scheduled-summary.html">Scheduled Summary</a>
+                <a href="../index.html#deploy">Deploy</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-icon">👤</div>
+            <h1>User Risks Summary</h1>
+            <p>Automated weekly analysis of risky users with AI-powered investigation workflow</p>
+        </div>
+    </section>
+
+    <!-- Workflow Content -->
+    <section class="workflow-section">
+        <div class="container">
+            <a href="../scheduled-summary.html" class="back-link">← Back to Scheduled Summary</a>
+
+            <!-- Workflow Overview -->
+            <div class="workflow-overview">
+                <h2>🎯 Workflow Overview</h2>
+                <p>
+                    This Logic App runs <strong>every 7 days</strong> to perform an Entra User Risk Assessment. 
+                    It queries Microsoft Sentinel for risk data, then uses Security Copilot to generate an 
+                    executive summary report in HTML format.
+                </p>
+            </div>
+
+            <!-- Visual Flowchart -->
+            <details class="collapsible-section">
+                <summary class="section-header">
+                    <span class="section-icon">📋</span>
+                    <span class="section-title">Logic App Flow</span>
+                    <span class="toggle-icon">▶</span>
+                </summary>
+                <div class="section-content">
+                    <div class="flowchart">
+                        
+                        <!-- Trigger -->
+                        <div class="flowchart-row">
+                            <div class="flowchart-node node-trigger">
+                                <div class="node-icon">⏰</div>
+                                <div class="node-content">
+                                    <h4>Recurrence</h4>
+                                    <p>Every 7 days</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flowchart-arrow">↓</div>
+                        
+                        <!-- Count By Risk State -->
+                        <div class="flowchart-row">
+                            <div class="flowchart-node node-copilot">
+                                <div class="node-icon">🤖</div>
+                                <div class="node-content">
+                                    <h4>Count By Risk State</h4>
+                                    <p>Security Copilot + Plugin</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flowchart-arrow">↓</div>
+                        
+                        <!-- Count By Risk Level -->
+                        <div class="flowchart-row">
+                            <div class="flowchart-node node-copilot">
+                                <div class="node-icon">🤖</div>
+                                <div class="node-content">
+                                    <h4>Count By Risk Level</h4>
+                                    <p>Security Copilot + Plugin</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flowchart-arrow">↓</div>
+                        
+                        <!-- Risky User with Sign-in Evidence -->
+                        <div class="flowchart-row">
+                            <div class="flowchart-node node-copilot">
+                                <div class="node-icon">🤖</div>
+                                <div class="node-content">
+                                    <h4>Risky User with Sign-in Evidence</h4>
+                                    <p>Security Copilot + Plugin</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flowchart-arrow">↓</div>
+                        
+                        <!-- Summary Report -->
+                        <div class="flowchart-row">
+                            <div class="flowchart-node node-copilot">
+                                <div class="node-icon">🤖</div>
+                                <div class="node-content">
+                                    <h4>Summary Report</h4>
+                                    <p>Security Copilot Prompt</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flowchart-arrow">↓</div>
+                        
+                        <!-- Convert to HTML -->
+                        <div class="flowchart-row">
+                            <div class="flowchart-node node-copilot">
+                                <div class="node-icon">🤖</div>
+                                <div class="node-content">
+                                    <h4>Convert to HTML</h4>
+                                    <p>Security Copilot Prompt</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flowchart-arrow">↓</div>
+                        
+                        <!-- Delivery -->
+                        <div class="flowchart-row">
+                            <div class="flowchart-node node-output">
+                                <div class="node-icon">📧</div>
+                                <div class="node-content">
+                                    <h4>Send report via email</h4>
+                                    <p>Office 365</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- Legend -->
+                    <div class="flowchart-legend">
+                        <div class="legend-item">
+                            <span class="legend-color legend-copilot"></span>
+                            <span>Security Copilot</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color legend-output"></span>
+                            <span>Office 365</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- KQL Queries Section -->
+            <details class="collapsible-section">
+                <summary class="section-header">
+                    <span class="section-icon">📊</span>
+                    <span class="section-title">Sentinel KQL Queries</span>
+                    <span class="toggle-icon">▶</span>
+                </summary>
+                <div class="section-content">
+                    <div class="query-card">
+                        <div class="query-header">
+                            <h4>Count By Risk State</h4>
+                            <span class="query-badge">AADRiskyUsers</span>
+                        </div>
+                        <div class="query-code">
+                            <pre><code>AADRiskyUsers
+| summarize arg_max(TimeGenerated, *) by UserPrincipalName
+| summarize count() by RiskState</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="query-card">
+                        <div class="query-header">
+                            <h4>Count By Risk Level</h4>
+                            <span class="query-badge">AADRiskyUsers</span>
+                        </div>
+                        <div class="query-code">
+                            <pre><code>AADRiskyUsers
+| where RiskState == "atRisk"
+| summarize arg_max(TimeGenerated, *) by UserPrincipalName
+| summarize count() by RiskLevel</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="query-card">
+                        <div class="query-header">
+                            <h4>Risky User with Sign-in Evidence</h4>
+                            <span class="query-badge">AADRiskyUsers + AADUserRiskEvents</span>
+                        </div>
+                        <div class="query-code">
+                            <pre><code>AADRiskyUsers
+| where RiskState == "atRisk"
+| summarize arg_max(TimeGenerated, *) by UserPrincipalName
+| project UserPrincipalName, RiskLevel
+| join kind=leftouter (
+    AADUserRiskEvents
+    | where RiskState == "atRisk"
+    | where Activity == "signin"
+    | summarize arg_max(TimeGenerated, *) by UserPrincipalName
+    | extend RiskReasons = iff(AdditionalInfo[0].Key == "riskReasons", 
+                               AdditionalInfo[0].Value, RiskEventType) 
+    | project UserPrincipalName, RiskReasons, IpAddress
+) on UserPrincipalName
+| project UserPrincipalName, RiskLevel, RiskReasons, IpAddress</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Security Copilot Section -->
+            <details class="collapsible-section">
+                <summary class="section-header">
+                    <span class="section-icon">🤖</span>
+                    <span class="section-title">Security Copilot Prompts</span>
+                    <span class="toggle-icon">▶</span>
+                </summary>
+                <div class="section-content">
+                    <div class="prompt-card">
+                        <div class="prompt-header">
+                            <h4>Summary Report</h4>
+                        </div>
+                        <div class="prompt-content">
+                            <p>
+                                Summarize the findings from this analysis into an executive report. Begin with a general 
+                                overview. Include confidence and supporting evidence for the assessment. Below that, 
+                                generate paragraph sections for a "Risk State distribution", "Risk Level distribution", 
+                                and "Risky User with Sign-in risky evidence". It should be suitable for a less technical audience.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="prompt-card">
+                        <div class="prompt-header">
+                            <h4>Convert to HTML</h4>
+                        </div>
+                        <div class="prompt-content">
+                            <p>
+                                Convert the summary report into a well-formatted HTML email template with proper 
+                                styling, headers, and sections ready for delivery.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Prerequisites -->
+            <div class="workflow-prerequisites">
+                <h2>📋 Prerequisites</h2>
+                <div class="prereq-columns">
+                    <div class="prereq-column">
+                        <h4>Required Plugin</h4>
+                        <div class="plugins-list">
+                            <a href="../plugins/WeeklyUserAssessmentPlugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">WeeklyUserAssessmentPlugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="prereq-column">
+                        <h4>Data Connectors</h4>
+                        <ul class="connector-list">
+                            <li>✓ Microsoft Entra ID</li>
+                            <li>✓ Entra ID Protection</li>
+                        </ul>
+                    </div>
+                    <div class="prereq-column">
+                        <h4>Configuration</h4>
+                        <ul class="permission-list">
+                            <li>✓ TenantId</li>
+                            <li>✓ SubscriptionId</li>
+                            <li>✓ ResourceGroupName</li>
+                            <li>✓ WorkspaceName</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deploy Section -->
+            <div class="workflow-deploy">
+                <h2>🚀 Deploy This Workflow</h2>
+                <div class="deploy-content">
+                    <p>Deploy the User Risks Summary Logic App to your Azure subscription</p>
+                    <div class="deploy-actions">
+                        <a href="../logicapps/WeeklyUserAssessment/azuredeploy.json" target="_blank" class="btn-github-large">
+                            📂 View ARM Template
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fmain%2Flogicapps%2FWeeklyUserAssessment%2Fazuredeploy.json" target="_blank" class="btn-deploy-large">
+                            🚀 Deploy to Azure
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">Security Copilot Assistant</span>
+                </div>
+                <p class="footer-text">
+                    Custom plugins & automations for Microsoft Security Copilot
+                </p>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Security Copilot Assistant. Built with ❤️ for the Security Community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block').querySelector('code');
+            navigator.clipboard.writeText(codeBlock.textContent);
+            button.textContent = '✓ Copied!';
+            setTimeout(() => button.textContent = '📋 Copy', 2000);
+        }
+    </script>
+</body>
+</html>

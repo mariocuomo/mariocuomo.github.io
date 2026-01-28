@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Summary & Auto-Triage - Security Copilot Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">Security Copilot Assistant</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#use-cases">Use Cases</a>
+                <a href="index.html#deploy">Deploy</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-icon">🚨</div>
+            <h1>Incident Summary & Auto-Triage</h1>
+            <p>Automatically analyze, summarize, and triage security incidents with AI-powered investigation</p>
+        </div>
+    </section>
+
+    <!-- Detail Content -->
+    <section class="detail-section">
+        <div class="container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <div class="overview-section">
+                <h2>Overview</h2>
+                <p>
+                    The Incident Summary & Auto-Triage solution automatically processes new security incidents 
+                    from Microsoft Sentinel, leveraging Security Copilot to provide instant AI-powered analysis. 
+                    Reduce analyst workload by getting comprehensive incident summaries and triage recommendations 
+                    within seconds of incident creation.
+                </p>
+                <p>
+                    This solution includes <strong>5 specialized Logic Apps</strong>, each handling a different 
+                    aspect of incident analysis. Deploy them individually or together for a complete automated 
+                    incident response workflow.
+                </p>
+            </div>
+
+            <!-- Deploy All Section -->
+            <div class="deploy-all-section">
+                <div class="deploy-all-card">
+                    <div class="deploy-all-content">
+                        <div class="deploy-all-icon">📦</div>
+                        <div class="deploy-all-text">
+                            <h3>Deploy All Logic Apps</h3>
+                            <p>Deploy all 5 Incident Triage Logic Apps to your Azure subscription with a single click</p>
+                        </div>
+                    </div>
+                    <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fincident-triage%2Fmain%2Fazuredeploy-all.json" class="btn-deploy-all" target="_blank">
+                        🚀 Deploy All to Azure
+                    </a>
+                </div>
+            </div>
+
+            <h2 class="solutions-title">Available Logic Apps</h2>
+            <p class="solutions-subtitle">Select individual solutions to deploy based on your incident response requirements</p>
+
+            <!-- Logic Apps Grid -->
+            <div class="logic-apps-grid">
+                
+                <!-- Incident Summary -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">📝</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">Incident Summary Generator</h3>
+                    <p class="logic-app-description">
+                        Generates comprehensive natural language summaries for new incidents including scope, 
+                        timeline, affected entities, and attack narrative. Summaries are posted as incident comments.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">AI Summary</span>
+                        <span class="feature-tag">Timeline</span>
+                        <span class="feature-tag">Attack Narrative</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/sentinel-incident-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">sentinel-incident-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/incident-summary-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">incident-summary-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/incident-triage/incident-summary" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fincident-triage%2Fmain%2Fincident-summary%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Auto-Triage Classification -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">🎯</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">Auto-Triage Classification</h3>
+                    <p class="logic-app-description">
+                        Automatically classifies incidents with AI-assessed severity, priority, and categorization. 
+                        Updates incident severity and adds classification tags based on threat analysis.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">Severity Assessment</span>
+                        <span class="feature-tag">Priority Ranking</span>
+                        <span class="feature-tag">Auto-Tagging</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/sentinel-incident-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">sentinel-incident-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/triage-classification-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">triage-classification-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/threat-scoring-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">threat-scoring-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/incident-triage/auto-classification" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fincident-triage%2Fmain%2Fauto-classification%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- MITRE ATT&CK Mapping -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">🗺️</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">MITRE ATT&CK Mapping</h3>
+                    <p class="logic-app-description">
+                        Automatically maps incident alerts and behaviors to MITRE ATT&CK techniques and tactics. 
+                        Provides attack chain visualization and technique-specific mitigation recommendations.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">Technique Mapping</span>
+                        <span class="feature-tag">Attack Chain</span>
+                        <span class="feature-tag">Mitigations</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/mitre-attack-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">mitre-attack-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/attack-chain-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">attack-chain-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/incident-triage/mitre-mapping" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fincident-triage%2Fmain%2Fmitre-mapping%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Response Recommendations -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">🛡️</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">Response Recommendations</h3>
+                    <p class="logic-app-description">
+                        Generates AI-powered response playbooks with step-by-step containment, eradication, and 
+                        recovery actions. Includes investigation queries and evidence collection guidance.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">Containment Steps</span>
+                        <span class="feature-tag">Investigation Queries</span>
+                        <span class="feature-tag">Recovery Plan</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/response-playbook-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">response-playbook-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/kql-generator-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">kql-generator-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/containment-actions-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">containment-actions-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/incident-triage/response-recommendations" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fincident-triage%2Fmain%2Fresponse-recommendations%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Similar Incidents Finder -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">🔍</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">Similar Incidents Finder</h3>
+                    <p class="logic-app-description">
+                        Identifies and links related historical incidents using AI-powered similarity analysis. 
+                        Helps detect attack campaigns and leverage past investigation knowledge.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">Similarity Analysis</span>
+                        <span class="feature-tag">Campaign Detection</span>
+                        <span class="feature-tag">Historical Context</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/incident-similarity-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">incident-similarity-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/campaign-detection-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">campaign-detection-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/incident-triage/similar-incidents" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fincident-triage%2Fmain%2Fsimilar-incidents%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Common Prerequisites -->
+            <div class="common-prerequisites">
+                <h2>Common Prerequisites</h2>
+                <p>All Logic Apps in this solution require the following:</p>
+                <div class="prereq-grid">
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">☁️</span>
+                        <h4>Azure Subscription</h4>
+                        <p>Active Azure subscription with Contributor role</p>
+                    </div>
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">🤖</span>
+                        <h4>Security Copilot</h4>
+                        <p>Valid Security Copilot license and capacity</p>
+                    </div>
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">🔍</span>
+                        <h4>Microsoft Sentinel</h4>
+                        <p>Sentinel workspace with automation rules enabled</p>
+                    </div>
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">🛡️</span>
+                        <h4>Sentinel Responder</h4>
+                        <p>Microsoft Sentinel Responder role for incident updates</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">Security Copilot Assistant</span>
+                </div>
+                <p class="footer-text">
+                    Custom plugins & automations for Microsoft Security Copilot
+                </p>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Security Copilot Assistant. Built with ❤️ for the Security Community.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

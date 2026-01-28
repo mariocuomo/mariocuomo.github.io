@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduled Summary - Security Copilot Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">Security Copilot Assistant</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#use-cases">Use Cases</a>
+                <a href="index.html#deploy">Deploy</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-icon">📊</div>
+            <h1>Scheduled Summary</h1>
+            <p>Generate automated security summaries and reports with AI-powered insights delivered on your schedule</p>
+        </div>
+    </section>
+
+    <!-- Detail Content -->
+    <section class="detail-section">
+        <div class="container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <div class="overview-section">
+                <h2>Overview</h2>
+                <p>
+                    The Scheduled Summary solution provides automated, AI-generated security reports delivered 
+                    to your team on a configurable schedule. Security Copilot analyzes your security posture, 
+                    recent incidents, and threat landscape to produce comprehensive, actionable summaries.
+                </p>
+                <p>
+                    This solution includes <strong>5 specialized Logic Apps</strong>, each focused on a specific 
+                    security domain. Deploy them individually based on your needs, or deploy all at once for 
+                    comprehensive coverage.
+                </p>
+            </div>
+
+            <!-- Deploy All Section -->
+            <div class="deploy-all-section">
+                <div class="deploy-all-card">
+                    <div class="deploy-all-content">
+                        <div class="deploy-all-icon">📦</div>
+                        <div class="deploy-all-text">
+                            <h3>Deploy All Logic Apps</h3>
+                            <p>Deploy all 5 Scheduled Summary Logic Apps to your Azure subscription with a single click</p>
+                        </div>
+                    </div>
+                    <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fscheduled-summary%2Fmain%2Fazuredeploy-all.json" class="btn-deploy-all" target="_blank">
+                        🚀 Deploy All to Azure
+                    </a>
+                </div>
+            </div>
+
+            <h2 class="solutions-title">Available Logic Apps</h2>
+            <p class="solutions-subtitle">Select individual solutions to deploy based on your requirements</p>
+
+            <!-- Logic Apps Grid -->
+            <div class="logic-apps-grid">
+                
+                <!-- SOC Efficiency -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">⚡</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">SOC Efficiency Summary</h3>
+                    <p class="logic-app-description">
+                        Generates daily reports on SOC team performance including mean time to respond (MTTR), 
+                        mean time to resolve, incident backlog, analyst workload distribution, and efficiency trends.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">MTTR Metrics</span>
+                        <span class="feature-tag">Analyst Workload</span>
+                        <span class="feature-tag">Backlog Analysis</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>� Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/soc-metrics-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">soc-metrics-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/sentinel-analytics-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">sentinel-analytics-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/scheduled-summary/soc-efficiency" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fscheduled-summary%2Fmain%2Fsoc-efficiency%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- User Risks -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">👤</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">User Risks Summary</h3>
+                    <p class="logic-app-description">
+                        Weekly analysis of risky user behaviors, compromised accounts, impossible travel detections, 
+                        and identity-based threats. Highlights users requiring immediate attention.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">Risky Users</span>
+                        <span class="feature-tag">Sign-in Anomalies</span>
+                        <span class="feature-tag">Identity Threats</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/entra-risk-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">entra-risk-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/identity-protection-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">identity-protection-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/signin-logs-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">signin-logs-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="workflows/user-risks-summary-workflow.html" class="btn-workflow">
+                            <span>📋</span> View Workflow
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fscheduled-summary%2Fmain%2Fuser-risks%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Threat Intelligence -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">🎯</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">Threat Intelligence Summary</h3>
+                    <p class="logic-app-description">
+                        Daily digest of threat intelligence relevant to your environment. Includes new IOCs detected, 
+                        threat actor activity, and emerging attack campaigns targeting your industry.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">IOC Matches</span>
+                        <span class="feature-tag">Threat Actors</span>
+                        <span class="feature-tag">Campaign Tracking</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/threat-intel-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">threat-intel-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/mdti-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">mdti-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/scheduled-summary/threat-intelligence" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fscheduled-summary%2Fmain%2Fthreat-intelligence%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Endpoint Security -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">💻</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">Endpoint Security Summary</h3>
+                    <p class="logic-app-description">
+                        Daily overview of endpoint health and security posture. Covers malware detections, 
+                        vulnerable devices, patch compliance status, and Defender for Endpoint alerts.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">Malware Detections</span>
+                        <span class="feature-tag">Patch Status</span>
+                        <span class="feature-tag">Device Health</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/mde-devices-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">mde-devices-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/mde-alerts-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">mde-alerts-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/vulnerability-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">vulnerability-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/scheduled-summary/endpoint-security" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fscheduled-summary%2Fmain%2Fendpoint-security%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cloud Security -->
+                <div class="logic-app-card">
+                    <div class="logic-app-header">
+                        <div class="logic-app-icon">☁️</div>
+                        <div class="logic-app-badge">Logic App</div>
+                    </div>
+                    <h3 class="logic-app-title">Cloud Security Posture Summary</h3>
+                    <p class="logic-app-description">
+                        Weekly cloud security posture report covering Azure, AWS, and GCP. Includes secure score trends, 
+                        misconfigurations, compliance violations, and Defender for Cloud recommendations.
+                    </p>
+                    <div class="logic-app-features">
+                        <span class="feature-tag">Secure Score</span>
+                        <span class="feature-tag">Misconfigurations</span>
+                        <span class="feature-tag">Compliance</span>
+                    </div>
+                    
+                    <div class="logic-app-prerequisites">
+                        <h4>🔌 Required Plugins</h4>
+                        <div class="plugins-list">
+                            <a href="https://github.com/your-repo/plugins/defender-cloud-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">defender-cloud-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/your-repo/plugins/secure-score-plugin.yaml" target="_blank" class="plugin-link">
+                                <span class="plugin-icon">📄</span>
+                                <span class="plugin-name">secure-score-plugin.yaml</span>
+                                <span class="plugin-arrow">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="logic-app-actions">
+                        <a href="https://github.com/your-repo/scheduled-summary/cloud-security" target="_blank" class="btn-github">
+                            <span>📂</span> View on GitHub
+                        </a>
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fscheduled-summary%2Fmain%2Fcloud-security%2Fazuredeploy.json" target="_blank" class="btn-deploy-single">
+                            🚀 Deploy
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Common Prerequisites -->
+            <div class="common-prerequisites">
+                <h2>Common Prerequisites</h2>
+                <p>All Logic Apps in this solution require the following:</p>
+                <div class="prereq-grid">
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">☁️</span>
+                        <h4>Azure Subscription</h4>
+                        <p>Active Azure subscription with Contributor role</p>
+                    </div>
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">🤖</span>
+                        <h4>Security Copilot</h4>
+                        <p>Valid Security Copilot license and capacity</p>
+                    </div>
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">📧</span>
+                        <h4>Office 365</h4>
+                        <p>For email and Teams delivery options</p>
+                    </div>
+                    <div class="prereq-card">
+                        <span class="prereq-card-icon">🔐</span>
+                        <h4>Managed Identity</h4>
+                        <p>System-assigned managed identity with proper permissions</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">Security Copilot Assistant</span>
+                </div>
+                <p class="footer-text">
+                    Custom plugins & automations for Microsoft Security Copilot
+                </p>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Security Copilot Assistant. Built with ❤️ for the Security Community.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

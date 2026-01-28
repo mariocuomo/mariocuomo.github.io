@@ -1,0 +1,503 @@
+/* Workflow Page Specific Styles */
+
+.workflow-section {
+    padding: 40px 0 80px;
+}
+
+.workflow-overview {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.workflow-overview h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+}
+
+.workflow-overview > p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.collapsible-section[open] {
+    border-color: var(--primary-color);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 25px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s ease;
+    list-style: none;
+}
+
+.section-header::-webkit-details-marker {
+    display: none;
+}
+
+.section-header:hover {
+    background: rgba(0, 120, 212, 0.1);
+}
+
+.section-icon {
+    font-size: 1.5rem;
+}
+
+.section-title {
+    flex: 1;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.toggle-icon {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+}
+
+.collapsible-section[open] .toggle-icon {
+    transform: rotate(90deg);
+}
+
+.section-content {
+    padding: 0 25px 25px 25px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Flowchart Styles */
+.flowchart-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.flowchart-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.section-content .flowchart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 25px;
+}
+
+.flowchart-row {
+    display: flex;
+    justify-content: center;
+}
+
+.flowchart-row-multi {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flowchart-arrow {
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    padding: 5px 0;
+}
+
+.flowchart-node {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 25px 35px;
+    border-radius: 14px;
+    min-width: 280px;
+    max-width: 320px;
+    transition: transform 0.2s ease;
+}
+
+.flowchart-node:hover {
+    transform: translateY(-3px);
+}
+
+.node-trigger {
+    background: rgba(255, 185, 0, 0.15);
+    border: 2px solid rgba(255, 185, 0, 0.4);
+}
+
+.node-sentinel {
+    background: rgba(0, 120, 212, 0.15);
+    border: 2px solid rgba(0, 120, 212, 0.4);
+}
+
+.node-copilot {
+    background: rgba(0, 188, 242, 0.15);
+    border: 2px solid rgba(0, 188, 242, 0.4);
+}
+
+.node-output {
+    background: rgba(16, 124, 16, 0.15);
+    border: 2px solid rgba(16, 124, 16, 0.4);
+}
+
+.node-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.node-content h4 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.node-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* Flowchart Legend */
+.flowchart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.legend-sentinel {
+    background: rgba(0, 120, 212, 0.5);
+    border: 1px solid rgba(0, 120, 212, 0.8);
+}
+
+.legend-copilot {
+    background: rgba(0, 188, 242, 0.5);
+    border: 1px solid rgba(0, 188, 242, 0.8);
+}
+
+.legend-output {
+    background: rgba(16, 124, 16, 0.5);
+    border: 1px solid rgba(16, 124, 16, 0.8);
+}
+
+/* Queries Section */
+.queries-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.queries-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+}
+
+.section-content .query-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.section-content .query-card:first-child {
+    margin-top: 25px;
+}
+
+.query-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 120, 212, 0.1);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.query-header h4 {
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.query-badge {
+    background: rgba(0, 120, 212, 0.2);
+    color: #4da3ff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: 'Consolas', monospace;
+}
+
+.query-code {
+    padding: 15px 20px;
+}
+
+.query-code pre {
+    margin: 0;
+    overflow-x: auto;
+}
+
+.query-code code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85rem;
+    color: #d4d4d4;
+    line-height: 1.5;
+}
+
+/* Copilot Section */
+.copilot-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.copilot-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+}
+
+.section-content .prompt-card {
+    background: linear-gradient(135deg, rgba(0, 188, 242, 0.1) 0%, rgba(98, 100, 167, 0.1) 100%);
+    border: 1px solid rgba(0, 188, 242, 0.3);
+    border-radius: 12px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.section-content .prompt-card:first-child {
+    margin-top: 25px;
+}
+
+.prompt-header {
+    padding: 15px 20px;
+    background: rgba(0, 188, 242, 0.1);
+    border-bottom: 1px solid rgba(0, 188, 242, 0.2);
+}
+
+.prompt-header h4 {
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.prompt-content {
+    padding: 20px;
+}
+
+.prompt-content p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* Prerequisites Section */
+.workflow-prerequisites {
+    background: var(--darker-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.workflow-prerequisites h2 {
+    margin-bottom: 25px;
+    color: var(--text-primary);
+}
+
+.prereq-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.prereq-column h4 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.plugins-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.plugin-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 120, 212, 0.1);
+    border: 1px solid rgba(0, 120, 212, 0.2);
+    border-radius: 6px;
+    padding: 8px 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.plugin-link:hover {
+    background: rgba(0, 120, 212, 0.2);
+    border-color: var(--primary-color);
+}
+
+.plugin-icon {
+    font-size: 0.9rem;
+}
+
+.plugin-name {
+    flex: 1;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.plugin-arrow {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+}
+
+.connector-list,
+.permission-list {
+    list-style: none;
+}
+
+.connector-list li,
+.permission-list li {
+    padding: 10px 0;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.connector-list li:last-child,
+.permission-list li:last-child {
+    border-bottom: none;
+}
+
+/* Deploy Section */
+.workflow-deploy {
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.15) 0%, rgba(98, 100, 167, 0.15) 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+}
+
+.workflow-deploy h2 {
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.deploy-content p {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+}
+
+.deploy-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-github-large {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 16px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-github-large:hover {
+    border-color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-deploy-large {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 16px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-deploy-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 120, 212, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .flowchart-row-multi {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .flowchart-node {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .flowchart-legend {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .deploy-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-github-large,
+    .btn-deploy-large {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,230 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "emailAddress": {
+            "defaultValue": "admin@contoso.com",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "office365",
+            "location": "[resourceGroup().location]",
+            "properties": {
+              "displayName": "Office 365",
+              "customParameterValues": {},
+              "api": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/',resourceGroup().location, '/managedApis/', 'office365')]"
+              }
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "securitycopilot",
+            "location": "[resourceGroup().location]",
+            "properties": {
+              "displayName": "Security Copilot",
+              "customParameterValues": {},
+              "api": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/',resourceGroup().location, '/managedApis/', 'securitycopilot')]"
+              }
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "WeeklyUserAssessment",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "state": "Disabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "interval": 1,
+                                "frequency": "Week"
+                            },
+                            "evaluatedRecurrence": {
+                                "interval": 1,
+                                "frequency": "Week"
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "Count_By_Risk_State": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": " Count By Risk State",
+                                    "Skillsets": [
+                                        "WeeklyUserAssessmentPlugin"
+                                    ],
+                                    "SkillName": "CountByRiskState"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Count_By_Risk_Level": {
+                            "runAfter": {
+                                "Count_By_Risk_State": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": " Count By Risk Level",
+                                    "SessionId": "@body('Count_By_Risk_State')?['sessionId']",
+                                    "Skillsets": [
+                                        "WeeklyUserAssessmentPlugin"
+                                    ],
+                                    "SkillName": "CountByRiskLevel"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Risky_User_with_Sign-in_Evidence": {
+                            "runAfter": {
+                                "Count_By_Risk_Level": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": "Risky User with Sign-in Evidence",
+                                    "SessionId": "@body('Count_By_Risk_Level')?['sessionId']",
+                                    "Skillsets": [
+                                        "WeeklyUserAssessmentPlugin"
+                                    ],
+                                    "SkillName": "AtRiskUserWithEvidence"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Summary_Report": {
+                            "runAfter": {
+                                "Risky_User_with_Sign-in_Evidence": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": "Summarize the findings from this analysis into an executive report. Begin with an general overview. Include confidence and supporting evidence for the assessment. Below that, generate paragraph sections for a \"Risk State distribution\", \"Risk Level distribution\", and \"Risky User with Sign-in risky evidence\". It should be suitable for a less technical audience.\n",
+                                    "SessionId": "@body('Risky_User_with_Sign-in_Evidence')?['sessionId']"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Send_report_via_email": {
+                            "runAfter": {
+                                "Convert_to_HTML": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "[parameters('emailAddress')]",
+                                    "Subject": "Weekly User Assessment Report",
+                                    "Body": "<p class=\"editor-paragraph\">@{body('Convert_to_HTML')?['EvaluationResultContent']}<br><a href=\"https://\" class=\"editor-link\"></a></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Convert_to_HTML": {
+                            "runAfter": {
+                                "Summary_Report": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": "/AskGpt Provide the previous response in optimized HTML format ",
+                                    "SessionId": "@body('Summary_Report')?['sessionId']"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "securitycopilot": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', 'securitycopilot')]",
+                                "connectionName": "securitycopilot",
+                                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/securitycopilot')]"
+                            },
+                            "office365": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', 'office365')]",
+                                "connectionName": "office365",
+                                "id": "[concat(subscription().id,'/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/office365')]"
+                            }
+                        }
+                    }
+                }
+        },
+        "dependsOn": [
+            "[resourceId('Microsoft.Web/connections', 'securitycopilot')]",
+            "[resourceId('Microsoft.Web/connections', 'office365')]"
+
+        ]
+        }
+    ]
+}
