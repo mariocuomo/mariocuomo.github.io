@@ -800,6 +800,55 @@ body {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Disabled Logic App Card - Coming Soon */
+.logic-app-card.disabled {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.logic-app-card.disabled:hover {
+    border-color: var(--border-color);
+    transform: none;
+    box-shadow: none;
+}
+
+.logic-app-card.disabled .logic-app-badge {
+    background: rgba(128, 128, 128, 0.2);
+    color: #888;
+}
+
+.logic-app-card.disabled .btn-github,
+.logic-app-card.disabled .btn-deploy-single,
+.logic-app-card.disabled .btn-workflow {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.coming-soon-badge {
+    background: rgba(128, 128, 128, 0.3);
+    color: #aaa;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+
+.available-badge {
+    background: rgba(255, 193, 7, 0.3);
+    color: #ffc107;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: 10px;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
 .logic-app-header {
     display: flex;
     justify-content: space-between;

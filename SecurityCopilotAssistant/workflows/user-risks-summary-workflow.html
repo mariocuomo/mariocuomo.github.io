@@ -258,37 +258,139 @@
             </details>
 
             <!-- Prerequisites -->
-            <div class="workflow-prerequisites">
-                <h2>📋 Prerequisites</h2>
-                <div class="prereq-columns">
-                    <div class="prereq-column">
-                        <h4>Required Plugin</h4>
-                        <div class="plugins-list">
-                            <a href="../plugins/WeeklyUserAssessmentPlugin.yaml" target="_blank" class="plugin-link">
-                                <span class="plugin-icon">📄</span>
-                                <span class="plugin-name">WeeklyUserAssessmentPlugin.yaml</span>
-                                <span class="plugin-arrow">↗</span>
-                            </a>
+            <details class="collapsible-section">
+                <summary class="section-header">
+                    <span class="section-icon">📋</span>
+                    <span class="section-title">Prerequisites</span>
+                    <span class="toggle-icon">▶</span>
+                </summary>
+                <div class="section-content">
+                    <div class="prereq-columns">
+                        <div class="prereq-column">
+                            <h4>🔌 Security Copilot Plugin</h4>
+                            <div class="plugins-list">
+                                <a href="https://github.com/mariocuomo/mariocuomo.github.io/blob/master/SecurityCopilotAssistant/plugins/WeeklyUserAssessmentPlugin.yaml" target="_blank" class="plugin-link">
+                                    <span class="plugin-icon">📄</span>
+                                    <span class="plugin-name">WeeklyUserAssessmentPlugin.yaml</span>
+                                    <span class="plugin-arrow">↗</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="prereq-column">
+                            <h4>📊 Sentinel Environment</h4>
+                            <ul class="connector-list">
+                                <li>✓ Log Analytics Workspace</li>
+                                <li>✓ Entra ID Protection Connector</li>
+                            </ul>
+                        </div>
+                        <div class="prereq-column">
+                            <h4>⚙️ Logic App</h4>
+                            <ul class="permission-list">
+                                <li>✓ Azure Subscription</li>
+                                <li>✓ Email address for report</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="prereq-column">
-                        <h4>Data Connectors</h4>
-                        <ul class="connector-list">
-                            <li>✓ Microsoft Entra ID</li>
-                            <li>✓ Entra ID Protection</li>
-                        </ul>
-                    </div>
-                    <div class="prereq-column">
-                        <h4>Configuration</h4>
-                        <ul class="permission-list">
-                            <li>✓ TenantId</li>
-                            <li>✓ SubscriptionId</li>
-                            <li>✓ ResourceGroupName</li>
-                            <li>✓ WorkspaceName</li>
-                        </ul>
+                </div>
+            </details>
+
+            <!-- Configuration Steps -->
+            <details class="collapsible-section">
+                <summary class="section-header">
+                    <span class="section-icon">⚙️</span>
+                    <span class="section-title">Configuration Steps</span>
+                    <span class="toggle-icon">▶</span>
+                </summary>
+                <div class="section-content">
+                    <div class="config-steps">
+                        <div class="config-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Deploy the Security Copilot Plugin</h4>
+                                <p>Download the <strong>WeeklyUserAssessmentPlugin.yaml</strong> manifest and update it with your Sentinel environment details:</p>
+                                <ul>
+                                    <li><code>TenantId</code> - Your Azure AD Tenant ID</li>
+                                    <li><code>SubscriptionId</code> - Azure Subscription containing Sentinel</li>
+                                    <li><code>ResourceGroupName</code> - Resource Group of your Log Analytics Workspace</li>
+                                    <li><code>WorkspaceName</code> - Name of your Log Analytics Workspace</li>
+                                </ul>
+                                <p>Upload the plugin to Security Copilot and <strong>activate it</strong>.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="config-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Verify Sentinel Data Connector</h4>
+                                <p>Ensure the <strong>Entra ID Protection</strong> connector is enabled in your Microsoft Sentinel workspace to populate the required tables:</p>
+                                <ul>
+                                    <li><code>AADRiskyUsers</code></li>
+                                    <li><code>AADUserRiskEvents</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="config-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Deploy the Logic App</h4>
+                                <p>Click <strong>"Deploy to Azure"</strong> and provide the <strong>email address</strong> where you want to receive the weekly report.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="config-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Authorize API Connections</h4>
+                                <p>After deployment, navigate to the Resource Group and manually authorize the following API connections:</p>
+                                <ul>
+                                    <li><strong>securitycopilot</strong> - Authenticate with your Security Copilot credentials</li>
+                                    <li><strong>office365</strong> - Authenticate with the account that will send the emails</li>
+                                </ul>
+                                <p>Go to each connection → <em>Edit API connection</em> → <em>Authorize</em> → <em>Save</em></p>
+                            </div>
+                        </div>
+                        
+                        <div class="config-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Enable the Logic App</h4>
+                                <p>The Logic App is deployed in <strong>Disabled</strong> state. Once all connections are authorized, enable it to start receiving weekly reports.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </details>
+
+            <!-- Screenshots Section -->
+            <details class="collapsible-section">
+                <summary class="section-header">
+                    <span class="section-icon">📸</span>
+                    <span class="section-title">Screenshots</span>
+                    <span class="toggle-icon">▶</span>
+                </summary>
+                <div class="section-content">
+                    <div class="screenshots-gallery">
+                        
+                        <div class="screenshot-item">
+                            <h4>Logic App Designer</h4>
+                            <div class="screenshot-container">
+                                <img src="../images/weekly-user-assessment-logicapp.png" alt="Logic App Designer View" loading="lazy">
+                            </div>
+                            <p class="screenshot-caption">The complete Logic App workflow in Azure Portal designer view</p>
+                        </div>
+                        
+                        <div class="screenshot-item">
+                            <h4>Sample Report Output</h4>
+                            <div class="screenshot-container">
+                                <img src="../images/weekly-user-assessment-report.png" alt="Sample Email Report" loading="lazy">
+                            </div>
+                            <p class="screenshot-caption">Example of the weekly executive report delivered via email</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </details>
 
             <!-- Deploy Section -->
             <div class="workflow-deploy">
@@ -296,10 +398,10 @@
                 <div class="deploy-content">
                     <p>Deploy the User Risks Summary Logic App to your Azure subscription</p>
                     <div class="deploy-actions">
-                        <a href="../logicapps/WeeklyUserAssessment/azuredeploy.json" target="_blank" class="btn-github-large">
+                        <a href="https://github.com/mariocuomo/mariocuomo.github.io/blob/master/SecurityCopilotAssistant/logicapps/WeeklyUserAssessment/azuredeploy.json" target="_blank" class="btn-github-large">
                             📂 View ARM Template
                         </a>
-                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyour-repo%2Fmain%2Flogicapps%2FWeeklyUserAssessment%2Fazuredeploy.json" target="_blank" class="btn-deploy-large">
+                        <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmariocuomo%2Fmariocuomo.github.io%2Fmaster%2FSecurityCopilotAssistant%2Flogicapps%2FWeeklyUserAssessment%2Fazuredeploy.json" target="_blank" class="btn-deploy-large">
                             🚀 Deploy to Azure
                         </a>
                     </div>
@@ -327,6 +429,12 @@
         </div>
     </footer>
 
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged screenshot">
+    </div>
+
     <script>
         function copyCode(button) {
             const codeBlock = button.closest('.code-block').querySelector('code');
@@ -334,6 +442,35 @@
             button.textContent = '✓ Copied!';
             setTimeout(() => button.textContent = '📋 Copy', 2000);
         }
+        
+        // Lightbox functions
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+        
+        // Add click handlers to all screenshot images
+        document.querySelectorAll('.screenshot-container img').forEach(img => {
+            img.addEventListener('click', function() {
+                openLightbox(this.src);
+            });
+        });
     </script>
 </body>
 </html>
