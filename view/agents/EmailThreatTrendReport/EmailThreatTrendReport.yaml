@@ -1,0 +1,203 @@
+Descriptor:
+  Name: EmailThreatTrendReport
+  DisplayName: Email Threat Trend Report
+  Description: >-
+    Analyses email threat trends over the past 7 days: spam, phish, malware
+    volumes, top targeted users, and ZAP effectiveness.
+
+AgentDefinitions:
+  - Name: EmailThreatTrendReport
+    DisplayName: Email Threat Trend Report
+    Description: >-
+      Produces a comprehensive email threat trend analysis covering threat
+      volumes by type, top targeted recipients, malicious URL click activity,
+      and Zero-hour Auto Purge (ZAP) effectiveness.
+    Publisher: MarioCuomo
+    Product: Security
+    RequiredSkillsets:
+      - EmailThreatTrendReport
+    AgentSingleInstanceConstraint: None
+    Triggers:
+      - Name: Default
+        DefaultPollPeriodSeconds: 0
+        ProcessSkill: EmailThreatTrendReport.AnalyzeEmailThreats
+        FetchSkill: ''
+
+SkillGroups:
+  - Format: Agent
+    Skills:
+      - Name: AnalyzeEmailThreats
+        DisplayName: Analyze Email Threats
+        Description: >-
+          Orchestrates a comprehensive email threat trend analysis by querying
+          Defender for Office 365 data across email events, post-delivery
+          actions, and URL clicks to produce a structured trend report.
+        Interfaces:
+          - Agent
+        Settings:
+          Model: gpt-4o
+          Instructions: |
+            # Mission
+            You are an Email Threat Trend Report agent. Your job is to analyse email
+            threat patterns over the past 7 days and produce a clear, data-driven
+            report for the security team.
+
+            # Workflow
+
+            1. **Email Threat Volume by Type**
+               Call GetEmailThreatVolumes to retrieve the breakdown of inbound email
+               threats over the past 7 days grouped by ThreatTypes (Phish, Malware,
+               Spam) and delivery action (Delivered, Blocked, Junked).
+
+            2. **Daily Threat Trend**
+               Call GetDailyThreatTrend to get the daily trend of email threats over
+               the past 7 days, showing how volumes change day by day for each
+               threat type.
+
+            3. **Top Targeted Users**
+               Call GetTopTargetedUsers to identify the users who received the most
+               phishing and malware emails over the past 7 days.
+
+            4. **ZAP Effectiveness**
+               Call GetZAPEffectiveness to analyse Zero-hour Auto Purge activity,
+               showing how many emails were remediated post-delivery by ZAP type
+               (Phish ZAP, Malware ZAP) and their success rate.
+
+            5. **Malicious URL Click Activity**
+               Call GetMaliciousUrlClicks to identify users who clicked on malicious
+               URLs and whether Safe Links blocked or allowed the click-through.
+
+            # Output
+            Generate a structured **Email Threat Trend Report** with these sections:
+
+            ## Executive Summary
+            A brief overview with:
+            - Total inbound emails analysed
+            - Total threats detected (phish + malware + spam)
+            - Block rate (percentage of threats blocked before delivery)
+            - ZAP remediation count
+
+            ## Threat Volume by Type
+            A table showing:
+            Threat Type | Total | Blocked | Delivered | Junked
+
+            ## 7-Day Threat Trend
+            Present the daily trend data showing phish, malware, and spam
+            volumes per day. Highlight any spikes or notable changes.
+
+            ## Top Targeted Users
+            A table of the most targeted recipients:
+            Recipient | Phish Count | Malware Count | Total Threats
+
+            ## ZAP Effectiveness
+            A table showing:
+            ZAP Type | Emails Remediated | Success Rate
+            Comment on overall ZAP effectiveness.
+
+            ## Malicious URL Clicks
+            A table of users who clicked malicious URLs:
+            User | URL Clicks | Blocked by Safe Links | Clicked Through
+            Flag any click-throughs as HIGH RISK.
+
+            ## Recommendations
+            Provide prioritized actions:
+            1. Users with click-throughs need security awareness training
+            2. Review delivered phishing emails that bypassed filters
+            3. Investigate sender domains with high phishing volume
+            4. Tune anti-phishing policies for repeatedly targeted users
+        ChildSkills:
+          - GetEmailThreatVolumes
+          - GetDailyThreatTrend
+          - GetTopTargetedUsers
+          - GetZAPEffectiveness
+          - GetMaliciousUrlClicks
+
+  - Format: KQL
+    Settings:
+      Target: Defender
+    Skills:
+      - Name: GetEmailThreatVolumes
+        DisplayName: Get Email Threat Volumes
+        Description: >-
+          Retrieves the breakdown of inbound email threats over the past 7
+          days grouped by threat type and delivery action.
+        Settings:
+          Template: |-
+            EmailEvents
+            | where Timestamp > ago(7d)
+            | where EmailDirection == "Inbound"
+            | where isnotempty(ThreatTypes)
+            | summarize Total = count(),
+                        Blocked = countif(DeliveryAction == "Blocked"),
+                        Delivered = countif(DeliveryAction == "Delivered"),
+                        Junked = countif(DeliveryAction == "Junked")
+                        by ThreatTypes
+            | order by Total desc
+
+      - Name: GetDailyThreatTrend
+        DisplayName: Get Daily Threat Trend
+        Description: >-
+          Shows the daily trend of email threats over the past 7 days,
+          broken down by threat type per day.
+        Settings:
+          Template: |-
+            EmailEvents
+            | where Timestamp > ago(7d)
+            | where EmailDirection == "Inbound"
+            | where isnotempty(ThreatTypes)
+            | summarize ThreatCount = count() by Day = bin(Timestamp, 1d), ThreatTypes
+            | order by Day asc, ThreatTypes asc
+
+      - Name: GetTopTargetedUsers
+        DisplayName: Get Top Targeted Users
+        Description: >-
+          Identifies the users who received the most phishing and malware
+          emails over the past 7 days.
+        Settings:
+          Template: |-
+            EmailEvents
+            | where Timestamp > ago(7d)
+            | where EmailDirection == "Inbound"
+            | where ThreatTypes has "Phish" or ThreatTypes has "Malware"
+            | summarize PhishCount = countif(ThreatTypes has "Phish"),
+                        MalwareCount = countif(ThreatTypes has "Malware"),
+                        TotalThreats = count()
+                        by RecipientEmailAddress
+            | order by TotalThreats desc
+            | take 15
+
+      - Name: GetZAPEffectiveness
+        DisplayName: Get ZAP Effectiveness
+        Description: >-
+          Analyses Zero-hour Auto Purge activity over the past 7 days,
+          showing remediation counts by ZAP type and success rate.
+        Settings:
+          Template: |-
+            EmailPostDeliveryEvents
+            | where Timestamp > ago(7d)
+            | where ActionType has "ZAP"
+            | summarize Total = count(),
+                        Succeeded = countif(ActionResult == "Success"),
+                        Failed = countif(ActionResult != "Success")
+                        by ActionType
+            | extend SuccessRate = round(100.0 * Succeeded / Total, 1)
+            | order by Total desc
+
+      - Name: GetMaliciousUrlClicks
+        DisplayName: Get Malicious URL Clicks
+        Description: >-
+          Identifies users who clicked on malicious URLs in emails over
+          the past 7 days, showing whether Safe Links blocked or allowed
+          the click-through.
+        Settings:
+          Template: |-
+            UrlClickEvents
+            | where Timestamp > ago(7d)
+            | where Workload == "Email"
+            | where ThreatTypes has "Phish" or ThreatTypes has "Malware"
+            | summarize TotalClicks = count(),
+                        BlockedClicks = countif(IsClickedThrough == 0),
+                        ClickedThrough = countif(IsClickedThrough == 1)
+                        by AccountUpn
+            | order by ClickedThrough desc, TotalClicks desc
+            | take 15

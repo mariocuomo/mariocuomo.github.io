@@ -1,0 +1,196 @@
+Descriptor:
+  Name: MITRECoverageReport
+  DisplayName: MITRE Coverage Report
+  Description: >-
+    Maps all triggered detections from the past week to the MITRE ATT&CK matrix
+    and highlights coverage gaps across tactics and techniques.
+
+AgentDefinitions:
+  - Name: MITRECoverageReport
+    DisplayName: MITRE Coverage Report
+    Description: >-
+      Analyses detection coverage against the MITRE ATT&CK framework by mapping
+      triggered alerts and incidents to tactics and techniques, identifying gaps
+      and providing recommendations to improve coverage.
+    Publisher: MarioCuomo
+    Product: Security
+    RequiredSkillsets:
+      - MITRECoverageReport
+    AgentSingleInstanceConstraint: None
+    Triggers:
+      - Name: Default
+        DefaultPollPeriodSeconds: 0
+        ProcessSkill: MITRECoverageReport.AnalyzeMITRECoverage
+        FetchSkill: ''
+
+SkillGroups:
+  - Format: Agent
+    Skills:
+      - Name: AnalyzeMITRECoverage
+        DisplayName: Analyze MITRE Coverage
+        Description: >-
+          Orchestrates a MITRE ATT&CK coverage analysis by querying Defender
+          and Sentinel alerts, mapping techniques to tactics, and identifying
+          coverage gaps in the detection posture.
+        Interfaces:
+          - Agent
+        Settings:
+          Model: gpt-4o
+          Instructions: |
+            # Mission
+            You are a MITRE ATT&CK Coverage Analyst agent. Your job is to map the
+            organization's detection coverage against the MITRE ATT&CK framework and
+            produce a detailed coverage report highlighting strengths and gaps.
+
+            # Workflow
+
+            1. **Defender Technique Coverage**
+               Call GetDefenderTechniqueCoverage to retrieve all MITRE ATT&CK
+               techniques that triggered alerts in Microsoft Defender products over
+               the past 7 days, with alert counts and severity breakdown.
+
+            2. **Defender Tactic Distribution**
+               Call GetDefenderTacticDistribution to get the distribution of alerts
+               across MITRE ATT&CK tactic categories from Defender, showing which
+               attack phases are most commonly detected.
+
+            3. **Sentinel Tactic and Technique Coverage**
+               Call GetSentinelTacticTechniqueCoverage to retrieve MITRE tactics and
+               techniques from Sentinel SecurityAlert table for the past 7 days.
+               This captures detections from additional sources (Defender for Cloud,
+               third-party, custom analytics rules).
+
+            4. **Top Detected Techniques Detail**
+               Call GetTopDetectedTechniquesDetail to get the top 25 most frequently
+               triggered techniques with alert titles, severity, and detection sources
+               for deeper analysis.
+
+            # Output
+            Generate a structured **MITRE ATT&CK Coverage Report** with these sections:
+
+            ## Coverage Summary
+            A summary showing:
+            - Total unique techniques detected
+            - Total unique tactics covered
+            - Total alerts analyzed
+            - Detection sources contributing
+
+            ## Tactic Coverage Matrix
+            For each of the 14 MITRE ATT&CK tactics (Reconnaissance, Resource Development,
+            Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion,
+            Credential Access, Discovery, Lateral Movement, Collection, Command and Control,
+            Exfiltration, Impact), show:
+            - Whether the tactic was covered (YES/NO)
+            - Number of unique techniques detected under that tactic
+            - Number of alerts triggered
+            Mark tactics with NO detections as **COVERAGE GAPS**.
+
+            ## Top Detected Techniques
+            A table of the most frequently detected techniques:
+            Technique | Tactic | Alert Count | Severity Breakdown | Sources
+
+            ## Coverage Gaps
+            List the MITRE ATT&CK tactics where NO detections were triggered.
+            For each gap, provide:
+            - The tactic name and description
+            - Common techniques under that tactic
+            - Recommended data sources or detection rules to enable coverage
+
+            ## Recommendations
+            Provide prioritized actions to improve MITRE coverage:
+            1. Enable detections for uncovered tactics
+            2. Add analytics rules for commonly missed techniques
+            3. Onboard additional data sources for blind spots
+            4. Review low-severity detections that might indicate early-stage attacks
+        ChildSkills:
+          - GetDefenderTechniqueCoverage
+          - GetDefenderTacticDistribution
+          - GetSentinelTacticTechniqueCoverage
+          - GetTopDetectedTechniquesDetail
+
+  - Format: KQL
+    Settings:
+      Target: Defender
+    Skills:
+      - Name: GetDefenderTechniqueCoverage
+        DisplayName: Get Defender Technique Coverage
+        Description: >-
+          Retrieves all MITRE ATT&CK techniques that triggered alerts in
+          Defender products over the past 7 days, with alert count and
+          severity breakdown per technique.
+        Settings:
+          Template: |-
+            AlertInfo
+            | where Timestamp > ago(7d)
+            | where isnotempty(AttackTechniques)
+            | mv-expand todynamic(AttackTechniques) to typeof(string)
+            | summarize AlertCount = count(),
+                        HighSev = countif(Severity == "High"),
+                        MedSev = countif(Severity == "Medium"),
+                        LowSev = countif(Severity == "Low")
+                        by AttackTechniques
+            | order by AlertCount desc
+
+      - Name: GetDefenderTacticDistribution
+        DisplayName: Get Defender Tactic Distribution
+        Description: >-
+          Shows the distribution of Defender alerts across MITRE ATT&CK
+          tactic categories over the past 7 days.
+        Settings:
+          Template: |-
+            AlertInfo
+            | where Timestamp > ago(7d)
+            | where isnotempty(Category)
+            | summarize AlertCount = count(),
+                        UniqueAlerts = dcount(Title),
+                        Sources = make_set(ServiceSource)
+                        by Category
+            | order by AlertCount desc
+
+      - Name: GetTopDetectedTechniquesDetail
+        DisplayName: Get Top Detected Techniques Detail
+        Description: >-
+          Returns the top 25 most frequently triggered MITRE ATT&CK
+          techniques with alert titles, severity, and detection sources
+          for in-depth analysis.
+        Settings:
+          Template: |-
+            AlertInfo
+            | where Timestamp > ago(7d)
+            | where isnotempty(AttackTechniques)
+            | mv-expand todynamic(AttackTechniques) to typeof(string)
+            | summarize AlertCount = count(),
+                        AlertTitles = make_set(Title, 5),
+                        Severities = make_set(Severity),
+                        DetectionSources = make_set(ServiceSource)
+                        by AttackTechniques
+            | order by AlertCount desc
+            | take 25
+
+  - Format: KQL
+    Settings:
+      Target: Sentinel
+      TenantId: <YOUR-TENANT-ID>
+      SubscriptionId: <YOUR-SUBSCRIPTION-ID>
+      ResourceGroupName: <YOUR-RESOURCE-GROUP>
+      WorkspaceName: <YOUR-WORKSPACE-NAME>
+    Skills:
+      - Name: GetSentinelTacticTechniqueCoverage
+        DisplayName: Get Sentinel Tactic and Technique Coverage
+        Description: >-
+          Retrieves MITRE ATT&CK tactics and techniques from Sentinel
+          SecurityAlert table for the past 7 days, capturing detections
+          from analytics rules, Defender for Cloud, and third-party sources.
+        Settings:
+          Template: |-
+            SecurityAlert
+            | where TimeGenerated > ago(7d)
+            | where isnotempty(Tactics)
+            | mv-expand todynamic(Tactics) to typeof(string)
+            | extend TechniqueList = iff(isnotempty(Techniques), Techniques, "")
+            | summarize AlertCount = count(),
+                        UniqueAlerts = dcount(AlertName),
+                        Providers = make_set(ProviderName),
+                        SampleTechniques = make_set(TechniqueList, 10)
+                        by Tactics
+            | order by AlertCount desc

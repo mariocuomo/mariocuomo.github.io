@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <title>Unresolved Incident Tracker — Security Copilot Agent</title>
+  <style>
+    :root { --primary: #0078D4; --primary-dark: #005A9E; --accent: #50E6FF; --bg: #f0f2f5; --card-bg: #ffffff; --text: #1a1a2e; --text-secondary: #6b7280; --border: #e5e7eb; --radius: 12px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    .topbar { background: linear-gradient(135deg, #0f1b2d 0%, #1a365d 40%, var(--primary-dark) 100%); padding: 20px 24px; display: flex; align-items: center; gap: 12px; }
+    .topbar a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; }
+    .topbar a:hover { color: white; }
+    .topbar .sep { color: rgba(255,255,255,0.3); }
+    .topbar .current { color: var(--accent); font-weight: 700; }
+
+    .agent-header { max-width: 800px; margin: 40px auto 0; padding: 0 24px; display: flex; align-items: center; gap: 20px; }
+    .agent-icon-box { width: 80px; height: 80px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; flex-shrink: 0; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border: 2px solid #fca5a5; }
+    .agent-meta h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
+    .agent-meta .subtitle { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .badge { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 6px; }
+    .badge-domain { background: #fee2e2; color: #991b1b; }
+    .badge-skill { background: #eef6ff; color: var(--primary); }
+
+    .content { max-width: 800px; margin: 32px auto; padding: 0 24px 64px; display: flex; flex-direction: column; gap: 24px; }
+    .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+    .section h2 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); margin-bottom: 14px; }
+    .section p, .section li { font-size: 0.9rem; color: var(--text); line-height: 1.7; }
+
+    .workflow-steps { list-style: none; padding: 0; counter-reset: step; }
+    .workflow-steps li { counter-increment: step; display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; }
+    .workflow-steps li + li { border-top: 1px solid var(--border); }
+    .workflow-steps li::before { content: counter(step); width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: white; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+    .skills-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .skill-tag { padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; background: #f3f4f6; color: #374151; display: flex; align-items: center; gap: 6px; }
+    .skill-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .skill-dot.kql { background: #7c3aed; }
+
+    .download-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; border: none; border-radius: 8px; padding: 12px 24px; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; transition: background 0.2s; }
+    .download-btn:hover { background: var(--primary-dark); }
+    .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .screenshot-container { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .screenshot-img { width: 100%; display: block; }
+
+    .site-footer { text-align: center; padding: 32px 24px; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--border); background: var(--card-bg); }
+    .site-footer a { color: var(--primary); text-decoration: none; }
+
+    @media (max-width: 640px) { .agent-header { flex-direction: column; align-items: center; text-align: center; } .badges { justify-content: center; } }
+  </style>
+</head>
+<body>
+
+  <nav class="topbar">
+    <a href="../../agents_showcase.html">← All Agents</a>
+    <span class="sep">/</span>
+    <span class="current">Unresolved Incident Tracker</span>
+  </nav>
+
+  <div class="agent-header">
+    <div class="agent-icon-box">⏳</div>
+    <div class="agent-meta">
+      <h1>Unresolved Incident Tracker</h1>
+      <p class="subtitle">Identifies incidents open longer than the SLA threshold, lists owners, last update timestamps, and escalation suggestions.</p>
+      <div class="badges">
+        <span class="badge badge-domain">SOC / Incident Response</span>
+        <span class="badge badge-skill">KQL (Sentinel)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="section">
+      <h2>Skills Used</h2>
+      <div class="skills-row">
+        <span class="skill-tag"><span class="skill-dot kql"></span> GetAgingIncidentsSummary</span>
+        <span class="skill-tag"><span class="skill-dot kql"></span> GetSLABreachedIncidents</span>
+        <span class="skill-tag"><span class="skill-dot kql"></span> GetUnassignedIncidents</span>
+        <span class="skill-tag"><span class="skill-dot kql"></span> GetStaleIncidents</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Typical Workflow</h2>
+      <ol class="workflow-steps">
+        <li><span><strong>Aging Overview</strong> — Summarises all open incidents by severity and age bucket (0-4h, 4-12h, 12-24h, 1-3d, 3-7d, 7d+) to show the overall aging distribution.</span></li>
+        <li><span><strong>SLA Breaches</strong> — Identifies Critical incidents open &gt; 4h and High incidents open &gt; 12h, with owner, creation time, and hours open.</span></li>
+        <li><span><strong>Unassigned Incidents</strong> — Finds open incidents with no owner assigned, sorted by severity and age.</span></li>
+        <li><span><strong>Stale Incidents</strong> — Detects incidents not updated in 48+ hours despite being open — potentially forgotten or deprioritized.</span></li>
+        <li><span><strong>Escalation Report</strong> — Consolidates findings into a structured report with summary, tables, and prioritized escalation recommendations.</span></li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>Download</h2>
+      <p style="margin-bottom:14px;text-align:center;">Download the YAML definition to import this agent into Security Copilot.</p>
+      <div style="text-align:center;"><a href="UnresolvedIncidentTracker.yaml" download class="download-btn">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Download YAML
+      </a></div>
+    </div>
+
+    <div class="section">
+      <h2>Screenshot</h2>
+      <div class="screenshot-container">
+        <img src="screenshot.png" alt="Unresolved Incident Tracker screenshot" class="screenshot-img" />
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    Built with Security Copilot Custom Plugins Builder &mdash; <a href="https://www.linkedin.com/in/mariocuomo/" target="_blank" rel="noopener">mariocuomo</a>
+  </footer>
+
+</body>
+</html>

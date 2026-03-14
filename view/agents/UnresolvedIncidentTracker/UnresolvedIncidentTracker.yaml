@@ -1,0 +1,205 @@
+Descriptor:
+  Name: UnresolvedIncidentTracker
+  DisplayName: Unresolved Incident Tracker
+  Description: >-
+    Identifies incidents open longer than the SLA threshold, lists owners,
+    last update timestamps, and escalation suggestions.
+
+AgentDefinitions:
+  - Name: UnresolvedIncidentTracker
+    DisplayName: Unresolved Incident Tracker
+    Description: >-
+      Tracks Sentinel incidents that remain unresolved beyond SLA thresholds,
+      analyses aging patterns, identifies unassigned or stale incidents, and
+      provides escalation recommendations.
+    Publisher: MarioCuomo
+    Product: Security
+    RequiredSkillsets:
+      - UnresolvedIncidentTracker
+    AgentSingleInstanceConstraint: None
+    Triggers:
+      - Name: Default
+        DefaultPollPeriodSeconds: 0
+        ProcessSkill: UnresolvedIncidentTracker.TrackUnresolvedIncidents
+        FetchSkill: ''
+
+SkillGroups:
+  - Format: Agent
+    Skills:
+      - Name: TrackUnresolvedIncidents
+        DisplayName: Track Unresolved Incidents
+        Description: >-
+          Orchestrates an unresolved incident analysis by querying Sentinel
+          for aging incidents, analysing ownership gaps, and producing a
+          structured escalation report.
+        Interfaces:
+          - Agent
+        Settings:
+          Model: gpt-4o
+          Instructions: |
+            # Mission
+            You are an Unresolved Incident Tracker agent. Your job is to identify
+            Sentinel incidents that have been open beyond acceptable SLA thresholds
+            and produce an actionable escalation report for SOC leadership.
+
+            # Workflow
+
+            1. **Aging Incidents Overview**
+               Call GetAgingIncidentsSummary to get a summary of all open (New and
+               Active) incidents grouped by severity and age bucket (0-4h, 4-12h,
+               12-24h, 1-3d, 3-7d, 7d+). This gives the overall aging picture.
+
+            2. **Critical & High SLA Breaches**
+               Call GetSLABreachedIncidents to retrieve the list of Critical and
+               High severity incidents that have been open longer than their SLA
+               thresholds (Critical: 4h, High: 12h). These need immediate attention.
+
+            3. **Unassigned Incidents**
+               Call GetUnassignedIncidents to find incidents that have no owner
+               assigned. Unassigned incidents are a risk because nobody is actively
+               working on them.
+
+            4. **Stale Incidents**
+               Call GetStaleIncidents to identify incidents that haven't been
+               updated in 48+ hours despite being open. These may have been
+               forgotten or deprioritized.
+
+            # Output
+            Generate a structured **Unresolved Incident Escalation Report** with:
+
+            ## Summary
+            A high-level table:
+            - Total open incidents
+            - SLA-breached incidents (Critical + High)
+            - Unassigned incidents
+            - Stale incidents (no update in 48h+)
+
+            ## Aging Overview
+            A table showing incident counts by severity and age bucket:
+            Severity | 0-4h | 4-12h | 12-24h | 1-3d | 3-7d | 7d+
+
+            ## SLA-Breached Incidents (ESCALATE)
+            A table of incidents breaching SLA:
+            Incident # | Title | Severity | Owner | Created | Hours Open | Last Updated
+
+            ## Unassigned Incidents
+            A table of incidents with no owner:
+            Incident # | Title | Severity | Created | Hours Open
+
+            ## Stale Incidents
+            A table of incidents with no recent updates:
+            Incident # | Title | Severity | Owner | Created | Last Updated | Hours Since Update
+
+            ## Recommendations
+            Provide prioritized escalation actions:
+            1. **Immediate**: Escalate SLA-breached Critical incidents
+            2. **Urgent**: Assign owners to unassigned High/Critical incidents
+            3. **High**: Follow up on stale incidents with assigned owners
+            4. **Standard**: Review and triage aging Medium/Low incidents
+        ChildSkills:
+          - GetAgingIncidentsSummary
+          - GetSLABreachedIncidents
+          - GetUnassignedIncidents
+          - GetStaleIncidents
+
+  - Format: KQL
+    Settings:
+      Target: Sentinel
+      TenantId: <YOUR-TENANT-ID>
+      SubscriptionId: <YOUR-SUBSCRIPTION-ID>
+      ResourceGroupName: <YOUR-RESOURCE-GROUP>
+      WorkspaceName: <YOUR-WORKSPACE-NAME>
+    Skills:
+      - Name: GetAgingIncidentsSummary
+        DisplayName: Get Aging Incidents Summary
+        Description: >-
+          Summarises all open Sentinel incidents grouped by severity and
+          age bucket to show the overall aging distribution.
+        Settings:
+          Template: |-
+            SecurityIncident
+            | where TimeGenerated > ago(90d)
+            | summarize arg_max(TimeGenerated, *) by IncidentNumber
+            | where Status in ("New", "Active")
+            | extend HoursOpen = datetime_diff('hour', now(), CreatedTime)
+            | extend AgeBucket = case(
+                HoursOpen <= 4, "0-4h",
+                HoursOpen <= 12, "4-12h",
+                HoursOpen <= 24, "12-24h",
+                HoursOpen <= 72, "1-3d",
+                HoursOpen <= 168, "3-7d",
+                "7d+")
+            | summarize IncidentCount = count() by Severity, AgeBucket
+            | order by case(
+                Severity == "High", 1,
+                Severity == "Medium", 2,
+                Severity == "Low", 3,
+                Severity == "Informational", 4, 5),
+                case(
+                AgeBucket == "0-4h", 1,
+                AgeBucket == "4-12h", 2,
+                AgeBucket == "12-24h", 3,
+                AgeBucket == "1-3d", 4,
+                AgeBucket == "3-7d", 5,
+                AgeBucket == "7d+", 6, 7)
+
+      - Name: GetSLABreachedIncidents
+        DisplayName: Get SLA Breached Incidents
+        Description: >-
+          Retrieves Critical and High severity incidents that have been
+          open beyond SLA thresholds (Critical 4h, High 12h) with owner,
+          creation time, and last update.
+        Settings:
+          Template: |-
+            SecurityIncident
+            | where TimeGenerated > ago(90d)
+            | summarize arg_max(TimeGenerated, *) by IncidentNumber
+            | where Status in ("New", "Active")
+            | where (Severity == "High" and datetime_diff('hour', now(), CreatedTime) > 4)
+                or (Severity == "Medium" and datetime_diff('hour', now(), CreatedTime) > 12)
+            | extend HoursOpen = datetime_diff('hour', now(), CreatedTime)
+            | extend OwnerName = tostring(Owner.assignedTo)
+            | project IncidentNumber, Title, Severity, OwnerName,
+                      CreatedTime, HoursOpen, LastModifiedTime, IncidentUrl
+            | order by Severity asc, HoursOpen desc
+
+      - Name: GetUnassignedIncidents
+        DisplayName: Get Unassigned Incidents
+        Description: >-
+          Finds open incidents that have no owner assigned, meaning nobody
+          is actively working on them.
+        Settings:
+          Template: |-
+            SecurityIncident
+            | where TimeGenerated > ago(90d)
+            | summarize arg_max(TimeGenerated, *) by IncidentNumber
+            | where Status in ("New", "Active")
+            | extend OwnerName = tostring(Owner.assignedTo)
+            | where isempty(OwnerName)
+            | extend HoursOpen = datetime_diff('hour', now(), CreatedTime)
+            | project IncidentNumber, Title, Severity, CreatedTime,
+                      HoursOpen, IncidentUrl
+            | order by case(
+                Severity == "High", 1,
+                Severity == "Medium", 2,
+                Severity == "Low", 3, 4),
+                HoursOpen desc
+
+      - Name: GetStaleIncidents
+        DisplayName: Get Stale Incidents
+        Description: >-
+          Identifies open incidents that haven't been updated in 48+ hours,
+          indicating they may have been forgotten or deprioritized.
+        Settings:
+          Template: |-
+            SecurityIncident
+            | where TimeGenerated > ago(90d)
+            | summarize arg_max(TimeGenerated, *) by IncidentNumber
+            | where Status in ("New", "Active")
+            | where datetime_diff('hour', now(), LastModifiedTime) > 48
+            | extend HoursOpen = datetime_diff('hour', now(), CreatedTime)
+            | extend HoursSinceUpdate = datetime_diff('hour', now(), LastModifiedTime)
+            | extend OwnerName = tostring(Owner.assignedTo)
+            | project IncidentNumber, Title, Severity, OwnerName,
+                      CreatedTime, LastModifiedTime, HoursSinceUpdate, IncidentUrl
+            | order by HoursSinceUpdate desc

@@ -1,0 +1,160 @@
+Descriptor:
+  Name: EndpointHealthMonitor
+  DisplayName: Endpoint Health Monitor
+  Description: >-
+    Reports on unhealthy, offline, or misconfigured Defender for Endpoint agents,
+    onboarding gaps, and sensor health issues across the fleet.
+
+AgentDefinitions:
+  - Name: EndpointHealthMonitor
+    DisplayName: Endpoint Health Monitor
+    Description: >-
+      Monitors the health of Microsoft Defender for Endpoint sensors across the fleet.
+      Reports on unhealthy, offline, or misconfigured agents, onboarding gaps,
+      and security configuration issues.
+    Publisher: MarioCuomo
+    Product: Security
+    RequiredSkillsets:
+      - EndpointHealthMonitor
+    AgentSingleInstanceConstraint: None
+    Triggers:
+      - Name: Default
+        DefaultPollPeriodSeconds: 0
+        ProcessSkill: EndpointHealthMonitor.AnalyzeEndpointHealth
+        FetchSkill: ''
+
+SkillGroups:
+  - Format: Agent
+    Skills:
+      - Name: AnalyzeEndpointHealth
+        DisplayName: Analyze Endpoint Health
+        Description: >-
+          Orchestrates a comprehensive endpoint health assessment by querying
+          Defender for Endpoint sensor status, onboarding gaps, and security
+          configuration issues, then produces a structured health report.
+        Interfaces:
+          - Agent
+        Settings:
+          Model: gpt-4o
+          Instructions: |
+            # Mission
+            You are an Endpoint Health Monitor agent. Your job is to assess the health
+            of the Microsoft Defender for Endpoint fleet and produce a clear, actionable
+            health report for the security team.
+
+            # Workflow
+
+            1. **Sensor Health Overview**
+               Call GetSensorHealthOverview to get a breakdown of all devices by
+               SensorHealthState (Active, Inactive, ImpairedCommunication, NoSensorData).
+               Note the total device count and the count per health state.
+
+            2. **Unhealthy & Offline Devices**
+               Call GetUnhealthyDevices to retrieve the list of devices whose sensor
+               is not in an Active state. For each device note the device name, OS,
+               sensor state, last seen timestamp, and exposure level.
+
+            3. **Onboarding Gaps**
+               Call GetOnboardingGaps to identify devices that are discovered in the
+               network but not yet onboarded to Defender for Endpoint.
+
+            4. **Security Misconfigurations**
+               Call GetSecurityMisconfigurations to find devices with non-compliant
+               security configurations that have a high impact score.
+
+            # Output
+            Generate a structured **Endpoint Health Report** with these sections:
+
+            ## Fleet Summary
+            A summary table with total devices, healthy count, unhealthy count,
+            not-onboarded count, and misconfigured count.
+
+            ## Unhealthy Devices
+            A table listing each unhealthy device with columns:
+            Device Name | OS | Sensor State | Last Seen | Exposure Level
+
+            ## Onboarding Gaps
+            A table of devices not yet onboarded:
+            Device Name | OS | Device Type | Last Seen
+
+            ## Top Security Misconfigurations
+            A table of the most impactful misconfigurations:
+            Configuration | Category | Affected Devices | Impact Score
+
+            ## Recommendations
+            Based on all findings, provide a prioritized list of actions:
+            - Devices to investigate immediately (inactive sensors)
+            - Devices to onboard
+            - Configurations to remediate
+        ChildSkills:
+          - GetSensorHealthOverview
+          - GetUnhealthyDevices
+          - GetOnboardingGaps
+          - GetSecurityMisconfigurations
+
+  - Format: KQL
+    Settings:
+      Target: Defender
+    Skills:
+      - Name: GetSensorHealthOverview
+        DisplayName: Get Sensor Health Overview
+        Description: >-
+          Retrieves a summary of all devices grouped by SensorHealthState,
+          showing counts for Active, Inactive, ImpairedCommunication, and
+          NoSensorData states.
+        Settings:
+          Template: |-
+            DeviceInfo
+            | where Timestamp > ago(1d)
+            | summarize arg_max(Timestamp, *) by DeviceId
+            | summarize DeviceCount = count() by SensorHealthState
+            | order by DeviceCount desc
+
+      - Name: GetUnhealthyDevices
+        DisplayName: Get Unhealthy Devices
+        Description: >-
+          Lists all devices whose Defender for Endpoint sensor is not in
+          an Active state, including device name, OS, last seen time, and
+          exposure level.
+        Settings:
+          Template: |-
+            DeviceInfo
+            | where Timestamp > ago(1d)
+            | summarize arg_max(Timestamp, *) by DeviceId
+            | where SensorHealthState != "Active"
+            | project DeviceName, OSPlatform, OSVersion, SensorHealthState,
+                      OnboardingStatus, ExposureLevel, Timestamp, DeviceType
+            | order by SensorHealthState asc, Timestamp asc
+
+      - Name: GetOnboardingGaps
+        DisplayName: Get Onboarding Gaps
+        Description: >-
+          Identifies devices that have been discovered in the environment
+          but are not yet onboarded to Microsoft Defender for Endpoint.
+        Settings:
+          Template: |-
+            DeviceInfo
+            | where Timestamp > ago(1d)
+            | summarize arg_max(Timestamp, *) by DeviceId
+            | where OnboardingStatus != "Onboarded"
+            | project DeviceName, OSPlatform, DeviceType, DeviceCategory,
+                      OnboardingStatus, Timestamp
+            | order by Timestamp desc
+
+      - Name: GetSecurityMisconfigurations
+        DisplayName: Get Security Misconfigurations
+        Description: >-
+          Retrieves a summary of non-compliant security configurations
+          across endpoints, grouped by configuration category, showing
+          affected device count and impact score.
+        Settings:
+          Template: |-
+            DeviceTvmSecureConfigurationAssessment
+            | where Timestamp > ago(1d)
+            | where IsCompliant == 0 and IsApplicable == 1
+            | summarize AffectedDevices = dcount(DeviceId) by
+                        ConfigurationId, ConfigurationCategory,
+                        ConfigurationSubcategory, ConfigurationImpact
+            | where ConfigurationImpact >= 7
+            | order by AffectedDevices desc, ConfigurationImpact desc
+            | take 20

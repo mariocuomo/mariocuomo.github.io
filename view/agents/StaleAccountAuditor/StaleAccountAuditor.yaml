@@ -1,0 +1,141 @@
+Descriptor:
+  Name: StaleAccountAuditor
+  DisplayName: Stale Account Auditor
+  Description: >-
+    Finds accounts that haven't signed in for 90+ days, privileged accounts
+    with no recent activity, and unused applications. Recommends disabling
+    or reviewing stale identities to reduce the attack surface.
+
+AgentDefinitions:
+  - Name: StaleAccountAuditor
+    DisplayName: Stale Account Auditor
+    Description: >-
+      Audits the Entra ID tenant for stale user accounts, inactive privileged
+      identities, and unused applications. Produces a prioritized report with
+      remediation recommendations.
+    Publisher: MarioCuomo
+    Product: Security
+    RequiredSkillsets:
+      - StaleAccountAuditor
+      - Entra
+      - M365
+    AgentSingleInstanceConstraint: None
+    Triggers:
+      - Name: Default
+        DefaultPollPeriodSeconds: 0
+        ProcessSkill: StaleAccountAuditor.AuditStaleAccounts
+        FetchSkill: ''
+
+SkillGroups:
+  - Format: Agent
+    Skills:
+      - Name: AuditStaleAccounts
+        DisplayName: Audit Stale Accounts
+        Description: >-
+          Orchestrates a comprehensive stale account audit by querying Entra ID
+          for inactive users, privileged accounts with no recent activity, and
+          unused applications. Produces a structured audit report.
+        Interfaces:
+          - Agent
+        Settings:
+          Model: gpt-4o
+          Instructions: |
+            # Mission
+            You are a Stale Account Auditor agent. Your job is to identify stale,
+            inactive, and potentially risky identities across the Entra ID tenant
+            and produce an actionable audit report for the security team.
+
+            # Workflow
+
+            1. **Stale User Accounts (90+ days inactive)**
+               Call GetEntraData with the request:
+               "List the users with no sign-ins in last 90 days. Include their UPN,
+               display name, account enabled status, and last sign-in date."
+               This gives us the list of accounts that haven't authenticated recently.
+
+            2. **Privileged Accounts with No Recent Activity**
+               Call GetEntraData with the request:
+               "List all users with Global Administrator, Security Administrator,
+               Privileged Role Administrator, Exchange Administrator, and SharePoint
+               Administrator directory roles. Include their UPN, display name,
+               and last sign-in date."
+               From the results, identify privileged users who haven't signed in
+               for 30+ days — these are high-risk stale privileged accounts.
+
+            3. **Defender Identity Activity Check**
+               Call GetStalePrivilegedLogonActivity to check if any of the privileged
+               accounts identified in step 2 have had on-premises logon activity
+               through Defender for Identity in the last 30 days. Cross-reference
+               these results to confirm true inactivity.
+
+            4. **Unused Applications**
+               Call GetEntraUnusedApplication with the request:
+               "List all unused apps in the last 90 days."
+               These are applications registered in Entra ID that haven't issued
+               tokens recently — they expand the attack surface unnecessarily.
+
+            5. **Guest Account Staleness**
+               Call GetEntraData with the request:
+               "List all guest users with no sign-ins in last 90 days. Include
+               their UPN, display name, and last sign-in date."
+
+            # Output
+            Generate a structured **Stale Account Audit Report** with these sections:
+
+            ## Summary
+            A high-level summary table with:
+            - Total stale accounts (90+ days)
+            - Stale privileged accounts
+            - Unused applications
+            - Stale guest accounts
+
+            ## Stale User Accounts
+            A table of all accounts inactive for 90+ days:
+            UPN | Display Name | Last Sign-In | Account Enabled | Account Type
+
+            ## Stale Privileged Accounts (HIGH PRIORITY)
+            A table of privileged accounts with no recent sign-in:
+            UPN | Display Name | Roles | Last Sign-In | Days Inactive
+            Flag any account inactive for 30+ days as HIGH RISK.
+
+            ## Unused Applications
+            A table of stale applications:
+            App Name | App ID | Last Token Issued
+
+            ## Stale Guest Accounts
+            A table of guest accounts inactive for 90+ days:
+            UPN | Display Name | Last Sign-In
+
+            ## Recommendations
+            Provide prioritized actions:
+            1. **Immediate**: Disable stale privileged accounts with no activity
+            2. **High**: Review and disable stale standard accounts
+            3. **Medium**: Remove or recertify unused applications
+            4. **Low**: Clean up stale guest accounts
+            For each recommendation, explain the security risk if not addressed.
+        ChildSkills:
+          - GetEntraData
+          - GetEntraUserDetailsV1
+          - GetEntraUnusedApplication
+          - GetDefenderIdentitySummary
+          - GetStalePrivilegedLogonActivity
+
+  - Format: KQL
+    Settings:
+      Target: Defender
+    Skills:
+      - Name: GetStalePrivilegedLogonActivity
+        DisplayName: Get Stale Privileged Logon Activity
+        Description: >-
+          Checks Defender for Identity logon events for accounts that have not
+          had any authentication activity in the last 30 days. Returns accounts
+          with their last logon timestamp to confirm true inactivity.
+        Settings:
+          Template: |-
+            IdentityLogonEvents
+            | where Timestamp > ago(90d)
+            | summarize LastLogon = max(Timestamp) by AccountUpn, AccountDisplayName
+            | where LastLogon < ago(30d)
+            | project AccountUpn, AccountDisplayName, LastLogon,
+                      DaysInactive = datetime_diff('day', now(), LastLogon)
+            | order by DaysInactive desc
